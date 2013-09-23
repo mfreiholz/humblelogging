@@ -44,6 +44,7 @@ int Logger::getLogLevel() const
 
 Logger& Logger::addAppender(Appender *appender)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   _appenders.push_back(appender);
   return (*this);
 }
@@ -55,6 +56,7 @@ std::list<Appender*> Logger::getAppenders() const
 
 Logger& Logger::log(int level, const std::string &message)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   if (_level >= level) {
     for (std::list<Appender*>::iterator i = _appenders.begin(), e = _appenders.end(); i != e; ++i) {
       (*i)->log(level, message);

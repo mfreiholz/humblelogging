@@ -15,6 +15,7 @@ Factory::Factory()
 
 Factory::~Factory()
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   while (!_loggers.empty()) {
     Logger *l = _loggers.front();
     _loggers.pop_front();
@@ -38,6 +39,7 @@ Factory& Factory::getInstance()
 
 void Factory::configure()
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     (*i)->setLogLevel(LogLevel::All);
 
@@ -50,26 +52,25 @@ void Factory::configure()
 
 Appender& Factory::registerAppender(Appender *appender)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   _appenders.push_back(appender);
   return (*appender);
 }
 
 Logger& Factory::getLogger(const std::string &name)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   Logger *l = 0;
-  
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     if ((*i)->getName().compare(name) == 0) {
       l = (*i);
       break;
     }
   }
-
   if (l == 0) {
     l = new Logger(name);
     _loggers.push_back(l);
   }
-
   return (*l);
 }
 

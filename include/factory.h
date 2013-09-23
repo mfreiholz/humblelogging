@@ -4,6 +4,8 @@
 #include <list>
 #include <string>
 
+#include "mutex.h"
+
 namespace humble {
 namespace logging {
 
@@ -43,6 +45,7 @@ public:
   Logger& getLogger(const std::string &name);
   
 private:
+  std::mutex _mutex;
   std::list<Logger*> _loggers;
   std::list<Appender*> _appenders;
 };

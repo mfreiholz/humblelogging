@@ -5,6 +5,7 @@
 #include <list>
 
 #include "loglevel.h"
+#include "mutex.h"
 
 namespace humble {
 namespace logging {
@@ -29,6 +30,8 @@ public:
   Logger& log(int level, const std::string &message);
   
 private:
+  std::mutex _mutex;
+
   /*
     Name of this logger
   */

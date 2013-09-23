@@ -74,6 +74,7 @@ FileAppender::~FileAppender()
 
 void FileAppender::log(int level, const std::string &message)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   if (_stream.is_open()) {
     std::string logLevelString = LogLevel::resolveLogLevel(level);
     _stream << "[" << logLevelString << "] " << message << "\n";

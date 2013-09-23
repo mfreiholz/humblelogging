@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 
+#include "mutex.h"
+
 namespace humble {
 namespace logging {
 
@@ -32,6 +34,7 @@ public:
   virtual ~FileAppender();
   virtual void log(int level, const std::string &message);
 private:
+  std::mutex _mutex;
   std::ofstream _stream;
   bool _immediate;
 };
