@@ -1,7 +1,7 @@
 Humble Logging Library (C++)
 ============================
 :Initiator:
-  Manuel Freiholz (TheHumbleGuy)
+  Manuel Freiholz <http://thehumbleguy.de/>
 :Contributors:
   None.
 :Version:
