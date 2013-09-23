@@ -33,7 +33,7 @@ public:
   }
   
 private:
-  TLockable _lockable;
+  TLockable &_lockable;
 };
 
 }  // End of namespaces.

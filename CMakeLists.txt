@@ -21,3 +21,6 @@ add_library(humblelogginglib STATIC ${sources})
 
 # Examples
 add_subdirectory(examples/basic)
+if(WIN32)
+  add_subdirectory(examples/threaded)
+endif(WIN32)
