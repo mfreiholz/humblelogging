@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 
+#include "defines.h"
 #include "mutex.h"
 
 namespace humble {
@@ -12,7 +13,7 @@ namespace logging {
 class Logger;
 class Appender;
 
-class Factory
+class HUMBLE_EXPORT_API Factory
 {
 private:
   Factory();

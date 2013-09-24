@@ -3,9 +3,11 @@
 
 #include <Windows.h>
 
+#include "defines.h"
+
 namespace std {
 
-class mutex
+class HUMBLE_EXPORT_API mutex
 {
 public:
   mutex();

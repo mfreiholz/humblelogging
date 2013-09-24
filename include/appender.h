@@ -4,12 +4,13 @@
 #include <string>
 #include <fstream>
 
+#include "defines.h"
 #include "mutex.h"
 
 namespace humble {
 namespace logging {
 
-class Appender
+class HUMBLE_EXPORT_API Appender
 {
 public:
   Appender();
@@ -17,7 +18,7 @@ public:
   virtual void log(int level, const std::string &message) = 0;
 };
 
-class ConsoleAppender
+class HUMBLE_EXPORT_API ConsoleAppender
   : public Appender
 {
 public:
@@ -26,7 +27,7 @@ public:
   virtual void log(int level, const std::string &message);
 };
 
-class FileAppender
+class HUMBLE_EXPORT_API FileAppender
   : public Appender
 {
 public:

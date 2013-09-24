@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 
+#include "defines.h"
 #include "loglevel.h"
 #include "mutex.h"
 
@@ -12,7 +13,7 @@ namespace logging {
 
 class Appender;
 
-class Logger
+class HUMBLE_EXPORT_API Logger
 {
 public:
   Logger(const std::string &name, int level = LogLevel::Off);

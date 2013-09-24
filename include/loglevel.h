@@ -3,10 +3,12 @@
 
 #include <string>
 
+#include "defines.h"
+
 namespace humble {
 namespace logging {
 
-class LogLevel
+class HUMBLE_EXPORT_API LogLevel
 {
 public:
   enum { Off, Fatal, Error, Info, Debug, Trace, All };

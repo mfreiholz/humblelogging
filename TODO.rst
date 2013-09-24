@@ -4,7 +4,7 @@ TODO List
 
 - [x] Allow multiple Appenders for each Logger.
 
-- [ ] Add __dllexport() macro to support dynamic linking (\*.dll).
+- [x] Add __dllexport() macro to support dynamic linking (\*.dll).
 
 - [ ] Make it possible to change settings during runtime.
 

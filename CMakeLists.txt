@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
 project(humble_logging_library)
 
+option(BuildShared "BuildShared" OFF)
+
+if(BuildShared)
+  set(StaticOrShared "SHARED")
+  add_definitions(-DHUMBLE_LOGGING_EXPORT)
+else(BuildShared)
+  set(StaticOrShared "STATIC")
+endif(BuildShared)
+
 set(sources
   src/appender.cpp
   src/factory.cpp
@@ -17,7 +26,7 @@ endif(WIN32)
 
 include_directories(include)
 
-add_library(humblelogginglib STATIC ${sources})
+add_library(humblelogginglib ${StaticOrShared} ${sources})
 
 # Examples
 add_subdirectory(examples/basic)
