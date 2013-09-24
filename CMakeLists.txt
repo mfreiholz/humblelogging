@@ -10,23 +10,29 @@ else(BuildShared)
   set(StaticOrShared "STATIC")
 endif(BuildShared)
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS "-std=c++11")
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
 set(sources
   src/appender.cpp
   src/factory.cpp
   src/logger.cpp
   src/loglevel.cpp
-  src/mutex_windows.cpp
 )
 
 if(WIN32)
   add_definitions(/Zc:wchar_t-)
   add_definitions(/INCREMENTAL:NO)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  set(sources_windows
+    src/mutex_windows.cpp
+  )
 endif(WIN32)
 
 include_directories(include)
 
-add_library(humblelogginglib ${StaticOrShared} ${sources})
+add_library(humblelogginglib ${StaticOrShared} ${sources} ${sources_windows})
 
 # Examples
 add_subdirectory(examples/basic)
