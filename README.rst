@@ -14,6 +14,7 @@ How To Build
 
   cd $PROJECT_DIRECTORY
   mkdir build
+  cd build
   cmake ..
 
 
