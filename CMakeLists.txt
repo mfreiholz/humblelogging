@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(humble_logging_library)
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
 
 option(BuildShared "BuildShared" OFF)
 
@@ -14,6 +16,16 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "-std=c++11")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
+set(headers
+  include/appender.h
+  include/defines.h
+  include/factory.h
+  include/humble-logging.h
+  include/logger.h
+  include/loglevel.h
+  include/mutex.h
+)
+
 set(sources
   src/appender.cpp
   src/factory.cpp
@@ -25,14 +37,21 @@ if(WIN32)
   add_definitions(/Zc:wchar_t-)
   add_definitions(/INCREMENTAL:NO)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-  set(sources_windows
-    src/mutex_windows.cpp
-  )
+  list(APPEND headers include/mutex_windows.h)
+  list(APPEND sources src/mutex_windows.cpp)
 endif(WIN32)
 
 include_directories(include)
 
-add_library(humblelogginglib ${StaticOrShared} ${sources} ${sources_windows})
+add_library(humblelogginglib ${StaticOrShared} ${sources})
+
+# Install
+install(TARGETS humblelogginglib
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib/static
+)
+install(FILES ${headers} DESTINATION include)
 
 # Examples
 add_subdirectory(examples/basic)
