@@ -15,10 +15,10 @@ How To Build
   cd $PROJECT_DIRECTORY
   mkdir build
   cd build
-  cmake ..
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=install ..
 
 
 Build Options
-=============
+-------------
 cmake -DBuildShared=ON
   Builds the library as shared \*.dll on Windows.
