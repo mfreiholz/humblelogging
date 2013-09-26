@@ -6,11 +6,13 @@
 
 #include "logger.h"
 #include "appender.h"
+#include "loglevel.h"
 
 namespace humble {
 namespace logging {
 
 Factory::Factory()
+  : _level(LogLevel::All)
 {
 }
 
@@ -62,6 +64,14 @@ Logger& Factory::getLogger(const std::string &name)
     configure();
   }
   return (*l);
+}
+
+Factory& Factory::setGlobalLevel(int level)
+{
+  std::lock_guard<std::mutex> lock(_mutex);
+  _level = level;
+  configure();
+  return *this;
 }
 
 void Factory::configure()

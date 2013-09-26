@@ -32,7 +32,7 @@ public:
   Logger& log(int level, const std::string &message);
   
 private:
-  std::mutex _mutex;
+  mutable std::mutex _mutex;
 
   /*
     Name of this logger

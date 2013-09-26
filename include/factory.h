@@ -44,6 +44,14 @@ public:
   */
   Logger& getLogger(const std::string &name);
   
+  /*
+    Sets the global LogLevel of all Logger instances.
+    
+    \param[in] level
+      The new global LogLevel, which should be used for all existing Logger instances.
+  */
+  Factory& setGlobalLevel(int level);
+  
 private:
   /*
     Initializes all Loggers with the default configuration.
@@ -58,6 +66,7 @@ private:
   std::mutex _mutex;
   std::list<Logger*> _loggers;
   std::list<Appender*> _appenders;
+  int _level;
 };
 
 }}  // End of namespaces.

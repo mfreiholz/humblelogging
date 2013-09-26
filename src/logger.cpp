@@ -22,23 +22,27 @@ Logger::~Logger()
 
 Logger& Logger::setName(const std::string &name)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   _name = name;
   return (*this);
 }
 
 const std::string& Logger::getName() const
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   return _name;
 }
 
 Logger& Logger::setLogLevel(int level)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   _level = level;
   return (*this);
 }
 
 int Logger::getLogLevel() const
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   return _level;
 }
 
@@ -51,6 +55,7 @@ Logger& Logger::addAppender(Appender *appender)
 
 std::list<Appender*> Logger::getAppenders() const
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   return _appenders;
 }
 
