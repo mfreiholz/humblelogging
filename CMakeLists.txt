@@ -52,6 +52,7 @@ install(TARGETS humblelogginglib
   ARCHIVE DESTINATION lib/static
 )
 install(FILES ${headers} DESTINATION include)
+install(FILES cmake/FindHumbleLoggingLibrary.cmake DESTINATION cmake)
 
 # Examples
 add_subdirectory(examples/basic)
