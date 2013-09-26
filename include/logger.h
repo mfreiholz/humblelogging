@@ -27,6 +27,7 @@ public:
 
   Logger& addAppender(Appender *appender);
   std::list<Appender*> getAppenders() const;
+  bool hasAppender(Appender *appender);
 
   Logger& log(int level, const std::string &message);
   

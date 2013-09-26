@@ -27,23 +27,32 @@ public:
   static Factory& getInstance();
 
   /*
-    Initializes all loggers with correct logging level and assigns
-    the correct appender classes to them. This method needs to be called
-    everytime when a new appender has been added or a live log level change
-    has been made.
-  */
-  void configure();
-
-  /*
     Registers a new Appender object and takes ownership of it.
     The method returns a reference to the registered appender object.
   */
-  Appender& registerAppender(Appender *appender);
+  Factory& registerAppender(Appender *appender);
 
   /*
     Gets an existing or creates a new Logger object.
+
+    \param[in] name
+      The name of the logger. If no longer with the name exists,
+      the method will create a new one automatically.
+      Note: The name is case sensitive.
+
+    \return Reference to the existing or created Logger instance.
   */
   Logger& getLogger(const std::string &name);
+  
+private:
+  /*
+    Initializes all Loggers with the default configuration.
+    The default logging configuration assigns each Logger to each Appender
+    with LogLevel::All.
+    
+    \pre-condition _mutex.lock()
+  */
+  void configure();
   
 private:
   std::mutex _mutex;

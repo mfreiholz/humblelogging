@@ -54,6 +54,16 @@ std::list<Appender*> Logger::getAppenders() const
   return _appenders;
 }
 
+bool Logger::hasAppender(Appender *appender)
+{
+  std::lock_guard<std::mutex> lock(_mutex);
+  for (auto i = _appenders.begin(), e = _appenders.end(); i != e; ++i) {
+    if (*i == appender)
+      return true;
+  }
+  return false;
+}
+
 Logger& Logger::log(int level, const std::string &message)
 {
   std::lock_guard<std::mutex> lock(_mutex);

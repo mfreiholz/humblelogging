@@ -2,6 +2,7 @@
 
 #include <list>
 #include <string>
+#include <algorithm>
 
 #include "logger.h"
 #include "appender.h"
@@ -37,24 +38,12 @@ Factory& Factory::getInstance()
   return (*_instance);
 }
 
-void Factory::configure()
-{
-  std::lock_guard<std::mutex> lock(_mutex);
-  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
-    (*i)->setLogLevel(LogLevel::All);
-
-    for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a) {
-      // \todo
-      (*i)->addAppender((*a));
-    }
-  }
-}
-
-Appender& Factory::registerAppender(Appender *appender)
+Factory& Factory::registerAppender(Appender *appender)
 {
   std::lock_guard<std::mutex> lock(_mutex);
   _appenders.push_back(appender);
-  return (*appender);
+  configure();
+  return (*this);
 }
 
 Logger& Factory::getLogger(const std::string &name)
@@ -70,8 +59,22 @@ Logger& Factory::getLogger(const std::string &name)
   if (l == 0) {
     l = new Logger(name);
     _loggers.push_back(l);
+    configure();
   }
   return (*l);
+}
+
+void Factory::configure()
+{
+  std::lock_guard<std::mutex> lock(_mutex);
+  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
+    (*i)->setLogLevel(LogLevel::All);
+    for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a) {
+      if ((*i)->hasAppender((*a)))
+        continue;
+      (*i)->addAppender((*a));
+    }
+  }
 }
 
 }}  // End of namespaces.

@@ -11,7 +11,6 @@ int main(int argc, char **argv)
   Factory &fac = Factory::getInstance();
   fac.registerAppender(new ConsoleAppender());
   fac.registerAppender(new FileAppender("humble.log"));
-  fac.configure();
 
   HL_DEBUG(logger, "Begin of example.");
 
