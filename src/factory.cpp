@@ -33,11 +33,8 @@ Factory::~Factory()
 
 Factory& Factory::getInstance()
 {
-  static Factory *_instance = 0;
-  if (_instance == 0) {
-    _instance = new Factory();
-  }
-  return (*_instance);
+  static Factory _instance;
+  return _instance;
 }
 
 Factory& Factory::registerAppender(Appender *appender)
