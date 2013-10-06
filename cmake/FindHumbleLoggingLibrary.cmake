@@ -16,7 +16,7 @@ endif(WIN32)
 # Linux libs.
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   find_library(HLL_LIBRARY
-    NAMES humblelogginglib.a
+    NAMES libhumblelogginglib.a
     HINTS $ENV{HUMBLE_LOGGING_DIR}/lib/static
   )
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
