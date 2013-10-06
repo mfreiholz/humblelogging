@@ -74,10 +74,19 @@ FileAppender::~FileAppender()
 
 void FileAppender::log(int level, const std::string &message)
 {
+  std::string logLevelString = LogLevel::resolveLogLevel(level);
+
+  time_t rawtime = time(NULL);
+  struct tm *timeinfo = localtime(&rawtime);
+  char timeString [80];
+  strftime(timeString, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
+
   std::lock_guard<std::mutex> lock(_mutex);
   if (_stream.is_open()) {
-    std::string logLevelString = LogLevel::resolveLogLevel(level);
-    _stream << "[" << logLevelString << "] " << message << "\n";
+    _stream
+      << "[" << timeString << "] "
+      << "[" << logLevelString << "] " 
+      << message << "\n";
     if (_immediate) {
       _stream.flush();
     }
