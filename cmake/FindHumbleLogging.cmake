@@ -8,16 +8,16 @@ find_path(HLL_INCLUDE_DIR
 # Windows libs.
 if(WIN32)
   find_library(HLL_LIBRARY
-    NAMES humblelogginglib
-    HINTS $ENV{HUMBLE_LOGGING_DIR}/lib/static
+    NAMES humblelogging
+    HINTS $ENV{HUMBLE_LOGGING_DIR}/lib
   )
 endif(WIN32)
 
 # Linux libs.
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   find_library(HLL_LIBRARY
-    NAMES libhumblelogginglib.a
-    HINTS $ENV{HUMBLE_LOGGING_DIR}/lib/static
+    NAMES libhumblelogging.a
+    HINTS $ENV{HUMBLE_LOGGING_DIR}/lib
   )
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 

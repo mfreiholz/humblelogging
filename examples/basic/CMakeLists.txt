@@ -3,4 +3,4 @@ set(basic_example_sources
 )
 include_directories(../../include)
 add_executable(basic_example ${basic_example_sources})
-target_link_libraries(basic_example humblelogginglib)
+target_link_libraries(basic_example humblelogging)

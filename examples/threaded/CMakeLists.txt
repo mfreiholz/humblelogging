@@ -3,4 +3,4 @@ set(threaded_example_sources
 )
 include_directories(../../include)
 add_executable(threaded_example ${threaded_example_sources})
-target_link_libraries(threaded_example humblelogginglib)
+target_link_libraries(threaded_example humblelogging)

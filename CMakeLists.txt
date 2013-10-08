@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(humble_logging_library)
+project(humble_logging)
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR 0)
 
@@ -43,16 +43,16 @@ endif(WIN32)
 
 include_directories(include)
 
-add_library(humblelogginglib ${StaticOrShared} ${sources})
+add_library(humblelogging ${StaticOrShared} ${sources})
 
 # Install
-install(TARGETS humblelogginglib
+install(TARGETS humblelogging
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib/static
+  ARCHIVE DESTINATION lib
 )
 install(FILES ${headers} DESTINATION include)
-install(FILES cmake/FindHumbleLoggingLibrary.cmake DESTINATION cmake)
+install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
 
 # Examples
 add_subdirectory(examples/basic)
