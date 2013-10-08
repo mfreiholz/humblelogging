@@ -73,7 +73,6 @@ Factory& Factory::setGlobalLevel(int level)
 
 void Factory::configure()
 {
-  std::lock_guard<std::mutex> lock(_mutex);
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     (*i)->setLogLevel(LogLevel::All);
     for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a) {
