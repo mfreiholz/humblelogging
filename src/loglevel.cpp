@@ -15,6 +15,9 @@ std::string LogLevel::resolveLogLevel(int level)
     case LogLevel::Error:
       return std::string("error");
       
+    case LogLevel::Warn:
+      return std::string("warn");
+      
     case LogLevel::Info:
       return std::string("info");
 
@@ -42,6 +45,9 @@ int LogLevel::resolveLogLevel(const std::string &level)
   }
   else if (level.compare(std::string("error")) == 0) {
     return LogLevel::Error;
+  }
+  else if (level.compare(std::string("warn")) == 0) {
+    return LogLevel::Warn;
   }
   else if (level.compare(std::string("info")) == 0) {
     return LogLevel::Info;

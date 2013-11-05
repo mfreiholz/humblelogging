@@ -45,12 +45,21 @@ public:
   Logger& getLogger(const std::string &name);
   
   /*
-    Sets the global LogLevel of all Logger instances.
+    Sets the default LogLevel for all new Logger instances.
     
     \param[in] level
-      The new global LogLevel, which should be used for all existing Logger instances.
+      The new default LogLevel.
   */
-  Factory& setGlobalLevel(int level);
+  Factory& setDefaultLogLevel(int level);
+  
+  /*
+    Changes the LogLevel of all existing Loggers.
+    This function does not change the default LogLevel for new Loggers.
+    
+    \param[in] level
+      The new LogLevel for all existing Loggers.
+  */
+  Factory& changeGlobalLogLevel(int level);
   
 private:
   /*

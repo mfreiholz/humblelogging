@@ -17,6 +17,7 @@
 
 #define HL_FATAL(L,S) HUMBLE_LOG(L, S, humble::logging::LogLevel::Fatal)
 #define HL_ERROR(L,S) HUMBLE_LOG(L, S, humble::logging::LogLevel::Error)
+#define HL_WARN(L,S)  HUMBLE_LOG(L, S, humble::logging::LogLevel::Warn)
 #define HL_INFO(L,S)  HUMBLE_LOG(L, S, humble::logging::LogLevel::Info)
 #define HL_DEBUG(L,S) HUMBLE_LOG(L, S, humble::logging::LogLevel::Debug)
 #define HL_TRACE(L,S) HUMBLE_LOG(L, S, humble::logging::LogLevel::Trace)

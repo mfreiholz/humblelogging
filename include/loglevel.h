@@ -11,7 +11,7 @@ namespace logging {
 class HUMBLE_EXPORT_API LogLevel
 {
 public:
-  enum { Off, Fatal, Error, Info, Debug, Trace, All };
+  enum { Off, Fatal, Error, Warn, Info, Debug, Trace, All };
 
   static std::string resolveLogLevel(int level);
   static int resolveLogLevel(const std::string &logLevel);

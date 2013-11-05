@@ -57,24 +57,32 @@ Logger& Factory::getLogger(const std::string &name)
   }
   if (l == 0) {
     l = new Logger(name);
+    l->setLogLevel(_level);
     _loggers.push_back(l);
     configure();
   }
   return (*l);
 }
 
-Factory& Factory::setGlobalLevel(int level)
+Factory& Factory::setDefaultLogLevel(int level)
 {
   std::lock_guard<std::mutex> lock(_mutex);
   _level = level;
-  configure();
+  return *this;
+}
+
+Factory& Factory::changeGlobalLogLevel(int level)
+{
+  std::lock_guard<std::mutex> lock(_mutex);
+  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
+    (*i)->setLogLevel(level);
+  }
   return *this;
 }
 
 void Factory::configure()
 {
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
-    (*i)->setLogLevel(LogLevel::All);
     for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a) {
       if ((*i)->hasAppender((*a)))
         continue;
