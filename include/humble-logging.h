@@ -10,8 +10,10 @@
 
 #define HUMBLE_LOG(L,S,LL) \
   do { \
-    if (L.getLogLevel() >= LL) \
-      L.log(LL, S); \
+    if (L.getLogLevel() >= LL) { \
+      humble::logging::LogEvent le(LL, S, __LINE__, __FILE__); \
+      L.log(le); \
+    } \
   } \
   while (false)
 

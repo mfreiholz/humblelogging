@@ -5,6 +5,7 @@
 #include <list>
 
 #include "defines.h"
+#include "logevent.h"
 #include "loglevel.h"
 #include "mutex.h"
 
@@ -29,7 +30,7 @@ public:
   std::list<Appender*> getAppenders() const;
   bool hasAppender(Appender *appender);
 
-  Logger& log(int level, const std::string &message);
+  Logger& log(const LogEvent &logEvent);
   
 private:
   mutable std::mutex _mutex;

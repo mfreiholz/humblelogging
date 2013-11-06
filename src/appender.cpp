@@ -39,18 +39,20 @@ ConsoleAppender::~ConsoleAppender()
 
 }
 
-void ConsoleAppender::log(int level, const std::string &message)
+void ConsoleAppender::log(const LogEvent &logEvent)
 {
   time_t rawtime = time(NULL);
   struct tm *timeinfo = localtime(&rawtime);
   char timeString [80];
   strftime(timeString, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
 
-  std::string logLevelString = LogLevel::resolveLogLevel(level);
+  std::string logLevelString = LogLevel::resolveLogLevel(logEvent.getLogLevel());
   std::cout
     << "[" << timeString << "] "
     << "[" << logLevelString << "] "
-    << message
+    << "[line=" << logEvent.getLine() << "] "
+    << "[file=" << logEvent.getFile() << "] "
+    << logEvent.getMessage()
     << "\n";
 }
 
@@ -72,9 +74,9 @@ FileAppender::~FileAppender()
   }
 }
 
-void FileAppender::log(int level, const std::string &message)
+void FileAppender::log(const LogEvent &logEvent)
 {
-  std::string logLevelString = LogLevel::resolveLogLevel(level);
+  std::string logLevelString = LogLevel::resolveLogLevel(logEvent.getLogLevel());
 
   time_t rawtime = time(NULL);
   struct tm *timeinfo = localtime(&rawtime);
@@ -85,8 +87,11 @@ void FileAppender::log(int level, const std::string &message)
   if (_stream.is_open()) {
     _stream
       << "[" << timeString << "] "
-      << "[" << logLevelString << "] " 
-      << message << "\n";
+      << "[" << logLevelString << "] "
+      << "[line=" << logEvent.getLine() << "] "
+      << "[file=" << logEvent.getFile() << "] "
+      << logEvent.getMessage()
+      << "\n";
     if (_immediate) {
       _stream.flush();
     }

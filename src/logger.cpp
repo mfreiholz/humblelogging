@@ -69,12 +69,12 @@ bool Logger::hasAppender(Appender *appender)
   return false;
 }
 
-Logger& Logger::log(int level, const std::string &message)
+Logger& Logger::log(const LogEvent &logEvent)
 {
   std::lock_guard<std::mutex> lock(_mutex);
-  if (_level >= level) {
+  if (_level >= logEvent.getLogLevel()) {
     for (std::list<Appender*>::iterator i = _appenders.begin(), e = _appenders.end(); i != e; ++i) {
-      (*i)->log(level, message);
+      (*i)->log(logEvent);
     }
   }
   return (*this);

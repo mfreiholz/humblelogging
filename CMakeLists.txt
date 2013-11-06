@@ -20,7 +20,9 @@ set(headers
   include/appender.h
   include/defines.h
   include/factory.h
+  include/formatter.h
   include/humble-logging.h
+  include/logevent.h
   include/logger.h
   include/loglevel.h
   include/mutex.h
@@ -29,6 +31,8 @@ set(headers
 set(sources
   src/appender.cpp
   src/factory.cpp
+  src/formatter.cpp
+  src/logevent.cpp
   src/logger.cpp
   src/loglevel.cpp
 )

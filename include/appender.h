@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "defines.h"
+#include "logevent.h"
 #include "mutex.h"
 
 namespace humble {
@@ -15,7 +16,7 @@ class HUMBLE_EXPORT_API Appender
 public:
   Appender();
   virtual ~Appender();
-  virtual void log(int level, const std::string &message) = 0;
+  virtual void log(const LogEvent &logEvent) = 0;
 };
 
 class HUMBLE_EXPORT_API ConsoleAppender
@@ -24,7 +25,7 @@ class HUMBLE_EXPORT_API ConsoleAppender
 public:
   ConsoleAppender();
   virtual ~ConsoleAppender();
-  virtual void log(int level, const std::string &message);
+  virtual void log(const LogEvent &logEvent);
 };
 
 class HUMBLE_EXPORT_API FileAppender
@@ -33,7 +34,8 @@ class HUMBLE_EXPORT_API FileAppender
 public:
   FileAppender(const std::string &filename, bool immediate = false);
   virtual ~FileAppender();
-  virtual void log(int level, const std::string &message);
+  virtual void log(const LogEvent &logEvent);
+
 private:
   std::mutex _mutex;
   std::ofstream _stream;
