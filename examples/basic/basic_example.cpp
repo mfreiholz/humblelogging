@@ -9,7 +9,7 @@ int main(int argc, char **argv)
   HL_DEBUG(logger, "Initialize logging (this text should NOT be logged).");
 
   Factory &fac = Factory::getInstance();
-  fac.registerAppender(new ConsoleAppender());
+  //fac.registerAppender(new ConsoleAppender());
   fac.registerAppender(new FileAppender("humble.log"));
   fac.changeGlobalLogLevel(LogLevel::All);
   
@@ -21,8 +21,8 @@ int main(int argc, char **argv)
   HL_FATAL(logger, "Fatal log");
 
   HL_TRACE(logger, "Begin of loop.");
-  for (int i = 0; i < 10; ++i) {
-    HL_TRACE(logger, std::string("Iteration ") + std::string(" of 10"));
+  for (int i = 0, max = 100000; i < max; ++i) {
+    HL_TRACE(logger, std::string("Blubb"));
   }
   HL_TRACE(logger, "End of loop.");
   return 0;

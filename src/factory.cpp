@@ -7,12 +7,14 @@
 #include "logger.h"
 #include "appender.h"
 #include "loglevel.h"
+#include "formatter.h"
 
 namespace humble {
 namespace logging {
 
 Factory::Factory()
-  : _level(LogLevel::All)
+  : _level(LogLevel::All),
+    _defaultFormatter(new SimpleFormatter())
 {
 }
 
@@ -28,6 +30,10 @@ Factory::~Factory()
     Appender *a = _appenders.front();
     _appenders.pop_front();
     delete a;
+  }
+  if (_defaultFormatter) {
+    delete _defaultFormatter;
+    _defaultFormatter = NULL;
   }
 }
 
@@ -71,6 +77,24 @@ Factory& Factory::setDefaultLogLevel(int level)
   return *this;
 }
 
+Factory& Factory::setDefaultFormatter(Formatter *formatter)
+{
+  if (!formatter) {
+    return *this;
+  }
+  std::lock_guard<std::mutex> lock(_mutex);
+  if (_defaultFormatter) {
+    delete _defaultFormatter;
+  }
+  _defaultFormatter = formatter;
+  return *this;
+}
+
+Formatter* Factory::getDefaultFormatter() const
+{
+  return _defaultFormatter;
+}
+
 Factory& Factory::changeGlobalLogLevel(int level)
 {
   std::lock_guard<std::mutex> lock(_mutex);
@@ -84,9 +108,13 @@ void Factory::configure()
 {
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a) {
-      if ((*i)->hasAppender((*a)))
+      Appender *appender = (*a);
+      if (!appender->getFormatter()) {
+        appender->setFormatter(_defaultFormatter->copy());
+      }
+      if ((*i)->hasAppender(appender))
         continue;
-      (*i)->addAppender((*a));
+      (*i)->addAppender(appender);
     }
   }
 }

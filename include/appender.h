@@ -11,12 +11,34 @@
 namespace humble {
 namespace logging {
 
+class Formatter;
+
 class HUMBLE_EXPORT_API Appender
 {
 public:
   Appender();
   virtual ~Appender();
+  
+  /*
+    Sets the formatter for this Appender.
+    The Appender takes ownership of the Formatter.
+    
+    \param[in] formatter
+      The new formatter for the Appender.
+  */
+  void setFormatter(Formatter *formatter);
+  
+  /*
+    Gets the current formatter of the Appender.
+    
+    \return Formatter
+  */
+  Formatter* getFormatter() const;
+
   virtual void log(const LogEvent &logEvent) = 0;
+  
+protected:
+  Formatter *_formatter;
 };
 
 class HUMBLE_EXPORT_API ConsoleAppender

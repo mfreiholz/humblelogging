@@ -6,6 +6,7 @@
 #include <ctime>
 
 #include "loglevel.h"
+#include "formatter.h"
 
 namespace humble {
 namespace logging {
@@ -15,13 +16,30 @@ namespace logging {
 ///////////////////////////////////////////////////////////////////////////////
 
 Appender::Appender()
+  : _formatter(NULL)
 {
-
 }
 
 Appender::~Appender()
 {
+  if (_formatter) {
+    delete _formatter;
+    _formatter = NULL;
+  }
+}
 
+void Appender::setFormatter(Formatter *formatter)
+{
+  if (_formatter) {
+    delete _formatter;
+    _formatter = NULL;
+  }
+  _formatter = formatter;
+}
+
+Formatter* Appender::getFormatter() const
+{
+  return _formatter;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,29 +49,18 @@ Appender::~Appender()
 ConsoleAppender::ConsoleAppender()
   : Appender()
 {
-
 }
 
 ConsoleAppender::~ConsoleAppender()
 {
-
 }
 
 void ConsoleAppender::log(const LogEvent &logEvent)
 {
-  time_t rawtime = time(NULL);
-  struct tm *timeinfo = localtime(&rawtime);
-  char timeString [80];
-  strftime(timeString, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
-
-  std::string logLevelString = LogLevel::resolveLogLevel(logEvent.getLogLevel());
-  std::cout
-    << "[" << timeString << "] "
-    << "[" << logLevelString << "] "
-    << "[line=" << logEvent.getLine() << "] "
-    << "[file=" << logEvent.getFile() << "] "
-    << logEvent.getMessage()
-    << "\n";
+  if (!_formatter) {
+    return;
+  }
+  std::cout << _formatter->format(logEvent);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -76,22 +83,12 @@ FileAppender::~FileAppender()
 
 void FileAppender::log(const LogEvent &logEvent)
 {
-  std::string logLevelString = LogLevel::resolveLogLevel(logEvent.getLogLevel());
-
-  time_t rawtime = time(NULL);
-  struct tm *timeinfo = localtime(&rawtime);
-  char timeString [80];
-  strftime(timeString, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
-
+  if (!_formatter) {
+    return;
+  }
   std::lock_guard<std::mutex> lock(_mutex);
   if (_stream.is_open()) {
-    _stream
-      << "[" << timeString << "] "
-      << "[" << logLevelString << "] "
-      << "[line=" << logEvent.getLine() << "] "
-      << "[file=" << logEvent.getFile() << "] "
-      << logEvent.getMessage()
-      << "\n";
+    _stream << _formatter->format(logEvent);
     if (_immediate) {
       _stream.flush();
     }

@@ -3,25 +3,29 @@
 
 #include <string>
 
+#include "defines.h"
 #include "logevent.h"
 
 namespace humble {
 namespace logging {
 
-class Formatter
+class HUMBLE_EXPORT_API Formatter
 {
 public:
   Formatter();
-  ~Formatter();
+  virtual ~Formatter();
+  virtual Formatter* copy() const = 0;
   virtual std::string format(const LogEvent &logEvent) const = 0;
 };
 
 
-class SimpleFormatter
+class HUMBLE_EXPORT_API SimpleFormatter
+  : public Formatter
 {
 public:
   SimpleFormatter();
-  ~SimpleFormatter();
+  virtual ~SimpleFormatter();
+  virtual Formatter* copy() const;
   virtual std::string format(const LogEvent &logEvent) const;
 };
 

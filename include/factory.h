@@ -12,6 +12,7 @@ namespace logging {
 
 class Logger;
 class Appender;
+class Formatter;
 
 class HUMBLE_EXPORT_API Factory
 {
@@ -53,6 +54,18 @@ public:
   Factory& setDefaultLogLevel(int level);
   
   /*
+    Sets the default formatter instance to be used by Appenders,
+    which does not provide it's own Formatter.
+    
+    Changing the default Formatter will delete the previously instance.
+    
+    \param[in] formatter
+      The Formatter instance to be used as default.
+  */
+  Factory& setDefaultFormatter(Formatter *formatter);
+  Formatter* getDefaultFormatter() const;
+  
+  /*
     Changes the LogLevel of all existing Loggers.
     This function does not change the default LogLevel for new Loggers.
     
@@ -75,6 +88,7 @@ private:
   std::mutex _mutex;
   std::list<Logger*> _loggers;
   std::list<Appender*> _appenders;
+  Formatter *_defaultFormatter;
   int _level;
 };
 

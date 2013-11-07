@@ -31,6 +31,11 @@ SimpleFormatter::~SimpleFormatter()
 {
 }
 
+Formatter* SimpleFormatter::copy() const
+{
+  return new SimpleFormatter(*this);
+}
+
 std::string SimpleFormatter::format(const LogEvent &logEvent) const
 {
   std::string logLevelString = LogLevel::resolveLogLevel(logEvent.getLogLevel());
