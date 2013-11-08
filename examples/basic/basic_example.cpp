@@ -1,22 +1,39 @@
 #include "humble-logging.h"
 
+#ifdef __linux__
 #include <sys/time.h>
+#endif
 #include <stdio.h>
 
 HUMBLE_LOGGER(logger, "default");
 
 using namespace humble::logging;
 
+#ifdef __linux__
+long getTimestampMillis()
+{
+  struct timeval t;
+  gettimeofday(&t, NULL);
+  return (t.tv_sec * 1000 + t.tv_usec/1000) + 0.5;
+}
+#endif
+
+#ifdef WIN32
+long getTimestampMillis()
+{
+  return 0;
+}
+#endif
+
 int main(int argc, char **argv)
 {
-  struct timeval start, end;
-  gettimeofday(&start, NULL);
+  const long startMs = getTimestampMillis();
 
   HL_DEBUG(logger, "Initialize logging (this text should NOT be logged).");
 
   Factory &fac = Factory::getInstance();
   //fac.registerAppender(new NullAppender());
-  fac.registerAppender(new ConsoleAppender());
+  //fac.registerAppender(new ConsoleAppender());
   //fac.registerAppender(new FileAppender("humble.log"));
   fac.changeGlobalLogLevel(LogLevel::All);
   
@@ -32,11 +49,7 @@ int main(int argc, char **argv)
     HL_TRACE(logger, std::string("Blubb"));
   }
   HL_TRACE(logger, "End of loop.");
-  
-  gettimeofday(&end, NULL);
-  long seconds  = end.tv_sec  - start.tv_sec;
-  long useconds = end.tv_usec - start.tv_usec;
-  long mtime = ((seconds) * 1000 + useconds/1000.0) + 0.5;
-  printf("Elapsed %ld ms\n", mtime);
+
+  printf("Elapsed %ld ms\n", getTimestampMillis() - startMs);
   return 0;
 }
