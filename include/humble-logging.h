@@ -10,7 +10,7 @@
 
 #define HUMBLE_LOG(L,S,LL) \
   do { \
-    if (L.getLogLevel() >= LL) { \
+    if (L.wouldLog(LL)) { \
       humble::logging::LogEvent le(LL, S, __LINE__, __FILE__); \
       L.log(le); \
     } \

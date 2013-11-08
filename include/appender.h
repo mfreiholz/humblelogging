@@ -41,6 +41,17 @@ protected:
   Formatter *_formatter;
 };
 
+
+class HUMBLE_EXPORT_API NullAppender
+  : public Appender
+{
+public:
+  NullAppender();
+  virtual ~NullAppender();
+    virtual void log(const LogEvent &logEvent);
+};
+
+
 class HUMBLE_EXPORT_API ConsoleAppender
   : public Appender
 {
@@ -49,6 +60,7 @@ public:
   virtual ~ConsoleAppender();
   virtual void log(const LogEvent &logEvent);
 };
+
 
 class HUMBLE_EXPORT_API FileAppender
   : public Appender

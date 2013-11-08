@@ -30,6 +30,7 @@ public:
   std::list<Appender*> getAppenders() const;
   bool hasAppender(Appender *appender);
 
+  bool wouldLog(int level) const;
   Logger& log(const LogEvent &logEvent);
   
 private:

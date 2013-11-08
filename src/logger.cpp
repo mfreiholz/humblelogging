@@ -69,6 +69,15 @@ bool Logger::hasAppender(Appender *appender)
   return false;
 }
 
+bool Logger::wouldLog(int level) const
+{
+  std::lock_guard<std::mutex> lock(_mutex);
+  if (_level >= level && !_appenders.empty()) {
+    return true;
+  }
+  return false;
+}
+
 Logger& Logger::log(const LogEvent &logEvent)
 {
   std::lock_guard<std::mutex> lock(_mutex);
