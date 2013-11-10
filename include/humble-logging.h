@@ -3,6 +3,7 @@
 
 #include "appender.h"
 #include "factory.h"
+#include "formatter.h"
 #include "logger.h"
 #include "loglevel.h"
 
