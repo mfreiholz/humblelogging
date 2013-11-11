@@ -94,6 +94,15 @@ std::string PatternFormatter::format(const LogEvent &logEvent) const
     sprintf(buff, "%d", logEvent.getLine());
     s.replace(pos, 5, buff);
   }
+  if ((pos = s.find("%filename")) != std::string::npos) {
+    std::string tmp = logEvent.getFile();
+    int pos2;
+    if ((pos2 = tmp.find_last_of("/")) != std::string::npos) {
+      s.replace(pos, 9, tmp.substr(pos2 + 1));
+    } else {
+      s.replace(pos, 9, logEvent.getFile());
+    }
+  }
   if ((pos = s.find("%file")) != std::string::npos) {
     s.replace(pos, 5, logEvent.getFile());
   }

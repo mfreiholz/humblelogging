@@ -35,16 +35,19 @@ long getTimestampMillis()
 
 int main(int argc, char **argv)
 {
-  const long startMs = getTimestampMillis();
-
-  HL_DEBUG(logger, "Initialize logging (this text should NOT be logged).");
-
+  // Initialize humble logging
   Factory &fac = Factory::getInstance();
+  
+  // Change the default Formatter (optional)
+  fac.setDefaultFormatter(new PatternFormatter("[%date] [%lls] [line=%line] [file=%filename] %m\n"));
+  
+  // Add Appender which logs to STDOUT.
   ConsoleAppender *consoleAppender = new ConsoleAppender();
-  consoleAppender->setFormatter(new PatternFormatter("[%date] [%lls] [line=%line] [file=%file] %m\n"));
   fac.registerAppender(consoleAppender);
+  
   //fac.registerAppender(new NullAppender());
   //fac.registerAppender(new FileAppender("humble.log"));
+  
   fac.changeGlobalLogLevel(LogLevel::All);
   
   HL_TRACE(logger, "Trace log");
@@ -54,12 +57,12 @@ int main(int argc, char **argv)
   HL_ERROR(logger, "Error log");
   HL_FATAL(logger, "Fatal log");
 
+  const long startMs = getTimestampMillis();
   HL_TRACE(logger, "Begin of loop.");
   for (int i = 0, max = 10000; i < max; ++i) {
     HL_TRACE(logger, std::string("Blubb"));
   }
   HL_TRACE(logger, "End of loop.");
-
   printf("Elapsed %ld ms\n", getTimestampMillis() - startMs);
   return 0;
 }
