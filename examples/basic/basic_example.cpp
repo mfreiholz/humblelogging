@@ -42,11 +42,19 @@ int main(int argc, char **argv)
   fac.setDefaultFormatter(new PatternFormatter("[%date] [%lls] [line=%line] [file=%filename] %m\n"));
   
   // Add Appender which logs to STDOUT.
-  ConsoleAppender *consoleAppender = new ConsoleAppender();
-  fac.registerAppender(consoleAppender);
+  //ConsoleAppender *consoleAppender = new ConsoleAppender();
+  //fac.registerAppender(consoleAppender);
   
+  // Add Appender which doesn't log anywhere.
   //fac.registerAppender(new NullAppender());
-  //fac.registerAppender(new FileAppender("humble.log"));
+
+  // Add Appender which logs to file on disk.
+  //FileAppender *fileAppender = new FileAppender("humble.log", false);
+  //fac.registerAppender(fileAppender);
+
+  // Add Appender which logs to file (rolling).
+  RollingFileAppender *rfileAppender = new RollingFileAppender("humble-rolling.log", false, 5, 1024LL * 1024LL);
+  fac.registerAppender(rfileAppender);
   
   fac.changeGlobalLogLevel(LogLevel::All);
   
@@ -59,7 +67,7 @@ int main(int argc, char **argv)
 
   const long startMs = getTimestampMillis();
   HL_TRACE(logger, "Begin of loop.");
-  for (int i = 0, max = 10000; i < max; ++i) {
+  for (int i = 0, max = 1000000; i < max; ++i) {
     HL_TRACE(logger, std::string("Blubb"));
   }
   HL_TRACE(logger, "End of loop.");
