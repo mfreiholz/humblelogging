@@ -13,6 +13,11 @@ namespace logging {
 
 class Formatter;
 
+/*
+  Base class for all appenders.
+
+  \note This class is currently NOT thread-safe.
+*/
 class HUMBLE_EXPORT_API Appender
 {
 public:
@@ -22,6 +27,9 @@ public:
   /*
     Sets the formatter for this Appender.
     The Appender takes ownership of the Formatter.
+
+    Calling Factory::registerAppender() will call this function with
+    the default Formatter, if no other Formatter has been set before.
     
     \param[in] formatter
       The new formatter for the Appender.
@@ -48,7 +56,7 @@ class HUMBLE_EXPORT_API NullAppender
 public:
   NullAppender();
   virtual ~NullAppender();
-    virtual void log(const LogEvent &logEvent);
+  virtual void log(const LogEvent &logEvent);
 };
 
 
@@ -74,6 +82,39 @@ private:
   std::mutex _mutex;
   std::ofstream _stream;
   bool _immediate;
+};
+
+
+class HUMBLE_EXPORT_API RollingFileAppender
+  : public Appender
+{
+public:
+  RollingFileAppender(const std::string &filename, bool immediate = false, int maxRoll = 5, unsigned long long maxFileSize = 10485760);
+  virtual ~RollingFileAppender();
+  virtual void log(const LogEvent &logEvent);
+
+protected:
+  /*
+    Implements the usual roll over behavior.
+    Renames files "file.log.1" => "file.log.2", ...
+
+    TODO: We may want to keep the modification time of the old files,
+    which currently gets lost through renaming.
+
+    \pre _mutex.lock()
+
+    \return Returns "true" if the file stream is open and can be used for logging.
+  */
+  bool roll();
+
+private:
+  std::mutex _mutex;
+  std::string _filename;
+  bool _immediate;
+  int _maxRoll;
+  unsigned long long _maxFileSize;
+
+  std::ofstream _stream;
 };
 
 }}  // End of namespaces.
