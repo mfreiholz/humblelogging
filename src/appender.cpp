@@ -1,4 +1,4 @@
-#include "appender.h"
+#include "humblelogging/appender.h"
 
 #include <string>
 #include <iostream>
@@ -6,8 +6,8 @@
 #include <ctime>
 #include <cstdio>
 
-#include "loglevel.h"
-#include "formatter.h"
+#include "humblelogging/loglevel.h"
+#include "humblelogging/formatter.h"
 
 namespace humble {
 namespace logging {

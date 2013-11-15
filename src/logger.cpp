@@ -1,10 +1,10 @@
-#include "logger.h"
+#include "humblelogging/logger.h"
 
 #include <string>
 #include <list>
 #include <iostream>
 
-#include "appender.h"
+#include "humblelogging/appender.h"
 
 namespace humble {
 namespace logging {

@@ -1,8 +1,8 @@
-#include "formatter.h"
+#include "humblelogging/formatter.h"
 
 #include <sstream>
 
-#include "loglevel.h"
+#include "humblelogging/loglevel.h"
 
 namespace humble {
 namespace logging {

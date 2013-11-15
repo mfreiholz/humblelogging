@@ -17,32 +17,33 @@ How To Build
   cd build
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/home/libs/humblelogging ..
   
-After you have run these commands you should have a `Makefile` or Visual Studio solution to build the library.
+After you have run these commands you should have a `Makefile` or Visual Studio solution `*.sln` to build the library.
 The "install" target will copy all public headers, libraries and cmake scripts into the `CMAKE_INSTALL_PREFIX` directory.
 
 
 Build Options
 -------------
-cmake -DBuildShared=ON
-  Builds the library as shared \*.dll on Windows.
+cmake -DBuildShared=OFF
+  Builds the library as static or shared library (default=ON).
   
 
 Use the library
 ---------------
-Set the environment variable `HUMBLE_LOGGING_DIR` to the directory, which has been used as `CMAKE_INSTALL_PREFIX`.
+Set the environment variable `HumbleLogging_DIR` to the directory, which has been used as `CMAKE_INSTALL_PREFIX` in the build step.
 ::
 
-  HUMBLE_LOGGING_DIR=/home/libs/humblelogging
-  export HUMBLE_LOGGING_DIR
+  HumbleLogging_DIR=/home/libs/humblelogging
+  export HumbleLogging_DIR
 
 Now the included `FindHumbleLoggingLibrary.cmake` script can be used. Append this to your `CMakeLists.txt`:
+__TODO(mfreiholz)__ Add cmake.config script which makes this step obsolete!
 ::
 
   # Add find script path.
-  set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};$ENV{HUMBLE_LOGGING_DIR}/cmake")
+  set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};$ENV{HumbleLogging_DIR}/cmake")
   
   # Add dependency.
-  find_package(HumbleLoggingLibrary)
+  find_package(HumbleLogging)
   include_directories(${HUMBLE_LOGGING_INCLUDE_DIRS})
   
   # Link library against your executable.

@@ -1,8 +1,8 @@
-#include "humble-logging.h"
+#include "humblelogging/api.h"
 
 #include <Windows.h>
 
-#include "mutex.h"
+#include "humblelogging/mutex.h"
 
 HUMBLE_LOGGER(logger, "default");
 

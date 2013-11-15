@@ -1,4 +1,4 @@
-#include "humble-logging.h"
+#include "humblelogging/api.h"
 
 #ifdef __linux__
 #include <sys/time.h>

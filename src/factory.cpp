@@ -1,13 +1,13 @@
-#include "factory.h"
+#include "humblelogging/factory.h"
 
 #include <list>
 #include <string>
 #include <algorithm>
 
-#include "logger.h"
-#include "appender.h"
-#include "loglevel.h"
-#include "formatter.h"
+#include "humblelogging/logger.h"
+#include "humblelogging/appender.h"
+#include "humblelogging/loglevel.h"
+#include "humblelogging/formatter.h"
 
 namespace humble {
 namespace logging {
