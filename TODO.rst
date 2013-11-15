@@ -6,13 +6,13 @@ TODO List
 
 - [x] Add __dllexport() macro to support dynamic linking (\*.dll).
 
-- [ ] Make it possible to change settings during runtime.
+- [x] Make it possible to change settings during runtime.
 
 - [ ] Allow configuration via config file.
 
 - [ ] Add some performance tests.
 
-- [ ] Add general class to provide formatting.
+- [x] Add general class to provide formatting.
 
 - [ ] Add high performance clock tick time.
 
