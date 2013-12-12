@@ -1,15 +1,12 @@
 Humble Logging Library (C++)
 ============================
-:Initiator:
-  Manuel Freiholz <http://thehumbleguy.de/>
-:Contributors:
-  None.
 :Version:
   Still in development.
 
 
 How To Build
 ============
+Thanks to CMake and the no dependency term, the project build is very easy.
 ::
 
   cd $PROJECT_DIRECTORY
@@ -17,8 +14,8 @@ How To Build
   cd build
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/home/libs/humblelogging ..
   
-After you have run these commands you should have a `Makefile` or Visual Studio solution `*.sln` to build the library.
-The "install" target will copy all public headers, libraries and cmake scripts into the `CMAKE_INSTALL_PREFIX` directory.
+After you ran these commands you should have a `Makefile` or Visual Studio solution `*.sln` to build the library.
+The "install" target will copy all public headers, libraries and cmake scripts into the ``CMAKE_INSTALL_PREFIX`` directory.
 
 
 Build Options
@@ -29,13 +26,13 @@ cmake -DBuildShared=OFF
 
 Use the library
 ---------------
-Set the environment variable `HumbleLogging_DIR` to the directory, which has been used as `CMAKE_INSTALL_PREFIX` in the build step.
+Set the environment variable ``HumbleLogging_DIR`` to the directory, which has been used as ``CMAKE_INSTALL_PREFIX`` in the build step.
 ::
 
   HumbleLogging_DIR=/home/libs/humblelogging
   export HumbleLogging_DIR
 
-Now the included `FindHumbleLoggingLibrary.cmake` script can be used. Append this to your `CMakeLists.txt`:
+Now the included ``FindHumbleLoggingLibrary.cmake`` script can be used. Append this to your ``CMakeLists.txt``:
 __TODO(mfreiholz)__ Add cmake.config script which makes this step obsolete!
 ::
 
