@@ -16,7 +16,11 @@ class Formatter;
 /*
   Base class for all appenders.
 
-  \note This class is currently NOT thread-safe.
+  <b>Subclassing</b>
+  Call the protected member "_formatter" should always be locked
+  with the local "_mutex".
+
+  \thread-safe
 */
 class HUMBLE_EXPORT_API Appender
 {
@@ -35,17 +39,12 @@ public:
       The new formatter for the Appender.
   */
   void setFormatter(Formatter *formatter);
-  
-  /*
-    Gets the current formatter of the Appender.
-    
-    \return Formatter
-  */
   Formatter* getFormatter() const;
 
   virtual void log(const LogEvent &logEvent) = 0;
   
 protected:
+  mutable std::mutex _mutex;
   Formatter *_formatter;
 };
 

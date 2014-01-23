@@ -29,7 +29,6 @@ public:
 
   /*
     Registers a new Appender object and takes ownership of it.
-    The method returns a reference to the registered appender object.
   */
   Factory& registerAppender(Appender *appender);
 
@@ -37,7 +36,7 @@ public:
     Gets an existing or creates a new Logger object.
 
     \param[in] name
-      The name of the logger. If no longer with the name exists,
+      The name of the logger. If no Logger with the name exists,
       the method will create a new one automatically.
       Note: The name is case sensitive.
 
@@ -73,6 +72,17 @@ public:
       The new LogLevel for all existing Loggers.
   */
   Factory& changeGlobalLogLevel(int level);
+
+  /*
+    Changes the LogLevel of all existing Loggers, which name's begin with
+    <code>prefix</code>.
+
+    \param[in] prefix
+      The prefix name of the Loggers.
+    \param[in] level
+      The new log level for the found Loggers.
+  */
+  Factory& changeLogLevelRecursive(const std::string &prefix, int level);
   
 private:
   /*
@@ -85,7 +95,7 @@ private:
   void configure();
   
 private:
-  std::mutex _mutex;
+  mutable std::mutex _mutex;
   std::list<Logger*> _loggers;
   std::list<Appender*> _appenders;
   Formatter *_defaultFormatter;

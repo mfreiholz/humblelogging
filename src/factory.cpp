@@ -92,6 +92,7 @@ Factory& Factory::setDefaultFormatter(Formatter *formatter)
 
 Formatter* Factory::getDefaultFormatter() const
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   return _defaultFormatter;
 }
 
@@ -99,6 +100,18 @@ Factory& Factory::changeGlobalLogLevel(int level)
 {
   std::lock_guard<std::mutex> lock(_mutex);
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
+    (*i)->setLogLevel(level);
+  }
+  return *this;
+}
+
+Factory& Factory::changeLogLevelRecursive(const std::string &prefix, int level)
+{
+  std::lock_guard<std::mutex> lock(_mutex);
+  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
+    const std::string &name = (*i)->getName();
+    if (name.find(prefix, 0) != 0)
+      continue;
     (*i)->setLogLevel(level);
   }
   return *this;

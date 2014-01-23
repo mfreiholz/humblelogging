@@ -12,4 +12,17 @@
   #define HUMBLE_EXPORT_API
 #endif
 
+// Namespace defines
+#define HUMBLE_NAMESPACE_BEGIN \
+  namespace humble { \
+  namespace logging {
+
+#define HUMBLE_NAMESPACE_END \
+  }}
+
+// Disable warning on MSVC
+#ifdef _MSC_VER
+  #pragma warning (disable:4251)
+#endif
+
 #endif

@@ -11,6 +11,8 @@ namespace logging {
 
 /*
   Base class for all Formatters.
+  A Formatter should never necessarily thread-safe.
+  It gets copied for each appender, which wants to use the Formatter.
 */
 class HUMBLE_EXPORT_API Formatter
 {

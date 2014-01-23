@@ -31,6 +31,7 @@ Appender::~Appender()
 
 void Appender::setFormatter(Formatter *formatter)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   if (_formatter) {
     delete _formatter;
     _formatter = NULL;
@@ -40,6 +41,7 @@ void Appender::setFormatter(Formatter *formatter)
 
 Formatter* Appender::getFormatter() const
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   return _formatter;
 }
 
@@ -74,6 +76,7 @@ ConsoleAppender::~ConsoleAppender()
 
 void ConsoleAppender::log(const LogEvent &logEvent)
 {
+  std::lock_guard<std::mutex> lock(_mutex);
   if (!_formatter) {
     return;
   }
@@ -100,10 +103,11 @@ FileAppender::~FileAppender()
 
 void FileAppender::log(const LogEvent &logEvent)
 {
+  std::lock_guard<std::mutex> lockBase(Appender::_mutex);
   if (!_formatter) {
     return;
   }
-  std::lock_guard<std::mutex> lock(_mutex);
+  std::lock_guard<std::mutex> lock(FileAppender::_mutex);
   if (_stream.is_open()) {
     _stream << _formatter->format(logEvent);
     if (_immediate) {
@@ -123,7 +127,7 @@ RollingFileAppender::RollingFileAppender(const std::string &filename, bool immed
     _maxRoll(maxRoll),
     _maxFileSize(maxFileSize)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  //std::lock_guard<std::mutex> lock(_mutex);
   roll();
 }
 
@@ -137,7 +141,8 @@ RollingFileAppender::~RollingFileAppender()
 
 void RollingFileAppender::log(const LogEvent &logEvent)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  std::lock_guard<std::mutex> lockBase(Appender::_mutex);
+  std::lock_guard<std::mutex> lock(RollingFileAppender::_mutex);
   if (!roll()) {
     return;
   }
