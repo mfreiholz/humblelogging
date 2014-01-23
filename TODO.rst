@@ -18,3 +18,5 @@ TODO List
 
 - [ ] Add utility prefix-tree impl to provide faster access on loggers by prefix-search
       (e.g. change log level for all loggers beginning with "core.gui").
+
+- [ ] Add cmake.config/find.cmake script to make it easier using the library.
