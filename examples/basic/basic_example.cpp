@@ -5,10 +5,9 @@
 #endif
 #include <stdio.h>
 
+// Creates a new Logger or retrieves an 
+// already existing Logger with the same name.
 HUMBLE_LOGGER(logger, "default");
-HUMBLE_LOGGER(logger2, "default.2");
-HUMBLE_LOGGER(logger3, "default.3");
-HUMBLE_LOGGER(logger4, "default.4");
 
 using namespace humble::logging;
 
@@ -36,41 +35,13 @@ long getTimestampMillis()
 }
 #endif
 
-void logAllLevels()
-{
-  HL_TRACE(logger, "Trace log");
-  HL_DEBUG(logger, "Debug log");
-  HL_INFO (logger, "Info log");
-  HL_WARN (logger, "Warn log");
-  HL_ERROR(logger, "Error log");
-  HL_FATAL(logger, "Fatal log");
-
-  HL_TRACE(logger2, "Trace log");
-  HL_DEBUG(logger2, "Debug log");
-  HL_INFO (logger2, "Info log");
-  HL_WARN (logger2, "Warn log");
-  HL_ERROR(logger2, "Error log");
-  HL_FATAL(logger2, "Fatal log");
-
-  HL_TRACE(logger3, "Trace log");
-  HL_DEBUG(logger3, "Debug log");
-  HL_INFO (logger3, "Info log");
-  HL_WARN (logger3, "Warn log");
-  HL_ERROR(logger3, "Error log");
-  HL_FATAL(logger3, "Fatal log");
-
-  HL_TRACE(logger4, "Trace log");
-  HL_DEBUG(logger4, "Debug log");
-  HL_INFO (logger4, "Info log");
-  HL_WARN (logger4, "Warn log");
-  HL_ERROR(logger4, "Error log");
-  HL_FATAL(logger4, "Fatal log");
-}
-
 int main(int argc, char **argv)
 {
   // Initialize humble logging.
   Factory &fac = Factory::getInstance();
+
+  // Change the default LogLevel, which every NEW Logger will have.
+  fac.setDefaultLogLevel(LogLevel::All);
   
   // Change the default Formatter (optional).
   fac.setDefaultFormatter(new PatternFormatter("[%date] [%lls] [line=%line] [file=%filename] %m\n"));
@@ -89,11 +60,13 @@ int main(int argc, char **argv)
   // Add Appender which logs to file (rolling).
   RollingFileAppender *rfileAppender = new RollingFileAppender("humble-rolling.log", false, 5, 1024LL * 1024LL);
   fac.registerAppender(rfileAppender);
-  
-  fac.changeGlobalLogLevel(LogLevel::All);
-  logAllLevels();
-  fac.changeLogLevelRecursive("default", LogLevel::Warn);
-  logAllLevels();
+
+  HL_TRACE(logger, "Trace log");
+  HL_DEBUG(logger, "Debug log");
+  HL_INFO (logger, "Info log");
+  HL_WARN (logger, "Warn log");
+  HL_ERROR(logger, "Error log");
+  HL_FATAL(logger, "Fatal log");
 
   // Bunch of logs for performance testing.
   //fac.changeGlobalLogLevel(LogLevel::All);
