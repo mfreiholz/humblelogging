@@ -96,14 +96,14 @@ int main(int argc, char **argv)
   logAllLevels();
 
   // Bunch of logs for performance testing.
-  fac.changeGlobalLogLevel(LogLevel::All);
-  const long startMs = getTimestampMillis();
-  HL_TRACE(logger, "Begin of loop.");
-  for (int i = 0, max = 1000000; i < max; ++i) {
-    HL_TRACE(logger, std::string("Blubb"));
-  }
-  HL_TRACE(logger, "End of loop.");
-  printf("Elapsed %ld ms\n", getTimestampMillis() - startMs);
+  //fac.changeGlobalLogLevel(LogLevel::All);
+  //const long startMs = getTimestampMillis();
+  //HL_TRACE(logger, "Begin of loop.");
+  //for (int i = 0, max = 1000000; i < max; ++i) {
+  //  HL_TRACE(logger, std::string("Blubb"));
+  //}
+  //HL_TRACE(logger, "End of loop.");
+  //printf("Elapsed %ld ms\n", getTimestampMillis() - startMs);
 
   return 0;
 }
