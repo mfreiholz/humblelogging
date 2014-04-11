@@ -6,6 +6,7 @@
 
 #include "humblelogging/defines.h"
 #include "humblelogging/util/mutex.h"
+#include "humblelogging/util/ternarytree.h"
 
 namespace humble {
 namespace logging {
@@ -97,10 +98,11 @@ private:
 private:
   mutable Mutex _mutex;
   std::list<Logger*> _loggers;
+  TernaryTree<Logger*> _loggersTree;
   std::list<Appender*> _appenders;
   Formatter *_defaultFormatter;
   int _level;
 };
 
-}}  // End of namespaces.
+}}  // End of namespace.
 #endif

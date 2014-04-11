@@ -18,6 +18,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 
 set(headers
   include/humblelogging/util/mutex.h
+  include/humblelogging/util/ternarytree.h
   include/humblelogging/api.h
   include/humblelogging/appender.h
   include/humblelogging/defines.h
@@ -51,7 +52,7 @@ endif(WIN32)
 include_directories(include)
 
 # Target
-add_library(humblelogging ${StaticOrShared} ${sources})
+add_library(humblelogging ${StaticOrShared} ${sources} ${headers})
 
 # Install
 install(TARGETS humblelogging

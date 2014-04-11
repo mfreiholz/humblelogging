@@ -65,6 +65,12 @@ Logger& Factory::getLogger(const std::string &name)
     l = new Logger(name);
     l->setLogLevel(_level);
     _loggers.push_back(l);
+    
+    char *tmp = new char[name.length() + 1];
+    strcpy(tmp, name.c_str());
+    _loggersTree.insert(tmp, l);
+    delete[] tmp;
+    
     configure();
   }
   return (*l);
@@ -108,10 +114,14 @@ Factory& Factory::changeGlobalLogLevel(int level)
 Factory& Factory::changeLogLevelRecursive(const std::string &prefix, int level)
 {
   MutexLockGuard lock(_mutex);
-  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
+  char *cstr = new char[prefix.length() + 1];
+  strcpy(cstr, prefix.c_str());
+
+  std::vector<Logger*> loggers = _loggersTree.findNodeEndValuesByPrefix(cstr, 0);
+  delete[] cstr;
+
+  for (std::vector<Logger*>::iterator i = loggers.begin(); i != loggers.end(); ++i) {
     const std::string &name = (*i)->getName();
-    if (name.find(prefix, 0) != 0)
-      continue;
     (*i)->setLogLevel(level);
   }
   return *this;
@@ -132,4 +142,4 @@ void Factory::configure()
   }
 }
 
-}}  // End of namespaces.
+}}  // End of namespace.
