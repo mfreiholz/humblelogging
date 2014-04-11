@@ -2,6 +2,7 @@
 
 #include <list>
 #include <string>
+#include <cstring>
 #include <algorithm>
 
 #include "humblelogging/logger.h"
@@ -65,12 +66,12 @@ Logger& Factory::getLogger(const std::string &name)
     l = new Logger(name);
     l->setLogLevel(_level);
     _loggers.push_back(l);
-    
+
     char *tmp = new char[name.length() + 1];
     strcpy(tmp, name.c_str());
     _loggersTree.insert(tmp, l);
     delete[] tmp;
-    
+
     configure();
   }
   return (*l);
