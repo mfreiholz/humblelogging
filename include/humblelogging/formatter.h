@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "defines.h"
-#include "logevent.h"
+#include "humblelogging/defines.h"
+#include "humblelogging/logevent.h"
 
 namespace humble {
 namespace logging {

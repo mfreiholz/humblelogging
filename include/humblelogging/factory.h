@@ -4,8 +4,8 @@
 #include <list>
 #include <string>
 
-#include "defines.h"
-#include "mutex.h"
+#include "humblelogging/defines.h"
+#include "humblelogging/util/mutex.h"
 
 namespace humble {
 namespace logging {

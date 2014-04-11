@@ -1,4 +1,4 @@
-#include "humblelogging/mutex_windows.h"
+#include "humblelogging/util/mutex_windows.h"
 
 namespace std {
 

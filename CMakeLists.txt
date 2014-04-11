@@ -17,6 +17,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 set(headers
+  include/humblelogging/util/mutex.h
   include/humblelogging/api.h
   include/humblelogging/appender.h
   include/humblelogging/defines.h
@@ -25,7 +26,6 @@ set(headers
   include/humblelogging/logevent.h
   include/humblelogging/logger.h
   include/humblelogging/loglevel.h
-  include/humblelogging/mutex.h
 )
 
 set(sources
@@ -41,8 +41,8 @@ if(WIN32)
   add_definitions(/Zc:wchar_t-)
   add_definitions(/INCREMENTAL:NO)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-  list(APPEND headers include/humblelogging/mutex_windows.h)
-  list(APPEND sources src/mutex_windows.cpp)
+  list(APPEND headers include/humblelogging/util/mutex_windows.h)
+  list(APPEND sources src/util/mutex_windows.cpp)
 endif(WIN32)
 
 include_directories(include)

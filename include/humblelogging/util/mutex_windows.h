@@ -3,7 +3,7 @@
 
 #include <Windows.h>
 
-#include "defines.h"
+#include "humblelogging/defines.h"
 
 namespace std {
 

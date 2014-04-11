@@ -4,10 +4,10 @@
 #include <string>
 #include <list>
 
-#include "defines.h"
-#include "logevent.h"
-#include "loglevel.h"
-#include "mutex.h"
+#include "humblelogging/defines.h"
+#include "humblelogging/logevent.h"
+#include "humblelogging/loglevel.h"
+#include "humblelogging/util/mutex.h"
 
 namespace humble {
 namespace logging {

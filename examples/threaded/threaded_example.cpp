@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-#include "humblelogging/mutex.h"
+#include "humblelogging/util/mutex.h"
 
 HUMBLE_LOGGER(logger, "default");
 

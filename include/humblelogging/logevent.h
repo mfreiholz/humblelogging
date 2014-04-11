@@ -4,7 +4,7 @@
 #include <string>
 #include <ctime>
 
-#include "defines.h"
+#include "humblelogging/defines.h"
 
 namespace humble {
 namespace logging {

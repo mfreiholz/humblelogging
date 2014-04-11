@@ -4,9 +4,9 @@
 #include <string>
 #include <fstream>
 
-#include "defines.h"
-#include "logevent.h"
-#include "mutex.h"
+#include "humblelogging/defines.h"
+#include "humblelogging/logevent.h"
+#include "humblelogging/util/mutex.h"
 
 namespace humble {
 namespace logging {
