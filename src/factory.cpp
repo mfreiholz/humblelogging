@@ -20,7 +20,7 @@ Factory::Factory()
 
 Factory::~Factory()
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   while (!_loggers.empty()) {
     Logger *l = _loggers.front();
     _loggers.pop_front();
@@ -45,7 +45,7 @@ Factory& Factory::getInstance()
 
 Factory& Factory::registerAppender(Appender *appender)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   _appenders.push_back(appender);
   configure();
   return (*this);
@@ -53,7 +53,7 @@ Factory& Factory::registerAppender(Appender *appender)
 
 Logger& Factory::getLogger(const std::string &name)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   Logger *l = 0;
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     if ((*i)->getName().compare(name) == 0) {
@@ -72,7 +72,7 @@ Logger& Factory::getLogger(const std::string &name)
 
 Factory& Factory::setDefaultLogLevel(int level)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   _level = level;
   return *this;
 }
@@ -82,7 +82,7 @@ Factory& Factory::setDefaultFormatter(Formatter *formatter)
   if (!formatter) {
     return *this;
   }
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   if (_defaultFormatter) {
     delete _defaultFormatter;
   }
@@ -92,13 +92,13 @@ Factory& Factory::setDefaultFormatter(Formatter *formatter)
 
 Formatter* Factory::getDefaultFormatter() const
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   return _defaultFormatter;
 }
 
 Factory& Factory::changeGlobalLogLevel(int level)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     (*i)->setLogLevel(level);
   }
@@ -107,7 +107,7 @@ Factory& Factory::changeGlobalLogLevel(int level)
 
 Factory& Factory::changeLogLevelRecursive(const std::string &prefix, int level)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     const std::string &name = (*i)->getName();
     if (name.find(prefix, 0) != 0)

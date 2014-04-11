@@ -1,25 +1,26 @@
 #include "humblelogging/util/mutex_windows.h"
 
-namespace std {
+namespace humble {
+namespace logging {
 
-mutex::mutex()
+Mutex::Mutex()
 {
   ::InitializeCriticalSection(&_criticalSection);
 }
 
-mutex::~mutex()
+Mutex::~Mutex()
 {
   ::DeleteCriticalSection(&_criticalSection);
 }
 
-void mutex::lock()
+void Mutex::lock()
 {
   ::EnterCriticalSection(&_criticalSection);
 }
 
-void mutex::unlock()
+void Mutex::unlock()
 {
   ::LeaveCriticalSection(&_criticalSection);
 }
 
-}  // End of namespaces.
+}}  // End of namespace.

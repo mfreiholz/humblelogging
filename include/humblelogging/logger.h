@@ -34,7 +34,7 @@ public:
   Logger& log(const LogEvent &logEvent);
   
 private:
-  mutable std::mutex _mutex;
+  mutable Mutex _mutex;
 
   /*
     Name of this logger

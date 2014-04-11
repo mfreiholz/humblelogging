@@ -95,7 +95,7 @@ private:
   void configure();
   
 private:
-  mutable std::mutex _mutex;
+  mutable Mutex _mutex;
   std::list<Logger*> _loggers;
   std::list<Appender*> _appenders;
   Formatter *_defaultFormatter;

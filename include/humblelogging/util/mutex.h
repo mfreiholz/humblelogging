@@ -7,4 +7,27 @@
 #include <mutex>
 #endif
 
+namespace humble {
+namespace logging {
+
+class MutexLockGuard
+{
+public:
+  MutexLockGuard(Mutex &lockable)
+    : _lockable(lockable)
+  {
+    _lockable.lock();
+  }
+
+  ~MutexLockGuard()
+  {
+    _lockable.unlock();
+  }
+
+private:
+  Mutex &_lockable;
+};
+
+}}
+
 #endif

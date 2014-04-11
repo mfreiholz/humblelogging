@@ -44,7 +44,7 @@ public:
   virtual void log(const LogEvent &logEvent) = 0;
   
 protected:
-  mutable std::mutex _mutex;
+  mutable Mutex _mutex;
   Formatter *_formatter;
 };
 
@@ -78,7 +78,7 @@ public:
   virtual void log(const LogEvent &logEvent);
 
 private:
-  std::mutex _mutex;
+  Mutex _mutex;
   std::ofstream _stream;
   bool _immediate;
 };
@@ -107,7 +107,7 @@ protected:
   bool roll();
 
 private:
-  std::mutex _mutex;
+  Mutex _mutex;
   std::string _filename;
   bool _immediate;
   int _maxRoll;

@@ -22,46 +22,46 @@ Logger::~Logger()
 
 Logger& Logger::setName(const std::string &name)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   _name = name;
   return (*this);
 }
 
 const std::string& Logger::getName() const
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   return _name;
 }
 
 Logger& Logger::setLogLevel(int level)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   _level = level;
   return (*this);
 }
 
 int Logger::getLogLevel() const
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   return _level;
 }
 
 Logger& Logger::addAppender(Appender *appender)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   _appenders.push_back(appender);
   return (*this);
 }
 
 std::list<Appender*> Logger::getAppenders() const
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   return _appenders;
 }
 
 bool Logger::hasAppender(Appender *appender)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   for (std::list<Appender*>::iterator i = _appenders.begin(), e = _appenders.end(); i != e; ++i) {
     if (*i == appender)
       return true;
@@ -71,7 +71,7 @@ bool Logger::hasAppender(Appender *appender)
 
 bool Logger::wouldLog(int level) const
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   if (_level >= level && !_appenders.empty()) {
     return true;
   }
@@ -80,7 +80,7 @@ bool Logger::wouldLog(int level) const
 
 Logger& Logger::log(const LogEvent &logEvent)
 {
-  std::lock_guard<std::mutex> lock(_mutex);
+  MutexLockGuard lock(_mutex);
   if (_level >= logEvent.getLogLevel()) {
     for (std::list<Appender*>::iterator i = _appenders.begin(), e = _appenders.end(); i != e; ++i) {
       (*i)->log(logEvent);

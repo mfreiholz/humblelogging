@@ -8,12 +8,12 @@ HUMBLE_LOGGER(logger, "default");
 
 using namespace humble::logging;
 
-std::mutex mtx;
+Mutex mtx;
 
 DWORD WINAPI threadWork1(LPVOID lpThreadParameter)
 {
-  std::lock_guard<std::mutex> lock(mtx);
-  for (int i = 0; i < 10; ++i) {
+  MutexLockGuard lock(mtx);
+  for (int i = 0; i < 100; ++i) {
     HL_DEBUG(logger, "*");
   }
   return 0;
@@ -21,8 +21,8 @@ DWORD WINAPI threadWork1(LPVOID lpThreadParameter)
 
 DWORD WINAPI threadWork2(LPVOID lpThreadParameter)
 {
-  std::lock_guard<std::mutex> lock(mtx);
-  for (int i = 0; i < 10; ++i) {
+  MutexLockGuard lock(mtx);
+  for (int i = 0; i < 100; ++i) {
     HL_DEBUG(logger, "?");
   }
   return 0;

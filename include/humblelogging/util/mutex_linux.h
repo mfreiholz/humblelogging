@@ -1,7 +1,7 @@
-#ifndef HUMBLE_MUTEX_WINDOWS_HEADER
-#define HUMBLE_MUTEX_WINDOWS_HEADER
+#ifndef HUMBLE_MUTEX_LINUX_HEADER
+#define HUMBLE_MUTEX_LINUX_HEADER
 
-#include <Windows.h>
+#include <mutex>
 
 #include "humblelogging/defines.h"
 
@@ -17,8 +17,9 @@ public:
   void unlock();
 
 private:
-  CRITICAL_SECTION _criticalSection;
+  std::mutex _m;
 };
 
 }} // End of namespace.
+
 #endif
