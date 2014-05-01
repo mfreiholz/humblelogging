@@ -21,6 +21,7 @@ set(headers
   include/humblelogging/util/ternarytree.h
   include/humblelogging/api.h
   include/humblelogging/appender.h
+  include/humblelogging/configurator.h
   include/humblelogging/defines.h
   include/humblelogging/factory.h
   include/humblelogging/formatter.h
@@ -31,6 +32,7 @@ set(headers
 
 set(sources
   src/appender.cpp
+  src/configurator.cpp
   src/factory.cpp
   src/formatter.cpp
   src/logevent.cpp

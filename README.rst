@@ -27,3 +27,35 @@ cmake -DBuildShared=OFF
 Examples
 --------
 See the ``examples\basic`` folder for an short introduction.
+
+
+Example Config
+--------------
+The example configuration shows, that it is not required to rely on a specific pattern of Logger names.
+The framework is based on simple strings and prefix searches. If it is required to specify a log-level recursive,
+the wildcard (*) must be used.
+::
+
+  # Sets the default log-level to OFF.
+  humble.logger.level=off
+  
+  # Specify a specific log-level for a few loggers.
+  humble.logger.level(core*)=error
+  humble.logger.level(core.network*)=trace
+  humble.logger.level(core.network.tcp*)=warn
+  
+  # Some more loggers with different names.
+  humble.logger.level(Core*)=trace
+  humble.logger.level(CoreNetwork*)=off
+  humble.logger.level(Audio*)=debug
+  humble.logger.level(Video*)=debug
+  humble.logger.level(VideoCapture*)=off
+
+
+Build Compatibility
+-------------------
+The project build has been tested in the following environments.
+- Windows 8.1 Update 1 Visual Studio 2008 (32 & 64 bit)
+- Windows 8.1 Update 1 Visual Studio 2010 (32 & 64 bit)
+- Windows 8.1 Update 1 Visual Studio 2012 (32 & 64 bit)
+- Ubuntu 14.04 GCC 4.8 (32 & 64 bit)
