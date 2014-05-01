@@ -8,6 +8,7 @@
 // Creates a new Logger or retrieves an 
 // already existing Logger with the same name.
 HUMBLE_LOGGER(logger, "default");
+HUMBLE_LOGGER(logger2, "default");
 
 using namespace humble::logging;
 
