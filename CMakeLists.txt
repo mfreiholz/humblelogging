@@ -4,6 +4,7 @@ set(VERSION_MAJOR 1)
 set(VERSION_MINOR 0)
 
 option(BuildShared "BuildShared" ON)
+option(BuildExamples "BuildExamples" ON)
 
 if(BuildShared)
   set(StaticOrShared "SHARED")
@@ -64,7 +65,9 @@ install(FILES ${headers} DESTINATION include/humblelogging)
 install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
 
 # Examples
-add_subdirectory(examples/basic)
-if(WIN32)
-  add_subdirectory(examples/threaded)
-endif(WIN32)
+if(BuildExamples)
+  add_subdirectory(examples/basic)
+  if(WIN32)
+    add_subdirectory(examples/threaded)
+  endif(WIN32)
+endif(BuildExamples)
