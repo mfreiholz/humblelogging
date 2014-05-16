@@ -17,6 +17,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "-std=c++11")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+
 set(headers
   include/humblelogging/util/mutex.h
   include/humblelogging/util/ternarytree.h
