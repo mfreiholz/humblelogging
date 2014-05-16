@@ -67,6 +67,7 @@ install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
 # Examples
 if(BuildExamples)
   add_subdirectory(examples/basic)
+  add_subdirectory(examples/performance)
   if(WIN32)
     add_subdirectory(examples/threaded)
   endif(WIN32)
