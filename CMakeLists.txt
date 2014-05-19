@@ -23,6 +23,7 @@ set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 set(headers
   include/humblelogging/util/mutex.h
+  include/humblelogging/util/spinlock.h
   include/humblelogging/util/ternarytree.h
   include/humblelogging/api.h
   include/humblelogging/appender.h
@@ -48,10 +49,14 @@ if(WIN32)
   add_definitions(/INCREMENTAL:NO)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
   list(APPEND headers include/humblelogging/util/mutex_windows.h)
+  list(APPEND headers include/humblelogging/util/spinlock_windows.h)
   list(APPEND sources src/util/mutex_windows.cpp)
+  list(APPEND sources src/util/spinlock_windows.cpp)
 else(WIN32)
   list(APPEND headers include/humblelogging/util/mutex_linux.h)
+  list(APPEND headers include/humblelogging/util/spinlock_linux.h)
   list(APPEND sources src/util/mutex_linux.cpp)
+  list(APPEND sources src/util/spinlock_linux.cpp)
 endif(WIN32)
 
 include_directories(include)
