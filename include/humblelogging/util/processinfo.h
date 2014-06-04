@@ -28,6 +28,15 @@ public:
     return getpid();
 #endif
   }
+
+  static unsigned int getThreadID()
+  {
+#ifdef _WIN32
+    return GetCurrentThreadId();
+#else
+    return gettid();
+#endif
+  }
 };
 
 }

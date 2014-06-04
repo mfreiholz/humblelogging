@@ -21,6 +21,7 @@ public:
   const std::string& getFile() const { return _file; }
   const time_t& getTime() const { return _time; }
   unsigned int getPid() const {return _pid;}
+  unsigned int getTid() const {return _tid;}
 
 private:
   int _level;
@@ -29,6 +30,7 @@ private:
   std::string _file;
   time_t _time;
   unsigned int _pid;
+  unsigned int _tid;
 };
 
 }}  // End of namespaces.
