@@ -8,7 +8,8 @@ LogEvent::LogEvent(int level, const std::string &message, int line, const std::s
     _message(message),
     _line(line),
     _file(file),
-    _time(time(NULL))
+    _time(time(NULL)),
+    _pid(ProcessInfo::getProcessID())
 {
 }
 

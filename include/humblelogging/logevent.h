@@ -20,13 +20,15 @@ public:
   int getLine() const { return _line; }
   const std::string& getFile() const { return _file; }
   const time_t& getTime() const { return _time; }
-  
+  unsigned int getPid() const {return _pid;}
+
 private:
   int _level;
   std::string _message;
   int _line;
   std::string _file;
   time_t _time;
+  unsigned int _pid;
 };
 
 }}  // End of namespaces.

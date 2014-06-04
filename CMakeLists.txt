@@ -18,6 +18,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 
 set(headers
   include/humblelogging/util/mutex.h
+  include/humblelogging/util/processinfo.h
   include/humblelogging/util/ternarytree.h
   include/humblelogging/api.h
   include/humblelogging/appender.h
