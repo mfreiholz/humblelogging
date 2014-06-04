@@ -1,4 +1,5 @@
 #include "humblelogging/logevent.h"
+#include "humblelogging/util/processinfo.h"
 
 namespace humble {
 namespace logging {
