@@ -4,6 +4,7 @@ set(VERSION_MAJOR 1)
 set(VERSION_MINOR 0)
 
 option(BuildShared "BuildShared" ON)
+option(BuildExamples "BuildExamples" ON)
 
 if(BuildShared)
   set(StaticOrShared "SHARED")
@@ -15,6 +16,10 @@ endif(BuildShared)
 if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "-std=c++11")
 endif(CMAKE_COMPILER_IS_GNUCXX)
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 set(headers
   include/humblelogging/util/mutex.h
@@ -65,7 +70,10 @@ install(FILES ${headers} DESTINATION include/humblelogging)
 install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
 
 # Examples
-add_subdirectory(examples/basic)
-if(WIN32)
-  add_subdirectory(examples/threaded)
-endif(WIN32)
+if(BuildExamples)
+  add_subdirectory(examples/basic)
+  add_subdirectory(examples/performance)
+  if(WIN32)
+    add_subdirectory(examples/threaded)
+  endif(WIN32)
+endif(BuildExamples)

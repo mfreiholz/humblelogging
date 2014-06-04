@@ -56,12 +56,15 @@ Logger& Factory::getLogger(const std::string &name)
 {
   MutexLockGuard lock(_mutex);
   Logger *l = 0;
-  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
-    if ((*i)->getName().compare(name) == 0) {
-      l = (*i);
-      break;
-    }
+
+  char *tmp = new char[name.length() + 1];
+  strcpy(tmp, name.c_str());
+  TernaryNode<Logger*> *node = _loggersTree.findNodeEnd(tmp);
+  delete[] tmp;
+  if (node) {
+    l = node->_value;
   }
+
   if (l == 0) {
     l = new Logger(name);
     l->setLogLevel(_level);

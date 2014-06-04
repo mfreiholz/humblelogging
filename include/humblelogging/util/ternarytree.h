@@ -13,9 +13,9 @@ public:
   TernaryNode(char c, bool end)
     : _c(c),
       _end(end),
-      _low(nullptr),
-      _equal(nullptr),
-      _high(nullptr)
+      _low(NULL),
+      _equal(NULL),
+      _high(NULL)
   {}
 
   ~TernaryNode()
@@ -34,13 +34,13 @@ class TernaryTree
 {
 public:
   TernaryTree()
-    : _root(nullptr)
+    : _root(NULL)
   {}
 
   ~TernaryTree()
   {
     deleteNode(_root);
-    _root = nullptr;
+    _root = NULL;
   }
 
   // Insertion based methods //////////////////////////////////////////////////
@@ -83,13 +83,13 @@ public:
     TernaryNode<V> *n = findNode(key, _root);
     if (n && n->_end)
       return n;
-    return nullptr;
+    return NULL;
   }
 
   TernaryNode<V>* findNode(char *key, TernaryNode<V> *node) const
   {
     if (!node)
-      return nullptr;
+      return NULL;
     if (*key < node->_c) {
       return findNode(key, node->_low);
     } else if (*key == node->_c) {

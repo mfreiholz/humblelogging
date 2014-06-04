@@ -17,7 +17,7 @@ class Formatter;
   Base class for all appenders.
 
   <b>Subclassing</b>
-  Call the protected member "_formatter" should always be locked
+  Call to the protected member "_formatter" should always be locked
   with the local "_mutex".
 
   \thread-safe

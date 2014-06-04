@@ -155,7 +155,7 @@ void RollingFileAppender::log(const LogEvent &logEvent)
 bool RollingFileAppender::roll()
 {
   if (!_stream.is_open()) {
-    _stream.open(_filename, std::ios::out | std::ios::app | std::ios::ate);
+    _stream.open(_filename.c_str(), std::ios::out | std::ios::app | std::ios::ate);
     if (!_stream.is_open()) {
       return false;
     }

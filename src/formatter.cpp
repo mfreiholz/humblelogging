@@ -1,6 +1,7 @@
 #include "humblelogging/formatter.h"
 
 #include <sstream>
+#include <cstdio>
 
 #include "humblelogging/loglevel.h"
 
