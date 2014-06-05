@@ -27,8 +27,8 @@
 
 #define HL_IF_FATAL(L) L.wouldLog(humble::logging::LogLevel::Fatal)
 #define HL_IF_ERROR(L) L.wouldLog(humble::logging::LogLevel::Error)
-#define HL_IF_WARN(L) L.wouldLog(humble::logging::LogLevel::Warn)
-#define HL_IF_INFO(L) L.wouldLog(humble::logging::LogLevel::Info)
+#define HL_IF_WARN(L)  L.wouldLog(humble::logging::LogLevel::Warn)
+#define HL_IF_INFO(L)  L.wouldLog(humble::logging::LogLevel::Info)
 #define HL_IF_DEBUG(L) L.wouldLog(humble::logging::LogLevel::Debug)
 #define HL_IF_TRACE(L) L.wouldLog(humble::logging::LogLevel::Trace)
 

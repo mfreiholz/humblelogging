@@ -20,8 +20,8 @@ public:
   int getLine() const { return _line; }
   const std::string& getFile() const { return _file; }
   const time_t& getTime() const { return _time; }
-  unsigned int getPid() const {return _pid;}
-  unsigned int getTid() const {return _tid;}
+  unsigned int getPid() const { return _pid; }
+  unsigned int getTid() const { return _tid; }
 
 private:
   int _level;

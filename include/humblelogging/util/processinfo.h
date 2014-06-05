@@ -1,21 +1,17 @@
 #ifndef HUMBLE_PROCESSINFO_HEADER
-#define HUMBLE_MUTEX_WINDOWS_HEADER
+#define HUMBLE_PROCESSINFO_HEADER
 
 #ifdef _WIN32
 #include <Windows.h>
 #else
 #include <sys/types.h>
 #include <unistd.h>
-#endif // _WIN32
-
-
+#endif
 
 #include "humblelogging/defines.h"
 
-namespace humble
-{
-namespace logging
-{
+namespace humble {
+namespace logging {
 
 class ProcessInfo
 {
@@ -39,6 +35,5 @@ public:
   }
 };
 
-}
-} // End of namespace.
+}} // End of namespace.
 #endif
