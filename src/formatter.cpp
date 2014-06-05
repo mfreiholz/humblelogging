@@ -48,6 +48,8 @@ std::string SimpleFormatter::format(const LogEvent &logEvent) const
   std::stringstream ss;
   ss
     << "[" << timeString << "] "
+    << "[pid=" << logEvent.getPid() << "] "
+    << "[tid=" << logEvent.getTid() << "] "
     << "[" << logLevelString << "] "
     << "[line=" << logEvent.getLine() << "] "
     << "[file=" << logEvent.getFile() << "] "
