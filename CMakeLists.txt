@@ -23,6 +23,7 @@ set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 set(headers
   include/humblelogging/util/mutex.h
+  include/humblelogging/util/processinfo.h
   include/humblelogging/util/ternarytree.h
   include/humblelogging/api.h
   include/humblelogging/appender.h
