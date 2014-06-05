@@ -48,6 +48,8 @@ std::string SimpleFormatter::format(const LogEvent &logEvent) const
   std::stringstream ss;
   ss
     << "[" << timeString << "] "
+    << "[pid=" << logEvent.getPid() << "] "
+    << "[tid=" << logEvent.getTid() << "] "
     << "[" << logLevelString << "] "
     << "[line=" << logEvent.getLine() << "] "
     << "[file=" << logEvent.getFile() << "] "
@@ -94,6 +96,16 @@ std::string PatternFormatter::format(const LogEvent &logEvent) const
     char buff[10];
     sprintf(buff, "%d", logEvent.getLine());
     s.replace(pos, 5, buff);
+  }
+  if ((pos = s.find("%pid")) != std::string::npos) {
+    char buff[10];
+    sprintf(buff, "%d", logEvent.getPid());
+    s.replace(pos, 4, buff);
+  }
+  if ((pos = s.find("%tid")) != std::string::npos) {
+    char buff[10];
+    sprintf(buff, "%d", logEvent.getTid());
+    s.replace(pos, 4, buff);
   }
   if ((pos = s.find("%filename")) != std::string::npos) {
     std::string tmp = logEvent.getFile();
