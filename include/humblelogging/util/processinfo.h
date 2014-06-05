@@ -4,8 +4,10 @@
 #ifdef _WIN32
 #include <Windows.h>
 #else
-#include <sys/types.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/syscall.h>
+#include <signal.h>
 #endif
 
 #include "humblelogging/defines.h"
@@ -30,7 +32,8 @@ public:
 #ifdef _WIN32
     return GetCurrentThreadId();
 #else
-    return gettid();
+    return syscall(SYS_gettid);
+    //return gettid();
 #endif
   }
 };
