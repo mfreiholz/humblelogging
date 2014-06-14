@@ -48,7 +48,7 @@ the wildcard (*) must be used.
 ::
 
   # Sets the default log-level to OFF.
-  humble.logger.level=off
+  humble.logger.level(*)=off
   
   # Specify a specific log-level for a few loggers.
   humble.logger.level(core*)=error

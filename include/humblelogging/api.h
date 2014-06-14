@@ -2,6 +2,7 @@
 #define _LOGGING_API_HEADER_
 
 #include "appender.h"
+#include "configuration.h"
 #include "factory.h"
 #include "formatter.h"
 #include "logger.h"
