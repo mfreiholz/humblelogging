@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "humblelogging/loglevel.h"
+#include "humblelogging/logger.h"
 
 namespace humble {
 namespace logging {
@@ -58,7 +59,22 @@ FileConfiguration::~FileConfiguration()
 
 int FileConfiguration::getLogLevel(Logger *logger, Appender *appender) const
 {
-  return 0;
+  char *key = &(*const_cast<char*>(logger->getName().c_str()));
+
+  TernaryTree<Entry*>::FindNodePathData data;
+  TernaryNode<Entry*> *node = _tree.findNodePath(key, data);
+  if (node) {
+    return node->_value->level;
+  }
+
+  // Search the first recursive Entry.
+  for (std::vector<TernaryNode<Entry*> >::size_type i = data._nodes.size() - 1; i >= 0; --i) {
+    if (!data._nodes[i]->_end || !data._nodes[i]->_value->recursive)
+      continue;
+    return data._nodes[i]->_value->level;
+  }
+
+  return LogLevel::Off;
 }
 
 bool FileConfiguration::load(const std::string &filepath)

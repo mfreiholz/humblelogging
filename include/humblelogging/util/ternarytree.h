@@ -15,7 +15,8 @@ public:
       _end(end),
       _low(NULL),
       _equal(NULL),
-      _high(NULL)
+      _high(NULL),
+      _parent(NULL)
   {}
 
   ~TernaryNode()
@@ -25,7 +26,7 @@ public:
   char _c;
   bool _end;
   V _value;
-  TernaryNode<V> *_low, *_equal, *_high;
+  TernaryNode<V> *_low, *_equal, *_high, *_parent;
 };
 
 
@@ -50,11 +51,12 @@ public:
     _root = insert(key, value, _root);
   }
 
-  TernaryNode<V>* insert(char *key, V value, TernaryNode<V> *node)
+  TernaryNode<V>* insert(char *key, V value, TernaryNode<V> *node, TernaryNode<V> *parent = NULL)
   {
     if (!node) {
       char c = *key;
       node = new TernaryNode<V>(c, false);
+      node->_parent = parent;
     }
     if (*key < node->_c) {
       node->_low = insert(key, value, node->_low);
@@ -100,6 +102,38 @@ public:
       }
     } else {
       return findNode(key, node->_high);
+    }
+  }
+
+  // Nearest search based methods /////////////////////////////////////////////
+
+  struct FindNodePathData {
+    std::vector<TernaryNode<V>*> _nodes;
+  };
+
+  TernaryNode<V>* findNodePath(char *key, FindNodePathData &data) const
+  {
+    return findNodePath(key, _root, data);
+  }
+
+  TernaryNode<V>* findNodePath(char *key, TernaryNode<V> *node, FindNodePathData &data) const
+  {
+    if (!node)
+      return NULL;
+    if (*key < node->_c) {
+      data._nodes.push_back(node);
+      return findNodePath(key, node->_low, data);
+    } else if (*key == node->_c) {
+      if (*++key == 0) {
+        data._nodes.push_back(node);
+        return node;
+      } else {
+        data._nodes.push_back(node);
+        return findNodePath(key, node->_equal, data);
+      }
+    } else {
+      data._nodes.push_back(node);
+      return findNodePath(key, node->_high, data);
     }
   }
 
