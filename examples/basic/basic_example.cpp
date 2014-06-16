@@ -22,15 +22,5 @@ int main(int argc, char **argv)
   HL_WARN (logger, "Warn log");
   HL_ERROR(logger, "Error log");
   HL_FATAL(logger, "Fatal log");
-
-  DefaultConfiguration conf;
-  conf.loadFromFile("D:/Temp/logging.conf");
-  int level = conf.getLogLevel(&logger);
-  level = conf.getLogLevel(&fac.getLogger("core.network"));
-  level = conf.getLogLevel(&fac.getLogger("core.network.logger"));
-  level = conf.getLogLevel(&fac.getLogger("core.network.tcp"));
-  level = conf.getLogLevel(&fac.getLogger("core.network.tcp.handler"));
-  level = conf.getLogLevel(&fac.getLogger("core.network.udp"));
-  level = conf.getLogLevel(&fac.getLogger("core.network.udp.handler"));
   return 0;
 }
