@@ -71,3 +71,15 @@ The project build has been tested in the following environments.
 * Windows 8.1 Update 1 Visual Studio 2010 (32 & 64 bit)
 * Windows 8.1 Update 1 Visual Studio 2012 (32 & 64 bit)
 * Ubuntu 14.04 GCC 4.8 (32 & 64 bit)
+
+
+Performance tests
+=================
+Feel free to contribute your tests (only release builds).
+::
+  # Windows 8.1 Update 1 32 bit / VC 2012 / Core i7 3770K @ 3.50 GHz
+  # cmd: mtperformance_example.exe 4 20000000 null
+  Events: 80000000
+  Threads: 4
+  Duration: 12468 ms / 12.468000 s
+  Throughput: 6416426.050690 events/second
