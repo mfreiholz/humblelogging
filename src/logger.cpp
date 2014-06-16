@@ -72,7 +72,7 @@ bool Logger::hasAppender(Appender *appender)
 bool Logger::wouldLog(int level) const
 {
   MutexLockGuard lock(_mutex);
-  if (_level >= level && !_appenders.empty()) {
+  if (_level >= level/* && !_appenders.empty()*/) {
     return true;
   }
   return false;
@@ -81,11 +81,11 @@ bool Logger::wouldLog(int level) const
 Logger& Logger::log(const LogEvent &logEvent)
 {
   MutexLockGuard lock(_mutex);
-  if (_level >= logEvent.getLogLevel()) {
+  //if (_level >= logEvent.getLogLevel()) {
     for (std::list<Appender*>::iterator i = _appenders.begin(), e = _appenders.end(); i != e; ++i) {
       (*i)->log(logEvent);
     }
-  }
+  //}
   return (*this);
 }
 
