@@ -3,10 +3,12 @@
 
 #include <Windows.h>
 
+#include "humblelogging/defines.h"
+
 namespace humble {
 namespace logging {
 
-class SpinLock
+class HUMBLE_EXPORT_API SpinLock
 {
 public:
   SpinLock();

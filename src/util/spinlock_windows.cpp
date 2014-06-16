@@ -14,11 +14,11 @@ SpinLock::~SpinLock()
 
 void SpinLock::lock()
 {
-  DWORD sleepMs = 1;
+  //DWORD sleepMs = 1;
   while (InterlockedExchange(&_val, (LONG) 1) == 1) {
     // Try again, until somebody else changes the value to 0,
     // with a call to "unlock()".
-    Sleep(min(10, sleepMs++));
+    //Sleep(min(10, sleepMs++));
   }
 }
 

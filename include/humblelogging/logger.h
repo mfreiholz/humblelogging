@@ -8,6 +8,7 @@
 #include "humblelogging/logevent.h"
 #include "humblelogging/loglevel.h"
 #include "humblelogging/util/mutex.h"
+#include "humblelogging/util/spinlock.h"
 
 namespace humble {
 namespace logging {
@@ -34,7 +35,7 @@ public:
   Logger& log(const LogEvent &logEvent);
   
 private:
-  mutable Mutex _mutex;
+  mutable SpinLock _mutex;
 
   /*
     Name of this logger
