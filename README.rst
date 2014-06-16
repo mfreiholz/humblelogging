@@ -78,7 +78,8 @@ Performance tests
 Feel free to contribute your tests (only release builds).
 ::
   # Windows 8.1 Update 1 32 bit / VC 2012 / Core i7 3770K @ 3.50 GHz
-  # cmd: mtperformance_example.exe 4 20000000 null
+  # CMD: mtperformance_example.exe 4 20000000 null
+  # Tester: mfreiholz
   Events: 80000000
   Threads: 4
   Duration: 12468 ms / 12.468000 s
