@@ -117,6 +117,10 @@ void PatternConfigRegistry::insert(const std::string &ppattern, int level)
     treeKey = &(*const_cast<char*>(pattern.c_str()));
     _tree.insert(treeKey, entry);
   }
+
+  // Change the "_defaultLogLevel" in case of *-pattern.
+  if (pattern.empty() && recursive)
+    _defaultLogLevel = level;
 }
 
 int PatternConfigRegistry::getLogLevel(const std::string &loggerName) const
