@@ -9,12 +9,14 @@
 #include "humblelogging/appender.h"
 #include "humblelogging/loglevel.h"
 #include "humblelogging/formatter.h"
+#include "humblelogging/configuration.h"
 
 namespace humble {
 namespace logging {
 
 Factory::Factory()
-  : _level(LogLevel::All),
+  : _config(NULL),
+    _level(LogLevel::All),
     _defaultFormatter(new SimpleFormatter())
 {
 }
@@ -36,6 +38,10 @@ Factory::~Factory()
     delete _defaultFormatter;
     _defaultFormatter = NULL;
   }
+  if (_config) {
+    delete _config;
+    _config = NULL;
+  }
 }
 
 Factory& Factory::getInstance()
@@ -44,12 +50,24 @@ Factory& Factory::getInstance()
   return _instance;
 }
 
+Factory& Factory::setConfiguration(Configuration *config)
+{
+  MutexLockGuard lock(_mutex);
+  if (_config) {
+    delete _config;
+    _config = NULL;
+  }
+  _config = config;
+  configure();
+  return *this;
+}
+
 Factory& Factory::registerAppender(Appender *appender)
 {
   MutexLockGuard lock(_mutex);
   _appenders.push_back(appender);
   configure();
-  return (*this);
+  return *this;
 }
 
 Logger& Factory::getLogger(const std::string &name)
@@ -134,14 +152,23 @@ Factory& Factory::changeLogLevelRecursive(const std::string &prefix, int level)
 void Factory::configure()
 {
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
+    Logger *logger = *i;
     for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a) {
-      Appender *appender = (*a);
+      Appender *appender = *a;
       if (!appender->getFormatter()) {
         appender->setFormatter(_defaultFormatter->copy());
       }
-      if ((*i)->hasAppender(appender))
-        continue;
-      (*i)->addAppender(appender);
+
+      // Add Appender to logger.
+      if (!logger->hasAppender(appender)) {
+        logger->addAppender(appender);
+      }
+
+      // Get LogLevel from config.
+      if (_config) {
+        const int level = _config->getLogLevel(logger, appender);
+        logger->setLogLevel(level);
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ namespace logging {
 class Logger;
 class Appender;
 class Formatter;
+class Configuration;
 
 class HUMBLE_EXPORT_API Factory
 {
@@ -27,6 +28,11 @@ public:
     Gets the singleton instance of this Factory class.
   */
   static Factory& getInstance();
+
+  /*
+    Sets the new Configuration and takes ownership of it.
+  */
+  Factory& setConfiguration(Configuration *config);
 
   /*
     Registers a new Appender object and takes ownership of it.
@@ -97,6 +103,7 @@ private:
   
 private:
   mutable Mutex _mutex;
+  Configuration *_config;
   std::list<Logger*> _loggers;
   TernaryTree<Logger*> _loggersTree;
   std::list<Appender*> _appenders;
