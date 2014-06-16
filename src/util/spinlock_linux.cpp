@@ -17,11 +17,11 @@ SpinLock::~SpinLock()
 
 void SpinLock::lock()
 {
-  int sleepMs = 1;
+  //int sleepMs = 1;
   while (_val.exchange(true) == true) {
     // Try again, until somebody else changes the value to 0,
     // with a call to "unlock()".
-    std::this_thread::sleep_for(std::chrono::milliseconds(std::min(10, sleepMs++)));
+    //std::this_thread::sleep_for(std::chrono::milliseconds(std::min(10, sleepMs++)));
   }
 }
 
