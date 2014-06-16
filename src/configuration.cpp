@@ -23,148 +23,51 @@ Configuration::~Configuration()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// DefaultConfiguration
+// FileConfiguration
 ///////////////////////////////////////////////////////////////////////////////
 
 DefaultConfiguration::DefaultConfiguration()
   : Configuration()
 {
-
 }
 
 DefaultConfiguration::~DefaultConfiguration()
 {
-
 }
 
-int DefaultConfiguration::getLogLevel(Logger *logger, Appender *appender) const 
+int DefaultConfiguration::getLogLevel(Logger *logger, Appender *) const
 {
-  return LogLevel::All;
+  return _registry.getLogLevel(logger->getName());
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// DefaultConfiguration
-///////////////////////////////////////////////////////////////////////////////
-
-FileConfiguration::FileConfiguration(const std::string &filepath)
-  : Configuration()
+bool DefaultConfiguration::loadFromFile(const std::string &filepath)
 {
-  load(filepath);
+  return _registry.loadFromFile(filepath);
 }
 
-FileConfiguration::~FileConfiguration()
+bool DefaultConfiguration::loadFromString(const std::string &buffer)
 {
-  // TODO clear _tree.
+  return _registry.loadFromString(buffer);
 }
 
-int FileConfiguration::getLogLevel(Logger *logger, Appender *appender) const
+DefaultConfiguration* DefaultConfiguration::createFromFile(const std::string &filepath)
 {
-  char *key = &(*const_cast<char*>(logger->getName().c_str()));
-
-  TernaryTree<Entry*>::FindNodePathData data;
-  TernaryNode<Entry*> *node = _tree.findNodePath(key, data);
-  if (node) {
-    return node->_value->level;
+  DefaultConfiguration *config = new DefaultConfiguration();
+  if (!config->loadFromFile(filepath)) {
+    delete config;
+    return NULL;
   }
-
-  // Search the first recursive Entry.
-  for (std::vector<TernaryNode<Entry*> >::size_type i = data._nodes.size() - 1; i >= 0; --i) {
-    if (!data._nodes[i]->_end || !data._nodes[i]->_value->recursive)
-      continue;
-    return data._nodes[i]->_value->level;
-  }
-
-  return LogLevel::Off;
+  return config;
 }
 
-bool FileConfiguration::load(const std::string &filepath)
+DefaultConfiguration* DefaultConfiguration::createFromString(const std::string &buffer)
 {
-  std::ifstream in;
-  in.open(filepath.c_str(), std::ifstream::binary); // TODO Handle exception?
-  if (in.fail() || !in.is_open()) {
-    return false;
+  DefaultConfiguration *config = new DefaultConfiguration();
+  if (!config->loadFromString(buffer)) {
+    delete config;
+    return NULL;
   }
-
-  char buff[4096];
-  while (!in.eof() && !in.bad()) {
-    in.getline(buff, 4096);
-    std::string line(buff);
-    line.erase(line.find_last_not_of(" \n\r\t") + 1);
-
-    // Skip empty lines.
-    if (line.empty())
-      continue;
-
-    // Skip comments.
-    bool skip = false;
-    for (std::string::size_type i = 0; i < line.length(); ++i) {
-      if (line[i] == ' ' || line[i] == '\t')
-        continue;
-      else if (line[i] == '#')
-        skip = true;
-      break;
-    }
-    if (skip)
-      continue;
-
-    // Separate <key>=<value>.
-    std::size_t pos = std::string::npos;
-    if ((pos = line.find_last_of('=')) == std::string::npos) {
-      continue; // Invalid line.
-    }
-    std::string key = line.substr(0, pos);
-    std::string value = line.substr(pos + 1);
-
-    // Extract logger name pattern from <key>.
-    std::string loggerNamePattern = "";
-    if ((pos = key.find('(')) != std::string::npos) {
-      std::size_t pos2 = key.find_last_of(')');
-      if (pos2 != std::string::npos) {
-        loggerNamePattern = key.substr(pos + 1, pos2 - (pos + 1));
-      }
-      key = key.substr(0, pos);
-    }
-
-    // Insert into lookup tree.
-    bool recursive = false;
-    if ((pos = loggerNamePattern.find('*')) == loggerNamePattern.length() - 1) {
-      loggerNamePattern.erase(pos);
-      recursive = true;
-    }
-
-    char *treeKey = &(*const_cast<char*>(loggerNamePattern.c_str()));
-    TernaryNode<Entry*> *node = _tree.findNodeEnd(treeKey);
-    Entry *entry = 0;
-    if (!node)
-      entry = new Entry;
-    else
-      entry = node->_value;
-    entry->pattern = loggerNamePattern;
-    entry->recursive = recursive;
-
-    if (key.find("logger.level") == 0) {
-      entry->level = LogLevel::resolveLogLevel(value);
-    }
-
-    if (!node) {
-      treeKey = &(*const_cast<char*>(loggerNamePattern.c_str()));
-      _tree.insert(treeKey, entry);
-    }
-
-    printf("[key=%s] [value=%s] [logger=%s]\n", key.c_str(), value.c_str(), loggerNamePattern.c_str());
-  }
-  return true;
+  return config;
 }
-
-//// Get length of file.
-//in.seekg(0, in.end);
-//std::streamoff fileLength = in.tellg();
-//in.seekg(0, in.beg);
-//
-//// Read entire file into buffer.
-//char *buffer = new char[fileLength];
-//in.read(buffer, fileLength);
-//in.close();
-//delete[] buffer;
 
 }}  // End of namespace.

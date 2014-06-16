@@ -4,7 +4,7 @@
 #include <string>
 
 #include "humblelogging/defines.h"
-#include "humblelogging/util/ternarytree.h"
+#include "humblelogging/util/patternconfigregistry.h"
 
 namespace humble {
 namespace logging {
@@ -30,7 +30,7 @@ public:
     \param logger
       The Logger instance.
     \param appender
-      Not implemented yet!
+      Not implemented yet! May be useful for later.
   */
   virtual int getLogLevel(Logger *logger, Appender *appender = 0) const = 0;
 };
@@ -43,27 +43,15 @@ public:
   DefaultConfiguration();
   virtual ~DefaultConfiguration();
   virtual int getLogLevel(Logger *logger, Appender *appender = 0) const;
-};
 
+  bool loadFromFile(const std::string &filepath);
+  bool loadFromString(const std::string &buffer);
 
-class HUMBLE_EXPORT_API FileConfiguration
-  : public Configuration
-{
-public:
-  FileConfiguration(const std::string &filepath);
-  virtual ~FileConfiguration();
-  virtual int getLogLevel(Logger *logger, Appender *appender = 0) const;
+  static DefaultConfiguration* createFromFile(const std::string &filepath);
+  static DefaultConfiguration* createFromString(const std::string &buffer);
 
 private:
-  bool load(const std::string &filepath);
-
-private:
-  struct Entry {
-    std::string pattern;
-    bool recursive;
-    int level;
-  };
-  TernaryTree<Entry*> _tree;
+  PatternConfigRegistry _registry;
 };
 
 

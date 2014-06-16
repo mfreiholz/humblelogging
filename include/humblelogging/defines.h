@@ -20,6 +20,10 @@
 #define HUMBLE_NAMESPACE_END \
   }}
 
+// Disable copy constructor.
+#define HUMBLE_DISABLE_COPY(Class) \
+  Class(const Class &other);
+
 // Disable warning on MSVC
 #ifdef _MSC_VER
   #pragma warning (disable:4251)

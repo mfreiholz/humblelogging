@@ -24,6 +24,7 @@ set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(headers
   include/humblelogging/util/mutex.h
   include/humblelogging/util/spinlock.h
+  include/humblelogging/util/patternconfigregistry.h
   include/humblelogging/util/processinfo.h
   include/humblelogging/util/ternarytree.h
   include/humblelogging/api.h
@@ -38,6 +39,7 @@ set(headers
 )
 
 set(sources
+  src/util/patternconfigregistry.cpp
   src/appender.cpp
   src/configuration.cpp
   src/factory.cpp
