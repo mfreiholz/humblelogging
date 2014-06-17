@@ -3,6 +3,38 @@ Humble Logging Library (C++)
 Lightweight C++ Logging Library
 
 
+Features
+========
+- Thread-Safe logging.
+- Multi-Process-Safe logging (based on Appender).
+- Custom logger name pattern.
+- Configurable LogLevel by config file.
+- Changable LogLevel and Appenders during runtime.
+- Multiple Appenders for each Logger.
+- Simple API to implement custom Appenders.
+- Custom format for log messages (Formatter).
+
+
+Built-in Appenders
+------------------
+- **NullAppender**
+  Doesn't log anything. It's used for performance testing.
+- **ConsoleAppender**
+  Logs to STDOUT console and optionally to Visual Studio's Application Output Window.
+- **FileAppender**
+  Logs to a file. No further options.
+- **RollingFileAppender**
+  Logs to a file. Configurable roll-count and file size.
+
+
+Built-in Formatters
+-------------------
+- **SimpleFormatter**
+  The default Formatter, which includes most important information in a predefined layout.
+- **PatternFormatter**
+  Provides placeholders to define a custom log messages format (e.g. ``[%date] [%lls] [line=%line] [file=%filename] %m\n``)
+
+
 Dependencies
 ============
 Except the STL (Standard Template Library), which should be on nearly every system,
@@ -37,8 +69,8 @@ cmake -DBuildExamples=OFF
 
 
 Examples
---------
-See the ``./examples/basic/`` folder for an short introduction.
+========
+See the ``./examples/basic/`` and ``./examples/configured`` folders for an short introduction.
 
 
 Example configuration file
@@ -67,10 +99,11 @@ the wildcard (*) have to be used.
 Build Compatibility
 -------------------
 The project build has been tested in the following environments.
-* Windows 8.1 Update 1 Visual Studio 2008 (32 & 64 bit)
-* Windows 8.1 Update 1 Visual Studio 2010 (32 & 64 bit)
-* Windows 8.1 Update 1 Visual Studio 2012 (32 & 64 bit)
-* Ubuntu 14.04 GCC 4.8 (32 & 64 bit)
+
+- Windows 8.1 Update 1 Visual Studio 2008 (32 & 64 bit)
+- Windows 8.1 Update 1 Visual Studio 2010 (32 & 64 bit)
+- Windows 8.1 Update 1 Visual Studio 2012 (32 & 64 bit)
+- Ubuntu 14.04 GCC 4.8 (32 & 64 bit)
 
 
 Performance tests
