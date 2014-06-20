@@ -1,4 +1,4 @@
 set(mtperformance_example_sources mtperformance_example.cpp)
 include_directories(../../include)
 add_executable(mtperformance_example ${mtperformance_example_sources})
-target_link_libraries(mtperformance_example humblelogging)
+target_link_libraries(mtperformance_example humblelogging pthread)

@@ -3,9 +3,12 @@
 
 #ifdef __linux__
 #include <sys/time.h>
+#include <pthread.h>
 #endif
+
 #include <stdio.h>
 #include <vector>
+#include <cstring>
 
 HUMBLE_LOGGER(logger, "default");
 
@@ -28,6 +31,14 @@ long getTimestampMillis()
   struct timeval t;
   gettimeofday(&t, NULL);
   return (t.tv_sec * 1000 + t.tv_usec/1000) + 0.5;
+}
+
+void* threadWork1(void *args)
+{
+  for (unsigned long i = 0; i < OPTS.threadIterations; ++i) {
+    HL_TRACE(logger, std::string("A apple doesn't taste like a banana. Surprise!"));
+  }
+  return NULL;
 }
 #endif
 
@@ -102,6 +113,7 @@ int main(int argc, char **argv)
 
   const long startMs = getTimestampMillis();
 
+#ifdef _WIN32
   // Start logging threads.
   std::vector<HANDLE> threads(OPTS.threadCount);
   for (int i = 0; i < OPTS.threadCount; ++i) {
@@ -112,6 +124,21 @@ int main(int argc, char **argv)
   for (int i = 0; i < threads.size(); ++i) {
     WaitForSingleObject(threads[i], INFINITE);
   }
+#endif
+
+#ifdef __linux__
+  // Start logging threads.
+  std::vector<pthread_t> threads(OPTS.threadCount);
+  for (int i = 0; i < OPTS.threadCount; ++i) {
+    pthread_t t;
+    pthread_create(&t, NULL, &threadWork1, NULL);
+    threads.push_back(t);
+  }
+  // Wait until they are done.
+  for (int i = 0; i < threads.size(); ++i) {
+    pthread_join(threads[i], NULL);
+  }
+#endif
 
   const long endMs = getTimestampMillis();
   const long durationMs = endMs - startMs;

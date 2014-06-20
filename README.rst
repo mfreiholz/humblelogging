@@ -40,7 +40,9 @@ Dependencies
 Except the STL (Standard Template Library), which should be on nearly every system,
 the project doesn't require third-party libraries.
 
-Note: Linux requires ``std::mutex``
+**Linux**
+- ``std::mutex``
+- ``pthread`` for ``./examples/mtperformance``
 
 
 How To Build
