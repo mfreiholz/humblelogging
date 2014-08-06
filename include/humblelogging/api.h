@@ -5,6 +5,7 @@
 #include "configuration.h"
 #include "factory.h"
 #include "formatter.h"
+#include "logevent.h"
 #include "logger.h"
 #include "loglevel.h"
 
@@ -13,7 +14,7 @@
 #define HUMBLE_LOG(L,S,LL) \
   do { \
     if (L.wouldLog(LL)) { \
-      humble::logging::LogEvent le(LL, S, __LINE__, __FILE__); \
+      humble::logging::LogEvent le(LL, S, __LINE__, __FILE__, __FUNCNAME__); \
       L.log(le); \
     } \
   } \

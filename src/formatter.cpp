@@ -44,7 +44,7 @@ std::string SimpleFormatter::format(const LogEvent &logEvent) const
   struct tm *timeinfo = localtime(&logEvent.getTime());
   char timeString [80];
   strftime(timeString, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
-  
+
   std::stringstream ss;
   ss
     << "[" << timeString << "] "
@@ -53,6 +53,7 @@ std::string SimpleFormatter::format(const LogEvent &logEvent) const
     << "[" << logLevelString << "] "
     << "[line=" << logEvent.getLine() << "] "
     << "[file=" << logEvent.getFile() << "] "
+    << "[func=" << logEvent.getFunction() << "] "
     << logEvent.getMessage()
     << "\n";
   return ss.str(); // optional: std::move(ss.str())
@@ -118,6 +119,9 @@ std::string PatternFormatter::format(const LogEvent &logEvent) const
   }
   if ((pos = s.find("%file")) != std::string::npos) {
     s.replace(pos, 5, logEvent.getFile());
+  }
+  if ((pos = s.find("%func")) != std::string::npos) {
+    s.replace(pos, 5, logEvent.getFunction());
   }
   if ((pos = s.find("%date")) != std::string::npos) {
     struct tm *timeinfo = localtime(&logEvent.getTime());

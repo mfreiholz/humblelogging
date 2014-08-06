@@ -29,4 +29,11 @@
   #pragma warning (disable:4251)
 #endif
 
+// Function name for LogEvent
+#if defined(_MSC_VER)
+  #define __FUNCNAME__ __FUNCSIG__
+#elif defined(__GNUC__)
+  #define __FUNCNAME__ __PRETTY_FUNCTION__
 #endif
+
+#endif // HUMBLE_DEFINES_HEADER
