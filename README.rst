@@ -6,12 +6,11 @@ Lightweight C++ Logging Library
 Features
 ========
 - Thread-Safe logging.
-- Multi-Process-Safe logging (based on Appender).
 - Custom logger name pattern.
 - Configurable LogLevel by config file.
 - Changable LogLevel and Appenders during runtime.
 - Multiple Appenders for each Logger.
-- Simple API to implement custom Appenders.
+- Simple API to implement custom Appenders and Formatters.
 - Custom format for log messages (Formatter).
 
 
@@ -41,8 +40,8 @@ Except the STL (Standard Template Library), which should be on nearly every syst
 the project doesn't require third-party libraries.
 
 **Linux**
-- ``std::mutex``
-- ``pthread`` for ``./examples/mtperformance``
+- std::mutex
+- pthread for ``./examples/mtperformance``
 
 
 How To Build
