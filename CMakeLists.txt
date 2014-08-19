@@ -41,6 +41,7 @@ set(headers
 
 set(sources
   src/util/patternconfigregistry.cpp
+  src/util/processinfo.cpp
   src/appender.cpp
   src/configuration.cpp
   src/factory.cpp

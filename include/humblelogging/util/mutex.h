@@ -1,6 +1,8 @@
 #ifndef HUMBLE_MUTEX_HEADER
 #define HUMBLE_MUTEX_HEADER
 
+#include "humblelogging/defines.h"
+
 #ifdef _WIN32
 #include "mutex_windows.h"
 #else
@@ -10,7 +12,7 @@
 namespace humble {
 namespace logging {
 
-class MutexLockGuard
+class HUMBLE_EXPORT_API MutexLockGuard
 {
 public:
   MutexLockGuard(Mutex &lockable)

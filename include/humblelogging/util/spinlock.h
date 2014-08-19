@@ -1,6 +1,8 @@
 #ifndef HUMBLE_SPINLOCK_HEADER
 #define HUMBLE_SPINLOCK_HEADER
 
+#include "humblelogging/defines.h"
+
 #ifdef _WIN32
 #include "spinlock_windows.h"
 #else
@@ -10,7 +12,7 @@
 namespace humble {
 namespace logging {
 
-class SpinLocker
+class HUMBLE_EXPORT_API SpinLocker
 {
 public:
   SpinLocker(SpinLock &l)
