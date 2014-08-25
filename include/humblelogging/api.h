@@ -11,6 +11,7 @@
 
 #define HUMBLE_LOGGER(L, N) static humble::logging::Logger& L = humble::logging::Factory::getInstance().getLogger(N)
 
+#ifdef HUMBLE_INCLUDE_PRETTY_FUNCTION
 #define HUMBLE_LOG(L,S,LL) \
   do { \
     if (L.wouldLog(LL)) { \
@@ -19,6 +20,16 @@
     } \
   } \
   while (false)
+#else
+#define HUMBLE_LOG(L,S,LL) \
+  do { \
+    if (L.wouldLog(LL)) { \
+      humble::logging::LogEvent le(LL, S, __LINE__, __FILE__, std::string()); \
+      L.log(le); \
+    } \
+  } \
+  while (false)
+#endif
 
 #define HL_FATAL(L,S) HUMBLE_LOG(L, S, humble::logging::LogLevel::Fatal)
 #define HL_ERROR(L,S) HUMBLE_LOG(L, S, humble::logging::LogLevel::Error)
