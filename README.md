@@ -62,14 +62,13 @@ The `install` target will copy all public headers, libraries and cmake scripts i
 
 ## Build Options
 
-**cmake -DBuildShared=OFF**
-  Builds the library as static or shared library.
-  `default=ON`
+**cmake -DBuildShared=OFF** `default=ON`
+> Builds the library as static or shared library.
+
   
-**cmake -DBuildExamples=OFF**
-  Builds all sub projects in the `./examples/` folder.
-  `default=ON`
-  
+**cmake -DBuildExamples=OFF** `default=ON`
+>Builds all sub projects in the `./examples/` folder.
+
 
 ## Build Compatibility
 
