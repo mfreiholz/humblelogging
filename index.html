@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="HumbleLogging Framework : HumbleLogging is a C++ logging framework">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>HumbleLogging Framework</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/mfreiholz/humble-logging-library">View on GitHub</a>
+
+          <h1 id="project_title">HumbleLogging Framework</h1>
+          <h2 id="project_tagline">HumbleLogging is a C++ logging framework</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/mfreiholz/humble-logging-library/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/mfreiholz/humble-logging-library/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="humblelogging-framework-c" class="anchor" href="#humblelogging-framework-c"><span class="octicon octicon-link"></span></a>HumbleLogging Framework (C++)</h1>
+
+<p>HumbleLogging is a lightweight C++ logging framework.</p>
+
+<h1>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h1>
+
+<ul>
+<li>Thread-Safe logging.</li>
+<li>Custom logger name pattern.</li>
+<li>Configurable LogLevel by config file.</li>
+<li>Changable LogLevel and Appenders during runtime.</li>
+<li>Multiple Appenders for each Logger.</li>
+<li>Simple API to implement custom Appenders and Formatters.</li>
+<li>Custom format for log messages (Formatter).</li>
+</ul><h2>
+<a name="built-in-appenders" class="anchor" href="#built-in-appenders"><span class="octicon octicon-link"></span></a>Built-in Appenders</h2>
+
+<ul>
+<li>
+<strong>NullAppender</strong>
+Doesn't log anything. It's used for performance testing.</li>
+<li>
+<strong>ConsoleAppender</strong>
+Logs to STDOUT console and optionally to Visual Studio's Application Output Window.</li>
+<li>
+<strong>FileAppender</strong>
+Logs to a file. No further options.</li>
+<li>
+<strong>RollingFileAppender</strong>
+Logs to a file. Configurable roll-count and file size.</li>
+</ul><h2>
+<a name="built-in-formatters" class="anchor" href="#built-in-formatters"><span class="octicon octicon-link"></span></a>Built-in Formatters</h2>
+
+<ul>
+<li>
+<strong>SimpleFormatter</strong>
+The default Formatter, which includes most important information in a predefined layout.</li>
+<li>
+<strong>PatternFormatter</strong>
+Provides placeholders to define a custom log messages format (e.g. <code>[%date] [%lls] [line=%line] [file=%filename] %m\n</code>)</li>
+</ul><h1>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h1>
+
+<p>Except the STL (Standard Template Library), which should be on nearly every system,
+the project doesn't require third-party libraries.</p>
+
+<h2>
+<a name="linux" class="anchor" href="#linux"><span class="octicon octicon-link"></span></a>Linux</h2>
+
+<ul>
+<li>C++11 <code>std::mutex</code>
+</li>
+<li>
+<code>pthread</code> for <code>./examples/mtperformance</code>
+</li>
+</ul><h1>
+<a name="how-to-build" class="anchor" href="#how-to-build"><span class="octicon octicon-link"></span></a>How To Build</h1>
+
+<p>Type on your console</p>
+
+<pre><code>cd $PROJECT_DIRECTORY
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/tmp/humblelogging ..
+</code></pre>
+
+<p>After you ran these commands you should have a <code>Makefile</code> or Visual Studio solution <code>*.sln</code> to build the library.
+The <code>install</code> target will copy all public headers, libraries and cmake scripts into the <code>CMAKE_INSTALL_PREFIX</code> directory.</p>
+
+<h2>
+<a name="build-options" class="anchor" href="#build-options"><span class="octicon octicon-link"></span></a>Build Options</h2>
+
+<p><strong>cmake -DBuildShared=OFF</strong> <code>default=ON</code></p>
+
+<blockquote>
+<p>Builds the library as static or shared library.</p>
+</blockquote>
+
+<p><strong>cmake -DBuildExamples=OFF</strong> <code>default=ON</code></p>
+
+<blockquote>
+<p>Builds all sub projects in the <code>./examples/</code> folder.</p>
+</blockquote>
+
+<h2>
+<a name="build-compatibility" class="anchor" href="#build-compatibility"><span class="octicon octicon-link"></span></a>Build Compatibility</h2>
+
+<p>The project build has been tested in the following environments.</p>
+
+<ul>
+<li>Windows 8.1 Update 1 Visual Studio 2008 (32 &amp; 64 bit)</li>
+<li>Windows 8.1 Update 1 Visual Studio 2010 (32 &amp; 64 bit)</li>
+<li>Windows 8.1 Update 1 Visual Studio 2012 (32 &amp; 64 bit)</li>
+<li>Ubuntu 14.04 GCC 4.8 (32 &amp; 64 bit)</li>
+</ul><h1>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h1>
+
+<p>See the <code>./examples/basic/</code> and <code>./examples/configured</code> folders for an short introduction.</p>
+
+<h2>
+<a name="example-configuration-file" class="anchor" href="#example-configuration-file"><span class="octicon octicon-link"></span></a>Example configuration file</h2>
+
+<p>The example configuration shows, that it is not required to rely on a specific pattern of Logger names.
+The framework is based on simple strings and prefix searches. If it is required to specify a log-level recursive
+the wildcard (*) have to be used.</p>
+
+<pre><code># Sets the default log-level to OFF.
+logger.level(*)=off
+
+# Specify a specific log-level for a few loggers.
+logger.level(core*)=fatal
+logger.level(core.network*)=error
+logger.level(core.network.tcp*)=debug
+
+# Some more loggers with different names.
+logger.level(Core*)=fatal
+logger.level(CoreNetwork*)=error
+logger.level(Audio*)=warn
+logger.level(Video*)=warn
+logger.level(VideoCapture*)=off
+</code></pre>
+
+<h1>
+<a name="performance-tests" class="anchor" href="#performance-tests"><span class="octicon octicon-link"></span></a>Performance tests</h1>
+
+<p>Feel free to contribute your tests (only release builds).
+The following command can be used to test the performance.</p>
+
+<pre><code>mtperformance_example.exe 4 20000000 null
+</code></pre>
+
+<table>
+<thead><tr>
+<th>Environment</th>
+<th>Events</th>
+<th>Threads</th>
+<th>Duration (ms)</th>
+<th>Throughput (events/second)</th>
+</tr></thead>
+<tbody><tr>
+<td>Windows 8.1 Update 1 32 bit / VC 2012 / Core i7 3770K @ 3.50 GHz</td>
+<td>80000000</td>
+<td>4</td>
+<td>12468</td>
+<td>6416426.05</td>
+</tr></tbody>
+</table>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">HumbleLogging Framework maintained by <a href="https://github.com/mfreiholz">mfreiholz</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
