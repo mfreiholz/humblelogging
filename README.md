@@ -31,7 +31,7 @@ HumbleLogging is a lightweight C++ logging framework.
 - **SimpleFormatter**
   The default Formatter, which includes most important information in a predefined layout.
 - **PatternFormatter**
-  Provides placeholders to define a custom log messages format (e.g. ``[%date] [%lls] [line=%line] [file=%filename] %m\n``)
+  Provides placeholders to define a custom log messages format (e.g. `[%date] [%lls] [line=%line] [file=%filename] %m\n`)
 
 
 # Dependencies
@@ -41,8 +41,8 @@ the project doesn't require third-party libraries.
 
 ## Linux
 
-- C++11 ``std::mutex``
-- ``pthread`` for ``./examples/mtperformance``
+- C++11 `std::mutex`
+- `pthread` for `./examples/mtperformance`
 
 
 # How To Build
@@ -56,19 +56,19 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/tmp/humblelogging ..
 ```
   
-After you ran these commands you should have a ``Makefile`` or Visual Studio solution ``*.sln`` to build the library.
-The ``install`` target will copy all public headers, libraries and cmake scripts into the ``CMAKE_INSTALL_PREFIX`` directory.
+After you ran these commands you should have a `Makefile` or Visual Studio solution `*.sln` to build the library.
+The `install` target will copy all public headers, libraries and cmake scripts into the `CMAKE_INSTALL_PREFIX` directory.
 
 
 ## Build Options
 
 **cmake -DBuildShared=OFF**
   Builds the library as static or shared library.
-  ``default=ON``
+  `default=ON`
   
 **cmake -DBuildExamples=OFF**
-  Builds all sub projects in the ``./examples/`` folder.
-  ``default=ON``
+  Builds all sub projects in the `./examples/` folder.
+  `default=ON`
   
 
 ## Build Compatibility
@@ -83,7 +83,7 @@ The project build has been tested in the following environments.
 
 # Examples
 
-See the ``./examples/basic/`` and ``./examples/configured`` folders for an short introduction.
+See the `./examples/basic/` and `./examples/configured` folders for an short introduction.
 
 
 ## Example configuration file
@@ -113,13 +113,12 @@ logger.level(VideoCapture*)=off
 # Performance tests
 
 Feel free to contribute your tests (only release builds).
+The following command can be used to test the performance.
 
 ```
-  # Windows 8.1 Update 1 32 bit / VC 2012 / Core i7 3770K @ 3.50 GHz
-  # CMD: mtperformance_example.exe 4 20000000 null
-  # Tester: mfreiholz
-  Events: 80000000
-  Threads: 4
-  Duration: 12468 ms / 12.468000 s
-  Throughput: 6416426.050690 events/second
+mtperformance_example.exe 4 20000000 null
 ```
+
+Environment | Events | Threads | Duration (ms) | Throughput (events/second)
+------------|--------|---------|---------------|---------------------------
+Windows 8.1 Update 1 32 bit / VC 2012 / Core i7 3770K @ 3.50 GHz | 80000000 | 4 | 12468 | 6416426.05
