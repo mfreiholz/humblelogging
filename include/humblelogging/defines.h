@@ -2,11 +2,11 @@
 #define HUMBLE_DEFINES_HEADER
 
 // DLL Import/Export macro
-#ifdef WIN32
-  #if defined(HUMBLE_LOGGING_EXPORT)
+#ifdef _WIN32
+  #if defined(HUMBLELOGGING_EXPORT)
     #define HUMBLE_EXPORT_API __declspec(dllexport)
   #else
-    #define HUMBLE_EXPORT_API
+    #define HUMBLE_EXPORT_API __declspec(dllexport)
   #endif
 #else
   #define HUMBLE_EXPORT_API
