@@ -67,7 +67,15 @@ The `install` target will copy all public headers, libraries and cmake scripts i
 
   
 **cmake -DBuildExamples=OFF** `default=ON`
->Builds all sub projects in the `./examples/` folder.
+> Builds all sub projects in the `./examples/` folder.
+
+
+**cmake -DBuildLockFree=ON** `default=OFF`
+> Builds the library in lock-free mode. Mutex classes doesn't thread lock execution.
+
+
+**cmake -DIncludeFunctionSignature=ON** `default=OFF`
+> Include current stack's function in LogEvent. May decrease the performance a bit.
 
 
 ## Build Compatibility
