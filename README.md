@@ -77,6 +77,7 @@ The project build has been tested in the following environments.
 - Windows 8.1 Update 1 Visual Studio 2008 (32 & 64 bit)
 - Windows 8.1 Update 1 Visual Studio 2010 (32 & 64 bit)
 - Windows 8.1 Update 1 Visual Studio 2012 (32 & 64 bit)
+- Windows 8.1 Update 2 Visual Studio Community 2013 update 4 (32 & 64 bit)
 - Ubuntu 14.04 GCC 4.8 (32 & 64 bit)
 
 
@@ -121,3 +122,5 @@ mtperformance_example.exe 4 20000000 null
 Environment | Events | Threads | Duration (ms) | Throughput (events/second)
 ------------|--------|---------|---------------|---------------------------
 Windows 8.1 Update 1 32 bit / VC 2012 / Core i7 3770K @ 3.50 GHz | 80000000 | 4 | 12468 | 6416426.05
+Windows 8.1 Update 2 32 bit / VC 2013 Community / Core i7 920 @ 2.67 GHz | 80000000 | 4 | 18645 | 4290694.56
+Windows 8.1 Update 2 64 bit / VC 2013 Community / Core i7 920 @ 2.67 GHz | 80000000 | 4 | 15320 | 5221932.11
