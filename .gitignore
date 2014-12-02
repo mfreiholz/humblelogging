@@ -2,3 +2,10 @@ build/
 CMakeLists.txt.user
 Debug/
 Release/
+vs2012/Debug/
+vs2012/Release/
+vs2012/*.opensdf
+vs2012/*.sdf
+vs2012/*.suo
+vs2012/*.ncb
+vs2012/*.user

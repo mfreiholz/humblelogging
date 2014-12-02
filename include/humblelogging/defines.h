@@ -27,6 +27,7 @@
 // Disable warning on MSVC
 #ifdef _MSC_VER
   #pragma warning (disable:4251)
+  #pragma warning (disable:4996) // sprintf => sprintf_s
 #endif
 
 // Function name for LogEvent
