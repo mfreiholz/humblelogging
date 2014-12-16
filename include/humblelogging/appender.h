@@ -8,8 +8,7 @@
 #include "humblelogging/logevent.h"
 #include "humblelogging/util/mutex.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class Formatter;
 
@@ -116,5 +115,5 @@ private:
   std::ofstream _stream;
 };
 
-}}  // End of namespaces.
+HL_NAMESPACE_END
 #endif

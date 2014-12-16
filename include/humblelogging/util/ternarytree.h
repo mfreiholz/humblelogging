@@ -3,8 +3,7 @@
 
 #include <vector>
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 template <class V>
 class TernaryNode
@@ -201,5 +200,5 @@ protected:
   TernaryNode<V> *_root;
 };
 
-}} // End of namespace.
+HL_NAMESPACE_END
 #endif

@@ -3,8 +3,7 @@
 
 #include "humblelogging/defines.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API ProcessInfo
 {
@@ -13,5 +12,5 @@ public:
   static unsigned int getThreadID();
 };
 
-}} // End of namespace.
+HL_NAMESPACE_END
 #endif

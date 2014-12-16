@@ -8,8 +8,7 @@
 #include "humblelogging/util/mutex.h"
 #include "humblelogging/util/ternarytree.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class Logger;
 class Appender;
@@ -111,5 +110,5 @@ private:
   int _level;
 };
 
-}}  // End of namespace.
+HL_NAMESPACE_END
 #endif

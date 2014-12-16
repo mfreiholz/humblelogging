@@ -96,7 +96,7 @@ install(TARGETS humblelogging
   ARCHIVE DESTINATION lib
 )
 install(FILES ${headers} DESTINATION include/humblelogging)
-install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
+#install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
 
 # Examples
 if(BuildExamples)

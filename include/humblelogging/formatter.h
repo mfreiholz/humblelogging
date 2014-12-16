@@ -6,8 +6,7 @@
 #include "humblelogging/defines.h"
 #include "humblelogging/logevent.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 /*
   Base class for all Formatters.
@@ -61,5 +60,5 @@ private:
   std::string _pattern;
 };
 
-}}  // End of namespaces.
+HL_NAMESPACE_END
 #endif

@@ -6,8 +6,7 @@
 #include "humblelogging/defines.h"
 #include "humblelogging/util/ternarytree.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API PatternConfigRegistry
 {
@@ -34,5 +33,5 @@ private:
   int _defaultLogLevel;
 };
 
-}} // End of namespace.
+HL_NAMESPACE_END
 #endif

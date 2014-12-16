@@ -9,8 +9,7 @@
 #include "mutex_linux.h"
 #endif
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API MutexLockGuard
 {
@@ -30,6 +29,5 @@ private:
   Mutex &_lockable;
 };
 
-}}
-
+HL_NAMESPACE_END
 #endif

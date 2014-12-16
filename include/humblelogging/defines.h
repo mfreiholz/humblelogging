@@ -13,11 +13,11 @@
 #endif
 
 // Namespace defines
-#define HUMBLE_NAMESPACE_BEGIN \
+#define HL_NAMESPACE_BEGIN \
   namespace humble { \
   namespace logging {
 
-#define HUMBLE_NAMESPACE_END \
+#define HL_NAMESPACE_END \
   }}
 
 // Disable copy constructor.

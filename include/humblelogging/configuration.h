@@ -6,8 +6,7 @@
 #include "humblelogging/defines.h"
 #include "humblelogging/util/patternconfigregistry.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class Logger;
 class Appender;
@@ -54,6 +53,5 @@ private:
   PatternConfigRegistry _registry;
 };
 
-
-}}  // End of namespace.
+HL_NAMESPACE_END
 #endif

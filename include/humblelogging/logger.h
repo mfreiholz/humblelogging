@@ -10,8 +10,7 @@
 #include "humblelogging/util/mutex.h"
 #include "humblelogging/util/spinlock.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class Appender;
 
@@ -53,5 +52,5 @@ private:
   std::list<Appender*> _appenders;
 };
 
-}}  // End of namespaces.
+HL_NAMESPACE_END
 #endif
