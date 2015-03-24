@@ -19,6 +19,7 @@ class HUMBLE_EXPORT_API Factory
 {
 private:
   Factory();
+  Factory(const Factory &);
 
 public:
   ~Factory();
