@@ -9,3 +9,10 @@ vs2012/*.sdf
 vs2012/*.suo
 vs2012/*.ncb
 vs2012/*.user
+vs2013/Debug/
+vs2013/Release/
+vs2013/*.opensdf
+vs2013/*.sdf
+vs2013/*.suo
+vs2013/*.ncb
+vs2013/*.user
