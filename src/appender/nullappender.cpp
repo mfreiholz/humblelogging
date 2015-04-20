@@ -1,0 +1,21 @@
+#include "humblelogging/appender/nullappender.h"
+
+HL_NAMESPACE_BEGIN
+
+///////////////////////////////////////////////////////////////////////////////
+// NullAppender
+///////////////////////////////////////////////////////////////////////////////
+
+NullAppender::NullAppender()
+{
+}
+
+NullAppender::~NullAppender()
+{
+}
+
+void NullAppender::log(const LogEvent &logEvent)
+{
+}
+
+HL_NAMESPACE_END

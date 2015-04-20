@@ -5,7 +5,7 @@ set(VERSION_MINOR 0)
 set(VERSION_EXTRA "DEVELOPMENT")
 
 option(BuildShared "BuildShared" ON)
-option(BuildExamples "BuildExamples" ON)
+option(BuildExamples "BuildExamples" OFF)
 option(BuildLockFree "BuildLockFree" OFF)
 option(IncludeFunctionSignature "IncludeFunctionSignature" OFF)
 
@@ -20,12 +20,16 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "-std=c++11")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+#set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+#set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+#set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 # Sources
 set(headers
+  include/humblelogging/appender/consoleappender.h
+  include/humblelogging/appender/fileappender.h
+  include/humblelogging/appender/nullappender.h
+  include/humblelogging/appender/rollingfileappender.h
   include/humblelogging/util/mutex.h
   include/humblelogging/util/spinlock.h
   include/humblelogging/util/patternconfigregistry.h
@@ -43,6 +47,10 @@ set(headers
 )
 
 set(sources
+  src/appender/consoleappender.cpp
+  src/appender/fileappender.cpp
+  src/appender/nullappender.cpp
+  src/appender/rollingfileappender.cpp
   src/util/patternconfigregistry.cpp
   src/util/processinfo.cpp
   src/appender.cpp
@@ -99,6 +107,15 @@ install(FILES ${headers} DESTINATION include/humblelogging)
 #install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
 
 # Examples
+macro(humblelogging_POSTBUILD_COPY target_)
+  add_custom_command(
+    TARGET ${target_} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+      $<TARGET_FILE:humblelogging>
+      $<TARGET_FILE_DIR:${target_}>/$<TARGET_FILE_NAME:humblelogging>
+  )
+endmacro(humblelogging_POSTBUILD_COPY)
+
 if(BuildExamples)
   add_subdirectory(examples/basic)
   add_subdirectory(examples/configured)

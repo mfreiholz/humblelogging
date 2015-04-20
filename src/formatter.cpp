@@ -47,13 +47,16 @@ std::string SimpleFormatter::format(const LogEvent &logEvent) const
 
   std::stringstream ss;
   ss
-    << "[" << timeString << "] "
-    << "[pid=" << logEvent.getPid() << "] "
-    << "[tid=" << logEvent.getTid() << "] "
-    << "[" << logLevelString << "] "
-    << "[line=" << logEvent.getLine() << "] "
-    << "[file=" << logEvent.getFile() << "] "
-    << "[func=" << logEvent.getFunction() << "] "
+    << "[" << timeString << "]"
+    << "[" << logLevelString << "]"
+    << "[pid=" << logEvent.getPid() << "]"
+    << "[tid=" << logEvent.getTid() << "]"
+    << "[file=" << logEvent.getFile() << "]"
+    << "[line=" << logEvent.getLine() << "]"
+#ifdef HUMBLE_INCLUDE_PRETTY_FUNCTION
+    << "[func=" << logEvent.getFunction() << "]"
+#endif
+    << " "
     << logEvent.getMessage()
     << "\n";
   return ss.str(); // optional: std::move(ss.str())

@@ -8,6 +8,10 @@
 #include "logevent.h"
 #include "logger.h"
 #include "loglevel.h"
+#include "appender/consoleappender.h"
+#include "appender/fileappender.h"
+#include "appender/nullappender.h"
+#include "appender/rollingfileappender.h"
 
 #define HUMBLE_LOGGER(L, N) static humble::logging::Logger& L = humble::logging::Factory::getInstance().getLogger(N)
 
