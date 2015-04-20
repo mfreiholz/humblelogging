@@ -66,7 +66,7 @@ The `install` target will copy all public headers, libraries and cmake scripts i
 > Builds the library as static or shared library.
 
   
-**cmake -DBuildExamples=OFF** `default=ON`
+**cmake -DBuildExamples=ON** `default=OFF`
 > Builds all sub projects in the `./examples/` folder.
 
 
@@ -75,7 +75,7 @@ The `install` target will copy all public headers, libraries and cmake scripts i
 
 
 **cmake -DIncludeFunctionSignature=ON** `default=OFF`
-> Include current stack's function in LogEvent. May decrease the performance a bit.
+> Include current stack's function signature in LogEvent. Does decrease performance.
 
 
 ## Build Compatibility
