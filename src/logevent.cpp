@@ -1,8 +1,7 @@
 #include "humblelogging/logevent.h"
 #include "humblelogging/util/processinfo.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 LogEvent::LogEvent(int level, const std::string &message, int line, const std::string &file, const std::string &func)
   : _level(level),
@@ -20,4 +19,4 @@ LogEvent::~LogEvent()
 {
 }
 
-}}  // End of namespaces.
+HL_NAMESPACE_END

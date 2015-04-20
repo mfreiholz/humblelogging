@@ -9,8 +9,7 @@
 #include <signal.h>
 #endif
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 unsigned int ProcessInfo::getProcessID()
 {
@@ -30,4 +29,4 @@ unsigned int ProcessInfo::getThreadID()
 #endif
 }
 
-}} // End of namespace.
+HL_NAMESPACE_END

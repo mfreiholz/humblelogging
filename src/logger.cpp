@@ -6,8 +6,7 @@
 
 #include "humblelogging/appender.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 Logger::Logger(const std::string &name, int level)
   : _name(name), _level(level), _appenders()
@@ -89,4 +88,4 @@ Logger& Logger::log(const LogEvent &logEvent)
   return (*this);
 }
 
-}}  // End of namespaces.
+HL_NAMESPACE_END

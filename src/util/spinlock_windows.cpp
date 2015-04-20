@@ -1,7 +1,6 @@
 #include "humblelogging/util/spinlock_windows.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 SpinLock::SpinLock()
 {
@@ -32,4 +31,4 @@ bool SpinLock::tryLock()
   return InterlockedExchange(&_val, (LONG) 1) == 0;
 }
 
-}} // End of namespace.
+HL_NAMESPACE_END

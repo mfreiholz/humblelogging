@@ -5,8 +5,7 @@
 
 #include "humblelogging/loglevel.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 ///////////////////////////////////////////////////////////////////////////////
 // Formatter
@@ -135,4 +134,4 @@ std::string PatternFormatter::format(const LogEvent &logEvent) const
   return s; // optional: std::move(s)
 }
 
-}}  // End of namespaces.
+HL_NAMESPACE_END

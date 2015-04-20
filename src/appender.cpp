@@ -9,8 +9,7 @@
 #include "humblelogging/loglevel.h"
 #include "humblelogging/formatter.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 ///////////////////////////////////////////////////////////////////////////////
 // Appender
@@ -45,4 +44,4 @@ Formatter* Appender::getFormatter() const
   return _formatter;
 }
 
-}}  // End of namespaces.
+HL_NAMESPACE_END

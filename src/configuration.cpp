@@ -5,8 +5,7 @@
 #include "humblelogging/loglevel.h"
 #include "humblelogging/logger.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 ///////////////////////////////////////////////////////////////////////////////
 // Configuration
@@ -70,4 +69,4 @@ DefaultConfiguration* DefaultConfiguration::createFromString(const std::string &
   return config;
 }
 
-}}  // End of namespace.
+HL_NAMESPACE_END

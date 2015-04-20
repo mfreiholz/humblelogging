@@ -6,8 +6,7 @@
 
 #include "humblelogging/loglevel.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 PatternConfigRegistry::PatternConfigRegistry()
   : _defaultLogLevel(LogLevel::Off)
@@ -145,4 +144,4 @@ int PatternConfigRegistry::getLogLevel(const std::string &loggerName) const
   return _defaultLogLevel;
 }
 
-}}
+HL_NAMESPACE_END

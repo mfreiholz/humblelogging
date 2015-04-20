@@ -11,8 +11,7 @@
 #include "humblelogging/formatter.h"
 #include "humblelogging/configuration.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 Factory::Factory()
   : _config(NULL),
@@ -173,4 +172,4 @@ void Factory::configure()
   }
 }
 
-}}  // End of namespace.
+HL_NAMESPACE_END

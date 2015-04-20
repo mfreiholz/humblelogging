@@ -1,7 +1,6 @@
 #include "humblelogging/loglevel.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 std::string LogLevel::resolveLogLevel(int level)
 {
@@ -64,4 +63,4 @@ int LogLevel::resolveLogLevel(const std::string &level)
   return LogLevel::Off;
 }
 
-}}  // End of namespaces.
+HL_NAMESPACE_END
