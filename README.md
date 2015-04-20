@@ -2,6 +2,8 @@
 
 HumbleLogging is a lightweight C++ logging framework.
 
+[![Build Status](https://api.travis-ci.org/mfreiholz/humblelogging.svg?branch=master)](https://travis-ci.org/mfreiholz/humblelogging)
+
 
 # Features
 
