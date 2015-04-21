@@ -1,7 +1,6 @@
 #include "humblelogging/util/spinlock_nolock.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 SpinLock::SpinLock()
 {
@@ -24,4 +23,4 @@ bool SpinLock::tryLock()
   return true;
 }
 
-}} // End of namespace.
+HL_NAMESPACE_END

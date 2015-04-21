@@ -1,7 +1,6 @@
 #include "humblelogging/util/mutex_linux.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 Mutex::Mutex()
 {
@@ -22,4 +21,4 @@ void Mutex::unlock()
   _m.unlock();
 }
 
-}}  // End of namespace.
+HL_NAMESPACE_END

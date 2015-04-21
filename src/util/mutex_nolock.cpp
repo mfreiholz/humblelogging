@@ -1,7 +1,6 @@
 #include "humblelogging/util/mutex_nolock.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 Mutex::Mutex()
 {
@@ -19,4 +18,4 @@ void Mutex::unlock()
 {
 }
 
-}}  // End of namespace.
+HL_NAMESPACE_END

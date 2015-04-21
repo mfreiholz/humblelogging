@@ -3,8 +3,7 @@
 
 #include "humblelogging/defines.h"
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API Mutex
 {
@@ -15,5 +14,5 @@ public:
   void unlock();
 };
 
-}}
+HL_NAMESPACE_END
 #endif

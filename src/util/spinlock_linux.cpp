@@ -3,8 +3,7 @@
 #include <thread>
 #include <chrono>
 
-namespace humble {
-namespace logging {
+HL_NAMESPACE_BEGIN
 
 SpinLock::SpinLock()
 {
@@ -35,4 +34,4 @@ bool SpinLock::tryLock()
   return _val.exchange(true) == false;
 }
 
-}}
+HL_NAMESPACE_END
