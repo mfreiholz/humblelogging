@@ -70,6 +70,10 @@
   <ItemGroup>
     <ClInclude Include="..\include\humblelogging\api.h" />
     <ClInclude Include="..\include\humblelogging\appender.h" />
+    <ClInclude Include="..\include\humblelogging\appender\consoleappender.h" />
+    <ClInclude Include="..\include\humblelogging\appender\fileappender.h" />
+    <ClInclude Include="..\include\humblelogging\appender\nullappender.h" />
+    <ClInclude Include="..\include\humblelogging\appender\rollingfileappender.h" />
     <ClInclude Include="..\include\humblelogging\configuration.h" />
     <ClInclude Include="..\include\humblelogging\defines.h" />
     <ClInclude Include="..\include\humblelogging\factory.h" />
@@ -87,6 +91,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\appender.cpp" />
+    <ClCompile Include="..\src\appender\consoleappender.cpp" />
+    <ClCompile Include="..\src\appender\fileappender.cpp" />
+    <ClCompile Include="..\src\appender\nullappender.cpp" />
+    <ClCompile Include="..\src\appender\rollingfileappender.cpp" />
     <ClCompile Include="..\src\configuration.cpp" />
     <ClCompile Include="..\src\factory.cpp" />
     <ClCompile Include="..\src\formatter.cpp" />

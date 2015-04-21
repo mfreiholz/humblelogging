@@ -19,6 +19,12 @@
     <Filter Include="Source Files\util">
       <UniqueIdentifier>{e4e3a895-4cf1-4d80-bdd1-2140b60f5df4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\appender">
+      <UniqueIdentifier>{699ce4f4-e3bc-4e8d-bd8b-d0981d6030dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\appender">
+      <UniqueIdentifier>{e8ef866a-2f22-4a51-bf65-e7d17e220bdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\humblelogging\api.h">
@@ -69,6 +75,18 @@
     <ClInclude Include="..\include\humblelogging\util\ternarytree.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\consoleappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\fileappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\nullappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\rollingfileappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\appender.cpp">
@@ -103,6 +121,18 @@
     </ClCompile>
     <ClCompile Include="..\src\util\spinlock_windows.cpp">
       <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\consoleappender.cpp">
+      <Filter>Source Files\appender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\fileappender.cpp">
+      <Filter>Source Files\appender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\nullappender.cpp">
+      <Filter>Source Files\appender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\rollingfileappender.cpp">
+      <Filter>Source Files\appender</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
