@@ -1,6 +1,10 @@
 #include "humblelogging/api.h"
 #include "humblelogging/util/mutex.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 #ifdef __linux__
 #include <sys/time.h>
 #include <pthread.h>
@@ -9,6 +13,7 @@
 #include <stdio.h>
 #include <vector>
 #include <cstring>
+#include <cstdlib>
 
 HUMBLE_LOGGER(logger, "default");
 
@@ -21,7 +26,7 @@ struct ExampleData {
   ExampleData()
   {
     threadCount = 1;
-    threadIterations = 1000000LL;
+    threadIterations = 1000000L;
   }
 } OPTS;
 
@@ -35,6 +40,7 @@ long getTimestampMillis()
 
 void* threadWork1(void *args)
 {
+  (void) args;
   for (unsigned long i = 0; i < OPTS.threadIterations; ++i) {
     HL_TRACE(logger, std::string("A apple doesn't taste like a banana. Surprise!"));
   }
@@ -50,7 +56,7 @@ long getTimestampMillis()
   if (s_use_qpc) {
     LARGE_INTEGER now;
     QueryPerformanceCounter(&now);
-    return (1000LL * now.QuadPart) / s_frequency.QuadPart;
+    return static_cast<long>( (1000L * now.QuadPart) / s_frequency.QuadPart );
   } else {
     return GetTickCount();
   }
@@ -101,7 +107,7 @@ int main(int argc, char **argv)
     else if (strcmp(appender, "file") == 0)
       fac.registerAppender(new FileAppender("humble.log", false));
     else if (strcmp(appender, "rfile") == 0)
-      fac.registerAppender(new RollingFileAppender("humble-rolling.log", false, 5, 1024LL * 1024LL));
+      fac.registerAppender(new RollingFileAppender("humble-rolling.log", false, 5, 1024L * 1024L));
   }
 
   printf("\n");
@@ -121,7 +127,7 @@ int main(int argc, char **argv)
     threads.push_back(t);
   }
   // Wait until they are done.
-  for (int i = 0; i < threads.size(); ++i) {
+  for (std::vector<HANDLE>::size_type i = 0; i < threads.size(); ++i) {
     WaitForSingleObject(threads[i], INFINITE);
   }
 #endif
@@ -135,7 +141,7 @@ int main(int argc, char **argv)
     threads.push_back(t);
   }
   // Wait until they are done.
-  for (int i = 0; i < threads.size(); ++i) {
+  for (size_t i = 0; i < threads.size(); ++i) {
     pthread_join(threads[i], NULL);
   }
 #endif
@@ -145,7 +151,7 @@ int main(int argc, char **argv)
   const unsigned long logEventsCount = OPTS.threadIterations * (unsigned long) OPTS.threadCount;
   double throughputPerSecond = (double) logEventsCount / (double) durationMs;
   throughputPerSecond = throughputPerSecond * (double) 1000;
-  
+
   printf("\n");
   printf("Done.\n");
   printf("  Events: %ld\n", logEventsCount);

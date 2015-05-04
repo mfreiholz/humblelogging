@@ -1,26 +1,34 @@
 #include "humblelogging/util/mutex.h"
 
+#include <mutex>
+
 HL_NAMESPACE_BEGIN
 
 class MutexPrivate
-{};
+{
+public:
+  std::mutex m;
+};
 
 Mutex::Mutex() :
-  d(0)
+  d(new MutexPrivate())
 {
 }
 
 Mutex::~Mutex()
 {
+  unlock();
   delete d;
 }
 
 void Mutex::lock()
 {
+  d->m.lock();
 }
 
 void Mutex::unlock()
 {
+  d->m.unlock();
 }
 
 HL_NAMESPACE_END

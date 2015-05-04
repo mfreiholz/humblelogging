@@ -4,6 +4,7 @@
 #include <cstdio>
 
 #include "humblelogging/loglevel.h"
+#include "humblelogging/logevent.h"
 
 HL_NAMESPACE_BEGIN
 

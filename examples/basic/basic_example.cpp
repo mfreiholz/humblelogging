@@ -7,6 +7,9 @@ using namespace humble::logging;
 
 int main(int argc, char **argv)
 {
+  (void) argc;
+  (void) argv;
+
   // 2# Initialize some default settings.
   // Change the default LogLevel, which every NEW Logger will have.
   Factory &fac = Factory::getInstance();

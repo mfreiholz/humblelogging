@@ -4,9 +4,10 @@
 #include <string>
 
 #include "humblelogging/defines.h"
-#include "humblelogging/logevent.h"
 
 HL_NAMESPACE_BEGIN
+
+class LogEvent;
 
 /*
   Base class for all Formatters.
@@ -37,7 +38,7 @@ public:
 
 /*
   Formats the log entry by a defined pattern.
-  
+
   Available placeholders:
     %lls      = Log level as string
     %m        = Log message
@@ -55,7 +56,7 @@ public:
   virtual ~PatternFormatter();
   virtual Formatter* copy() const;
   virtual std::string format(const LogEvent &logEvent) const;
-  
+
 private:
   std::string _pattern;
 };

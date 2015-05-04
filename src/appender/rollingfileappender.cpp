@@ -7,7 +7,7 @@ HL_NAMESPACE_BEGIN
 // RollingFileAppender
 ///////////////////////////////////////////////////////////////////////////////
 
-RollingFileAppender::RollingFileAppender(const std::string &filename, bool immediate, int maxRoll, unsigned long long maxFileSize) :
+RollingFileAppender::RollingFileAppender(const std::string &filename, bool immediate, int maxRoll, unsigned long maxFileSize) :
   Appender(),
   _filename(filename),
   _immediate(immediate),
@@ -47,7 +47,11 @@ bool RollingFileAppender::roll()
       return false;
     }
   }
-  if (_stream.tellp() < _maxFileSize) {
+  const std::streampos fpos = _stream.tellp();
+  if (fpos < 0) {
+    return false;
+  }
+  if (static_cast<unsigned long>(fpos) < _maxFileSize) {
     return true;
   }
   // Do the roll.

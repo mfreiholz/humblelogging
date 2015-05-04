@@ -7,6 +7,7 @@ set(VERSION_EXTRA "DEVELOPMENT")
 option(BuildShared "BuildShared" ON)
 option(BuildExamples "BuildExamples" OFF)
 option(BuildLockFree "BuildLockFree" OFF)
+option(BuildSystemNative "BuildSystemNative" OFF)
 option(IncludeFunctionSignature "IncludeFunctionSignature" OFF)
 
 if(BuildShared)
@@ -16,13 +17,15 @@ else(BuildShared)
   set(StaticOrShared "STATIC")
 endif(BuildShared)
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "-std=c++11")
-endif(CMAKE_COMPILER_IS_GNUCXX)
+if(WIN32)
+  add_definitions(/Zc:wchar_t-)
+  add_definitions(/INCREMENTAL:NO)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif(WIN32)
 
-#set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-#set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-#set(ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
 # Sources
 set(headers
@@ -62,31 +65,28 @@ set(sources
   src/loglevel.cpp
 )
 
-if(WIN32)
-  add_definitions(/Zc:wchar_t-)
-  add_definitions(/INCREMENTAL:NO)
-  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-  if(NOT BuildLockFree)
-    list(APPEND headers include/humblelogging/util/mutex_windows.h)
-    list(APPEND headers include/humblelogging/util/spinlock_windows.h)
-    list(APPEND sources src/util/mutex_windows.cpp)
-    list(APPEND sources src/util/spinlock_windows.cpp)
-  endif()
-else(WIN32)
-  if(NOT BuildLockFree)
-    list(APPEND headers include/humblelogging/util/mutex_linux.h)
-    list(APPEND headers include/humblelogging/util/spinlock_linux.h)
-    list(APPEND sources src/util/mutex_linux.cpp)
-    list(APPEND sources src/util/spinlock_linux.cpp)
-  endif()
-endif(WIN32)
-
+# Choose correct mutex implementation.
 if(BuildLockFree)
-  list(APPEND headers include/humblelogging/util/mutex_nolock.h)
-  list(APPEND headers include/humblelogging/util/spinlock_nolock.h)
   list(APPEND sources src/util/mutex_nolock.cpp)
   list(APPEND sources src/util/spinlock_nolock.cpp)
-endif(BuildLockFree)
+else()
+  if(BuildSystemNative)
+    if(WIN32)
+      list(APPEND sources src/util/mutex_windows_native.cpp)
+      list(APPEND sources src/util/spinlock_windows_native.cpp)
+    endif()
+    if(UNIX)
+      list(APPEND sources src/util/mutex_linux_native.cpp)
+      list(APPEND sources src/util/spinlock_linux_native.cpp)
+    endif()
+  else()
+    if(UNIX)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    endif()
+    list(APPEND sources src/util/mutex_c11.cpp)
+    list(APPEND sources src/util/spinlock_c11.cpp)
+  endif()
+endif()
 
 if(IncludeFunctionSignature)
   add_definitions(-DHUMBLE_INCLUDE_PRETTY_FUNCTION)
@@ -97,6 +97,12 @@ include_directories(include)
 # Target
 add_library(humblelogging ${StaticOrShared} ${sources} ${headers})
 
+if(BuildSystemNative)
+  if(UNIX)
+    target_link_libraries(humblelogging pthread)
+  endif()
+endif()
+
 # Install
 install(TARGETS humblelogging
   RUNTIME DESTINATION bin
@@ -104,7 +110,6 @@ install(TARGETS humblelogging
   ARCHIVE DESTINATION lib
 )
 install(FILES ${headers} DESTINATION include/humblelogging)
-#install(FILES cmake/FindHumbleLogging.cmake DESTINATION cmake)
 
 # Examples
 macro(humblelogging_POSTBUILD_COPY target_)

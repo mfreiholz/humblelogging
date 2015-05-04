@@ -1,13 +1,20 @@
-#include "humblelogging/util/spinlock_nolock.h"
+#include "humblelogging/util/spinlock.h"
 
 HL_NAMESPACE_BEGIN
 
-SpinLock::SpinLock()
+class SpinLockPrivate
+{
+public:
+};
+
+SpinLock::SpinLock() :
+  d(0)
 {
 }
 
 SpinLock::~SpinLock()
 {
+  delete d;
 }
 
 void SpinLock::lock()

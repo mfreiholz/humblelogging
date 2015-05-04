@@ -12,7 +12,7 @@ class HUMBLE_EXPORT_API RollingFileAppender
   : public Appender
 {
 public:
-  RollingFileAppender(const std::string &filename, bool immediate = false, int maxRoll = 5, unsigned long long maxFileSize = 10485760);
+  RollingFileAppender(const std::string &filename, bool immediate = false, int maxRoll = 5, unsigned long maxFileSize = 10485760);
   virtual ~RollingFileAppender();
   virtual void log(const LogEvent &logEvent);
 
@@ -35,7 +35,7 @@ private:
   std::string _filename;
   bool _immediate;
   int _maxRoll;
-  unsigned long long _maxFileSize;
+  unsigned long _maxFileSize;
 
   std::ofstream _stream;
 };

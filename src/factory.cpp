@@ -15,8 +15,8 @@ HL_NAMESPACE_BEGIN
 
 Factory::Factory()
   : _config(NULL),
-    _level(LogLevel::All),
-    _defaultFormatter(new SimpleFormatter())
+    _defaultFormatter(new SimpleFormatter()),
+    _level(LogLevel::All)
 {
 }
 
@@ -142,7 +142,7 @@ Factory& Factory::changeLogLevelRecursive(const std::string &prefix, int level)
   delete[] cstr;
 
   for (std::vector<Logger*>::iterator i = loggers.begin(); i != loggers.end(); ++i) {
-    const std::string &name = (*i)->getName();
+    //const std::string &name = (*i)->getName();
     (*i)->setLogLevel(level);
   }
   return *this;

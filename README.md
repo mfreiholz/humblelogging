@@ -41,9 +41,11 @@ HumbleLogging is a lightweight C++ logging framework.
 Except the STL (Standard Template Library), which should be on nearly every system,
 the project doesn't require third-party libraries.
 
+- STL
+- C++11 (Optional)
+
 ## Linux
 
-- C++11 `std::mutex`
 - `pthread` for `./examples/mtperformance`
 
 
@@ -55,7 +57,7 @@ Type on your console
 cd $PROJECT_DIRECTORY
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/tmp/humblelogging ..
+cmake -DCMAKE_INSTALL_PREFIX=/tmp/humblelogging ..
 ```
   
 After you ran these commands you should have a `Makefile` or Visual Studio solution `*.sln` to build the library.
@@ -74,6 +76,11 @@ The `install` target will copy all public headers, libraries and cmake scripts i
 
 **cmake -DBuildLockFree=ON** `default=OFF`
 > Builds the library in lock-free mode. Mutex classes doesn't thread lock execution.
+
+
+**cmake -DBuildSystemNative=ON** `default=off`
+> Builds the library with system native implementations instead of C++11.
+> e.g.: Mutex and SpinLock (Linux requires `pthread`).
 
 
 **cmake -DIncludeFunctionSignature=ON** `default=OFF`

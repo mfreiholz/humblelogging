@@ -3,13 +3,21 @@
 
 #include "humblelogging/defines.h"
 
-#ifdef _WIN32
-#include "spinlock_windows.h"
-#else
-#include "spinlock_linux.h"
-#endif
-
 HL_NAMESPACE_BEGIN
+
+class SpinLockPrivate;
+class HUMBLE_EXPORT_API SpinLock
+{
+  friend class SpinLockPrivate;
+  SpinLockPrivate *d;
+
+public:
+  SpinLock();
+  ~SpinLock();
+  void lock();
+  void unlock();
+  bool tryLock();
+};
 
 class HUMBLE_EXPORT_API SpinLocker
 {

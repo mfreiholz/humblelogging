@@ -3,13 +3,20 @@
 
 #include "humblelogging/defines.h"
 
-#ifdef _WIN32
-#include "mutex_windows.h"
-#else
-#include "mutex_linux.h"
-#endif
-
 HL_NAMESPACE_BEGIN
+
+class MutexPrivate;
+class HUMBLE_EXPORT_API Mutex
+{
+  friend class MutexPrivate;
+  MutexPrivate *d;
+
+public:
+  Mutex();
+  ~Mutex();
+  void lock();
+  void unlock();
+};
 
 class HUMBLE_EXPORT_API MutexLockGuard
 {

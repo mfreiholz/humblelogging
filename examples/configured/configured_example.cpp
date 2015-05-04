@@ -12,6 +12,9 @@ using namespace humble::logging;
 
 int main(int argc, char **argv)
 {
+  (void) argc;
+  (void) argv;
+
   Factory &fac = Factory::getInstance();
 
   // Assign a configuration to Factory.
