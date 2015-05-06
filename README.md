@@ -1,5 +1,3 @@
-# HumbleLogging Framework (C++)
-
 <img src="http://humblelogging.insanefactory.com/img/logo-index.png" title="HumbleLogging" style="float: right;">
 
 HumbleLogging is a lightweight C++ logging framework.
