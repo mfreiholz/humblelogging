@@ -1,5 +1,5 @@
-#ifndef HUMBLE_PROCESSINFO_HEADER
-#define HUMBLE_PROCESSINFO_HEADER
+#ifndef HL_PROCESSINFO_H
+#define HL_PROCESSINFO_H
 
 #include "humblelogging/defines.h"
 

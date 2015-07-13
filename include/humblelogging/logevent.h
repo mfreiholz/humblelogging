@@ -1,5 +1,5 @@
-#ifndef _LOGEVENT_HEADER_
-#define _LOGEVENT_HEADER_
+#ifndef HL_LOGEVENT_H
+#define HL_LOGEVENT_H
 
 #include <string>
 #include <ctime>

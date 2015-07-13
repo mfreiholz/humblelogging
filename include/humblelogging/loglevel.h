@@ -1,5 +1,5 @@
-#ifndef _LOGGING_LOGLEVEL_HEADER_
-#define _LOGGING_LOGLEVEL_HEADER_
+#ifndef HL_LOGLEVEL_H
+#define HL_LOGLEVEL_H
 
 #include <string>
 

@@ -1,5 +1,5 @@
-#ifndef TERNARYTREE_H
-#define TERNARYTREE_H
+#ifndef HL_TERNARYTREE_H
+#define HL_TERNARYTREE_H
 
 #include <vector>
 
@@ -169,7 +169,7 @@ public:
     } else if (node->_end) {
       data._nodes.push_back(node);
     }
-    
+
     if (node->_low)
       findNodeEndsByPrefixTraverse(node->_low, max, data);
     if (node->_equal)

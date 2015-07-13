@@ -1,5 +1,5 @@
-#ifndef HUMBLE_SPINLOCK_HEADER
-#define HUMBLE_SPINLOCK_HEADER
+#ifndef HL_SPINLOCK_H
+#define HL_SPINLOCK_H
 
 #include "humblelogging/defines.h"
 

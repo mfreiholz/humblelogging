@@ -1,5 +1,5 @@
-#ifndef _LOGGING_CONFIGURATOR_HEADER_
-#define _LOGGING_CONFIGURATOR_HEADER_
+#ifndef HL_CONFIGURATION_H
+#define HL_CONFIGURATION_H
 
 #include "humblelogging/defines.h"
 

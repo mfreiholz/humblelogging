@@ -1,5 +1,5 @@
-#ifndef _LOGGING_FORMATTER_HEADER_
-#define _LOGGING_FORMATTER_HEADER_
+#ifndef HL_FORMATTER_H
+#define HL_FORMATTER_H
 
 #include <string>
 

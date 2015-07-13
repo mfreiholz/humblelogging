@@ -1,5 +1,5 @@
-#ifndef _LOGGING_API_HEADER_
-#define _LOGGING_API_HEADER_
+#ifndef HL_API_H
+#define HL_API_H
 
 #include "appender.h"
 #include "configuration.h"

@@ -1,5 +1,5 @@
-#ifndef HUMBLE_DEFINES_HEADER
-#define HUMBLE_DEFINES_HEADER
+#ifndef HL_DEFINES_H
+#define HL_DEFINES_H
 
 // DLL Import/Export macro
 #ifdef _WIN32

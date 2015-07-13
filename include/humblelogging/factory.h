@@ -1,5 +1,5 @@
-#ifndef _LOGGING_FACTORY_HEADER_
-#define _LOGGING_FACTORY_HEADER_
+#ifndef HL_FACTORY_H
+#define HL_FACTORY_H
 
 #include <list>
 #include <string>

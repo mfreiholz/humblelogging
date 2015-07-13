@@ -1,5 +1,5 @@
-#ifndef _LOGGER_HEADER_
-#define _LOGGER_HEADER_
+#ifndef HL_LOGGER_H
+#define HL_LOGGER_H
 
 #include <string>
 #include <list>
@@ -32,7 +32,7 @@ public:
 
   bool wouldLog(int level) const;
   Logger& log(const LogEvent &logEvent);
-  
+
 private:
   mutable SpinLock _mutex;
 

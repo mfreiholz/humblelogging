@@ -1,5 +1,5 @@
-#ifndef HUMBLE_MUTEX_HEADER
-#define HUMBLE_MUTEX_HEADER
+#ifndef HL_MUTEX_H
+#define HL_MUTEX_H
 
 #include "humblelogging/defines.h"
 
