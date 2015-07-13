@@ -35,6 +35,7 @@ set(headers
   include/humblelogging/appender/rollingfileappender.h
   include/humblelogging/formatter/simpleformatter.h
   include/humblelogging/formatter/patternformatter.h
+  include/humblelogging/configuration/simpleconfiguration.h
   include/humblelogging/util/mutex.h
   include/humblelogging/util/spinlock.h
   include/humblelogging/util/patternconfigregistry.h
@@ -58,6 +59,7 @@ set(sources
   src/appender/rollingfileappender.cpp
   src/formatter/simpleformatter.cpp
   src/formatter/patternformatter.cpp
+  src/configuration/simpleconfiguration.cpp
   src/util/patternconfigregistry.cpp
   src/util/processinfo.cpp
   src/appender.cpp

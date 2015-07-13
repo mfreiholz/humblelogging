@@ -15,11 +15,19 @@ class Appender;
 class Formatter;
 class Configuration;
 
+/*
+  \class Factory
+
+  Base class to manage logging with HumbleLogging.
+  Factory class is completely thread-safe and can be called from
+  anywhere at anytime.
+*/
 class HUMBLE_EXPORT_API Factory
 {
 private:
   Factory();
   Factory(const Factory &);
+  Factory& operator=(const Factory &);
 
 public:
   ~Factory();
@@ -31,11 +39,24 @@ public:
 
   /*
     Sets the new Configuration and takes ownership of it.
+    Deletes the previously used configuration.
+
+    \param[in] config
+      The new configuration to use.
+      Note: It's not valid to pass a NULL pointer!
+
+    \return Reference to the Factory itself.
   */
   Factory& setConfiguration(Configuration *config);
 
   /*
     Registers a new Appender object and takes ownership of it.
+
+    \param[in] appender
+      The new Appender to make available for all Loggers.
+      Factory takes ownership of the Appender.
+
+    \return Reference to the Factory itself.
   */
   Factory& registerAppender(Appender *appender);
 
@@ -47,60 +68,32 @@ public:
       the method will create a new one automatically.
       Note: The name is case sensitive.
 
-    \return Reference to the existing or created Logger instance.
+    \return Reference to the existing or just created Logger instance.
   */
   Logger& getLogger(const std::string &name);
-  
-  /*
-    Sets the default LogLevel for all new Logger instances.
-    
-    \param[in] level
-      The new default LogLevel.
-  */
-  Factory& setDefaultLogLevel(int level);
-  
+
   /*
     Sets the default formatter instance to be used by Appenders,
     which does not provide it's own Formatter.
-    
+
     Changing the default Formatter will delete the previously instance.
-    
+
     \param[in] formatter
       The Formatter instance to be used as default.
+
+    \return Reference to the Factory itself.
   */
   Factory& setDefaultFormatter(Formatter *formatter);
   Formatter* getDefaultFormatter() const;
-  
-  /*
-    Changes the LogLevel of all existing Loggers.
-    This function does not change the default LogLevel for new Loggers.
-    
-    \param[in] level
-      The new LogLevel for all existing Loggers.
-  */
-  Factory& changeGlobalLogLevel(int level);
 
-  /*
-    Changes the LogLevel of all existing Loggers, which name's begin with
-    <code>prefix</code>.
-
-    \param[in] prefix
-      The prefix name of the Loggers.
-    \param[in] level
-      The new log level for the found Loggers.
-  */
-  Factory& changeLogLevelRecursive(const std::string &prefix, int level);
-  
 private:
   /*
-    Initializes all Loggers with the default configuration.
-    The default logging configuration assigns each Logger to each Appender
-    with LogLevel::All.
-    
+    Runs the reconfiguration of all known Loggers and registered Appenders.
+
     \pre-condition _mutex.lock()
   */
   void configure();
-  
+
 private:
   mutable Mutex _mutex;
   Configuration *_config;
@@ -108,7 +101,6 @@ private:
   TernaryTree<Logger*> _loggersTree;
   std::list<Appender*> _appenders;
   Formatter *_defaultFormatter;
-  int _level;
 };
 
 HL_NAMESPACE_END

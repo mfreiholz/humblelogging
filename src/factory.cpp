@@ -11,13 +11,13 @@
 #include "humblelogging/formatter.h"
 #include "humblelogging/configuration.h"
 #include "humblelogging/formatter/simpleformatter.h"
+#include "humblelogging/configuration/simpleconfiguration.h"
 
 HL_NAMESPACE_BEGIN
 
 Factory::Factory()
-  : _config(NULL),
-    _defaultFormatter(new SimpleFormatter()),
-    _level(LogLevel::All)
+  : _config(new SimpleConfiguration(LogLevel::All)),
+    _defaultFormatter(new SimpleFormatter())
 {
 }
 
@@ -53,7 +53,7 @@ Factory& Factory::getInstance()
 Factory& Factory::setConfiguration(Configuration *config)
 {
   MutexLockGuard lock(_mutex);
-  if (_config) {
+  if (_config && config != _config) {
     delete _config;
     _config = NULL;
   }
@@ -85,7 +85,7 @@ Logger& Factory::getLogger(const std::string &name)
 
   if (l == 0) {
     l = new Logger(name);
-    l->setLogLevel(_level);
+    l->setLogLevel(_config->getLogLevel(l, NULL));
     _loggers.push_back(l);
 
     char *tmp = new char[name.length() + 1];
@@ -96,13 +96,6 @@ Logger& Factory::getLogger(const std::string &name)
     configure();
   }
   return (*l);
-}
-
-Factory& Factory::setDefaultLogLevel(int level)
-{
-  MutexLockGuard lock(_mutex);
-  _level = level;
-  return *this;
 }
 
 Factory& Factory::setDefaultFormatter(Formatter *formatter)
@@ -122,31 +115,6 @@ Formatter* Factory::getDefaultFormatter() const
 {
   MutexLockGuard lock(_mutex);
   return _defaultFormatter;
-}
-
-Factory& Factory::changeGlobalLogLevel(int level)
-{
-  MutexLockGuard lock(_mutex);
-  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
-    (*i)->setLogLevel(level);
-  }
-  return *this;
-}
-
-Factory& Factory::changeLogLevelRecursive(const std::string &prefix, int level)
-{
-  MutexLockGuard lock(_mutex);
-  char *cstr = new char[prefix.length() + 1];
-  strcpy(cstr, prefix.c_str());
-
-  std::vector<Logger*> loggers = _loggersTree.findNodeEndValuesByPrefix(cstr, 0);
-  delete[] cstr;
-
-  for (std::vector<Logger*>::iterator i = loggers.begin(); i != loggers.end(); ++i) {
-    //const std::string &name = (*i)->getName();
-    (*i)->setLogLevel(level);
-  }
-  return *this;
 }
 
 void Factory::configure()

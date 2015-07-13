@@ -1,0 +1,61 @@
+# This file keeps some removed code, which i want to keep here for quick lookups.
+
+  /*
+  Sets the default LogLevel for all new Logger instances.
+
+  \param[in] level
+  The new default LogLevel.
+  */
+  Factory& setDefaultLogLevel(int level);
+
+  /*
+    Changes the LogLevel of all existing Loggers.
+    This function does not change the default LogLevel for new Loggers.
+
+    \param[in] level
+      The new LogLevel for all existing Loggers.
+  */
+  Factory& changeGlobalLogLevel(int level);
+
+  /*
+    Changes the LogLevel of all existing Loggers, which name's begin with
+    <code>prefix</code>.
+
+    \param[in] prefix
+      The prefix name of the Loggers.
+    \param[in] level
+      The new log level for the found Loggers.
+  */
+  Factory& changeLogLevelRecursive(const std::string &prefix, int level);
+  
+Factory& Factory::setDefaultLogLevel(int level)
+{
+  MutexLockGuard lock(_mutex);
+  _level = level;
+  return *this;
+}
+
+Factory& Factory::changeGlobalLogLevel(int level)
+{
+  MutexLockGuard lock(_mutex);
+  for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
+    (*i)->setLogLevel(level);
+  }
+  return *this;
+}
+
+Factory& Factory::changeLogLevelRecursive(const std::string &prefix, int level)
+{
+  MutexLockGuard lock(_mutex);
+  char *cstr = new char[prefix.length() + 1];
+  strcpy(cstr, prefix.c_str());
+
+  std::vector<Logger*> loggers = _loggersTree.findNodeEndValuesByPrefix(cstr, 0);
+  delete[] cstr;
+
+  for (std::vector<Logger*>::iterator i = loggers.begin(); i != loggers.end(); ++i) {
+    //const std::string &name = (*i)->getName();
+    (*i)->setLogLevel(level);
+  }
+  return *this;
+}

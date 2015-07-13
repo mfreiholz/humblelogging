@@ -86,7 +86,6 @@ DWORD WINAPI threadWork1(LPVOID lpThreadParameter)
 int main(int argc, char **argv)
 {
   Factory &fac = Factory::getInstance();
-  fac.setDefaultLogLevel(LogLevel::All);
 
   if (argc > 1) {
     int threadCount = atoi(argv[1]);
