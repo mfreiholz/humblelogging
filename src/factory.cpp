@@ -10,6 +10,7 @@
 #include "humblelogging/loglevel.h"
 #include "humblelogging/formatter.h"
 #include "humblelogging/configuration.h"
+#include "humblelogging/formatter/simpleformatter.h"
 
 HL_NAMESPACE_BEGIN
 

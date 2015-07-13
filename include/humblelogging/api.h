@@ -12,6 +12,8 @@
 #include "appender/fileappender.h"
 #include "appender/nullappender.h"
 #include "appender/rollingfileappender.h"
+#include "formatter/simpleformatter.h"
+#include "formatter/patternformatter.h"
 
 #define HUMBLE_LOGGER(L, N) static humble::logging::Logger& L = humble::logging::Factory::getInstance().getLogger(N)
 
