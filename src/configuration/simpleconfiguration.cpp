@@ -13,6 +13,8 @@ SimpleConfiguration::~SimpleConfiguration()
 
 int SimpleConfiguration::getLogLevel(Logger *logger, Appender *appender) const
 {
+  (void) logger;
+  (void) appender;
   return _level;
 }
 
