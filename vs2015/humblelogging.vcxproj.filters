@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\util">
+      <UniqueIdentifier>{579df963-a03a-4d09-99ee-91149f83f7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{e4e3a895-4cf1-4d80-bdd1-2140b60f5df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\appender">
+      <UniqueIdentifier>{699ce4f4-e3bc-4e8d-bd8b-d0981d6030dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\appender">
+      <UniqueIdentifier>{e8ef866a-2f22-4a51-bf65-e7d17e220bdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\formatter">
+      <UniqueIdentifier>{5123a5f3-ba77-4029-8c6b-a6b230eeb5bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\configuration">
+      <UniqueIdentifier>{6f0377d2-047f-4080-8798-fa0e91c79fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\formatter">
+      <UniqueIdentifier>{67b30a9f-d5d0-4940-a990-7b17fa730740}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\configuration">
+      <UniqueIdentifier>{9bd2925a-9885-4ecd-b5a6-ca58b0f8c219}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\humblelogging\api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\configuration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\formatter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\logevent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\loglevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\util\mutex.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\util\patternconfigregistry.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\util\processinfo.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\util\spinlock.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\util\ternarytree.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\consoleappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\fileappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\nullappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\appender\rollingfileappender.h">
+      <Filter>Header Files\appender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\formatter\patternformatter.h">
+      <Filter>Header Files\formatter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\formatter\simpleformatter.h">
+      <Filter>Header Files\formatter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\configuration\defaultconfiguration.h">
+      <Filter>Header Files\configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\humblelogging\configuration\simpleconfiguration.h">
+      <Filter>Header Files\configuration</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\appender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\configuration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\formatter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\logevent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\loglevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\patternconfigregistry.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\processinfo.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\consoleappender.cpp">
+      <Filter>Source Files\appender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\fileappender.cpp">
+      <Filter>Source Files\appender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\nullappender.cpp">
+      <Filter>Source Files\appender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\appender\rollingfileappender.cpp">
+      <Filter>Source Files\appender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\mutex_c11.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\spinlock_c11.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\configuration\defaultconfiguration.cpp">
+      <Filter>Source Files\configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\configuration\simpleconfiguration.cpp">
+      <Filter>Source Files\configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\formatter\patternformatter.cpp">
+      <Filter>Source Files\formatter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\formatter\simpleformatter.cpp">
+      <Filter>Source Files\formatter</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
