@@ -20,3 +20,9 @@ vs2013/Debug_Win32/
 vs2013/Debug_x64/
 vs2013/Release_Win32/
 vs2013/Release_x64/
+*.opensdf
+*.sdf
+vs2015/Debug_Win32/
+vs2015/Debug_x64/
+vs2015/Release_Win32/
+vs2015/Release_x64/
