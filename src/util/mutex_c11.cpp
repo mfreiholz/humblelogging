@@ -17,7 +17,6 @@ Mutex::Mutex() :
 
 Mutex::~Mutex()
 {
-  unlock();
   delete d;
 }
 
