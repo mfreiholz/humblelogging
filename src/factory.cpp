@@ -121,6 +121,13 @@ void Factory::configure()
 {
   for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i) {
     Logger *logger = *i;
+
+    // Get LogLevel from config for Logger.
+    if (_config) {
+      const int level = _config->getLogLevel(logger, NULL);
+      logger->setLogLevel(level);
+    }
+
     for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a) {
       Appender *appender = *a;
       if (!appender->getFormatter()) {
@@ -132,11 +139,12 @@ void Factory::configure()
         logger->addAppender(appender);
       }
 
-      // Get LogLevel from config.
-      if (_config) {
-        const int level = _config->getLogLevel(logger, appender);
-        logger->setLogLevel(level);
-      }
+      // Get LogLevel from config, based on appender.
+      // Note: Not yet supported!
+      //if (_config) {
+      //  const int level = _config->getLogLevel(logger, appender);
+      //  appender->setLogLevel(level);
+      //}
     }
   }
 }
