@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg4145"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs4147">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter6484">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood6486" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite6488" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2"
+         result="blur"
+         id="feGaussianBlur6490" />
+      <feOffset
+         dx="0.5"
+         dy="0.5"
+         result="offset"
+         id="feOffset6492" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite6494" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter6586">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood6588" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite6590" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur6592" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset6594" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite6596" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="225.38801"
+     inkscape:cy="837.71556"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4150">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4743"
+       inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-58x50.png"
+       inkscape:export-xdpi="17.175013"
+       inkscape:export-ydpi="17.175013">
+      <path
+         transform="scale(1,1.0000015)"
+         sodipodi:type="star"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.99999785;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path4703"
+         sodipodi:sides="3"
+         sodipodi:cx="199.99976"
+         sodipodi:cy="915.75827"
+         sodipodi:r1="172.67215"
+         sodipodi:r2="86.336075"
+         sodipodi:arg1="0.52359878"
+         sodipodi:arg2="1.5707963"
+         inkscape:flatsided="true"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 349.53822,1002.0943 -299.076933,0 149.538473,-259.00821 z"
+         inkscape:transform-center-y="-41.759526" />
+      <path
+         id="path4157"
+         d="m 176.85344,783.17919 -126.391552,218.91671 299.076802,0 -116.6014,-201.95908 -29.13623,12.97211 -26.94762,-29.92974 z"
+         style="fill:#004f80;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-linejoin:round"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Ebene 2">
+    <g
+       id="g6222">
+      <path
+         inkscape:export-ydpi="90.18"
+         inkscape:export-xdpi="90.18"
+         inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-topnav.png"
+         sodipodi:type="star"
+         style="fill:#004f80;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-rule:nonzero"
+         id="path4757"
+         sodipodi:sides="3"
+         sodipodi:cx="111.52643"
+         sodipodi:cy="472.86133"
+         sodipodi:r1="31.936419"
+         sodipodi:r2="15.968206"
+         sodipodi:arg1="0.52359878"
+         sodipodi:arg2="1.5707963"
+         inkscape:flatsided="true"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 139.18418,488.82954 -55.315502,0 27.657752,-47.90463 z"
+         inkscape:transform-center-y="-7.984109" />
+      <path
+         inkscape:export-ydpi="90.18"
+         inkscape:export-xdpi="90.18"
+         inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-topnav.png"
+         inkscape:connector-curvature="0"
+         id="path4755"
+         d="m 113.16569,463.17772 -11.03631,11.03606 -18.213228,-4.8802 -11.255831,19.49588 55.315419,0 -14.81005,-25.65174 z"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g6226"
+       transform="translate(78.842406,-42.77996)"
+       style="filter:url(#filter6484)"
+       inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-topnav-shadow.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:transform-center-y="-7.984109"
+         d="m 139.18418,488.82954 -55.315502,0 27.657752,-47.90463 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="true"
+         sodipodi:arg2="1.5707963"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="15.968206"
+         sodipodi:r1="31.936419"
+         sodipodi:cy="472.86133"
+         sodipodi:cx="111.52643"
+         sodipodi:sides="3"
+         id="path6228"
+         style="fill:#004f80;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="star"
+         inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-topnav.png"
+         inkscape:export-xdpi="90.18"
+         inkscape:export-ydpi="90.18" />
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 113.16569,463.17772 -11.03631,11.03606 -18.213228,-4.8802 -11.255831,19.49588 55.315419,0 -14.81005,-25.65174 z"
+         id="path6230"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-topnav.png"
+         inkscape:export-xdpi="90.18"
+         inkscape:export-ydpi="90.18" />
+    </g>
+    <g
+       id="g6496"
+       transform="matrix(1.9416593,0,0,1.9416593,-50.438359,-781.34481)"
+       inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-index.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       style="filter:url(#filter6586)">
+      <path
+         inkscape:transform-center-y="-7.984109"
+         d="m 139.18418,488.82954 -55.315502,0 27.657752,-47.90463 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="true"
+         sodipodi:arg2="1.5707963"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="15.968206"
+         sodipodi:r1="31.936419"
+         sodipodi:cy="472.86133"
+         sodipodi:cx="111.52643"
+         sodipodi:sides="3"
+         id="path6498"
+         style="fill:#004f80;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="star"
+         inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-topnav.png"
+         inkscape:export-xdpi="90.18"
+         inkscape:export-ydpi="90.18" />
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 113.16569,463.17772 -11.03631,11.03606 -18.213228,-4.8802 -11.255831,19.49588 55.315419,0 -14.81005,-25.65174 z"
+         id="path6500"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="G:\Source\humblelogging-homepage\img\logo-topnav.png"
+         inkscape:export-xdpi="90.18"
+         inkscape:export-ydpi="90.18" />
+    </g>
+  </g>
+</svg>
