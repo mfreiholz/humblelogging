@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9.0)
+cmake_minimum_required(VERSION 2.8)
 project(humblelogging)
 
 set(VERSION_MAJOR 3)
@@ -110,11 +110,11 @@ else()
 	endif()
 endif()
 
-source_group(
-	TREE ${CMAKE_CURRENT_SOURCE_DIR}
-	#PREFIX src
-	FILES ${headers} ${sources}
-)
+#source_group(
+#	TREE ${CMAKE_CURRENT_SOURCE_DIR}
+#	#PREFIX src
+#	FILES ${headers} ${sources}
+#)
 
 #
 # Includes
