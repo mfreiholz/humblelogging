@@ -16,9 +16,9 @@ NullAppender::~NullAppender()
 {
 }
 
-void NullAppender::log(const LogEvent &logEvent)
+void NullAppender::log(const LogEvent& logEvent)
 {
-  (void) logEvent;
+	(void)logEvent;
 }
 
 HL_NAMESPACE_END

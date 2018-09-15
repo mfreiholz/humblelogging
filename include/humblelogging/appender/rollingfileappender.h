@@ -9,15 +9,15 @@
 HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API RollingFileAppender
-  : public Appender
+	: public Appender
 {
 public:
-  RollingFileAppender(const std::string &filename, bool immediate = false, int maxRoll = 5, unsigned long maxFileSize = 10485760);
-  virtual ~RollingFileAppender();
-  virtual void log(const LogEvent &logEvent);
+	RollingFileAppender(const std::string& filename, bool immediate = false, int maxRoll = 5, unsigned long maxFileSize = 10485760);
+	virtual ~RollingFileAppender();
+	virtual void log(const LogEvent& logEvent);
 
 protected:
-  /*
+	/*
     Implements the usual roll over behavior.
     Renames files "file.log.1" => "file.log.2", ...
 
@@ -28,16 +28,16 @@ protected:
 
     \return Returns "true" if the file stream is open and can be used for logging.
   */
-  bool roll();
+	bool roll();
 
 private:
-  Mutex _mutex;
-  std::string _filename;
-  bool _immediate;
-  int _maxRoll;
-  unsigned long _maxFileSize;
+	Mutex _mutex;
+	std::string _filename;
+	bool _immediate;
+	int _maxRoll;
+	unsigned long _maxFileSize;
 
-  std::ofstream _stream;
+	std::ofstream _stream;
 };
 
 HL_NAMESPACE_END

@@ -17,10 +17,10 @@ class Appender;
 class HUMBLE_EXPORT_API Configuration
 {
 public:
-  Configuration();
-  virtual ~Configuration();
+	Configuration();
+	virtual ~Configuration();
 
-  /*
+	/*
     Gets the log level for a specific logger/appender pair.
 
     \param logger
@@ -28,7 +28,7 @@ public:
     \param appender
       Not implemented yet! May be useful for later.
   */
-  virtual int getLogLevel(Logger *logger, Appender *appender = 0) const = 0;
+	virtual int getLogLevel(Logger* logger, Appender* appender = 0) const = 0;
 };
 
 HL_NAMESPACE_END

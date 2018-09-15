@@ -9,17 +9,17 @@
 HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API FileAppender
-  : public Appender
+	: public Appender
 {
 public:
-  FileAppender(const std::string &filename, bool immediate = false);
-  virtual ~FileAppender();
-  virtual void log(const LogEvent &logEvent);
+	FileAppender(const std::string& filename, bool immediate = false);
+	virtual ~FileAppender();
+	virtual void log(const LogEvent& logEvent);
 
 private:
-  Mutex _mutex;
-  std::ofstream _stream;
-  bool _immediate;
+	Mutex _mutex;
+	std::ofstream _stream;
+	bool _immediate;
 };
 
 HL_NAMESPACE_END

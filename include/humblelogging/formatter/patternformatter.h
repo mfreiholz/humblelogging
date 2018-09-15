@@ -17,17 +17,17 @@ HL_NAMESPACE_BEGIN
     %date     = Log date time (format=2013-12-24 12:46:00)
 */
 class HUMBLE_EXPORT_API PatternFormatter
-  : public Formatter
+	: public Formatter
 {
 public:
-  PatternFormatter(const std::string &pattern);
-  PatternFormatter(const PatternFormatter &other);
-  virtual ~PatternFormatter();
-  virtual Formatter* copy() const;
-  virtual std::string format(const LogEvent &logEvent) const;
+	PatternFormatter(const std::string& pattern);
+	PatternFormatter(const PatternFormatter& other);
+	virtual ~PatternFormatter();
+	virtual Formatter* copy() const;
+	virtual std::string format(const LogEvent& logEvent) const;
 
 private:
-  std::string _pattern;
+	std::string _pattern;
 };
 
 HL_NAMESPACE_END

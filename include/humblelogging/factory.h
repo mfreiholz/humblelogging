@@ -25,19 +25,19 @@ class Configuration;
 class HUMBLE_EXPORT_API Factory
 {
 private:
-  Factory();
-  Factory(const Factory &);
-  Factory& operator=(const Factory &);
+	Factory();
+	Factory(const Factory&);
+	Factory& operator=(const Factory&);
 
 public:
-  ~Factory();
+	~Factory();
 
-  /*
+	/*
     Gets the singleton instance of this Factory class.
   */
-  static Factory& getInstance();
+	static Factory& getInstance();
 
-  /*
+	/*
     Sets the new Configuration and takes ownership of it.
     Deletes the previously used configuration.
 
@@ -47,9 +47,9 @@ public:
 
     \return Reference to the Factory itself.
   */
-  Factory& setConfiguration(Configuration *config);
+	Factory& setConfiguration(Configuration* config);
 
-  /*
+	/*
     Registers a new Appender object and takes ownership of it.
 
     \param[in] appender
@@ -58,9 +58,9 @@ public:
 
     \return Reference to the Factory itself.
   */
-  Factory& registerAppender(Appender *appender);
+	Factory& registerAppender(Appender* appender);
 
-  /*
+	/*
     Gets an existing or creates a new Logger object.
 
     \param[in] name
@@ -70,9 +70,9 @@ public:
 
     \return Reference to the existing or just created Logger instance.
   */
-  Logger& getLogger(const std::string &name);
+	Logger& getLogger(const std::string& name);
 
-  /*
+	/*
     Sets the default formatter instance to be used by Appenders,
     which does not provide it's own Formatter.
 
@@ -83,24 +83,24 @@ public:
 
     \return Reference to the Factory itself.
   */
-  Factory& setDefaultFormatter(Formatter *formatter);
-  Formatter* getDefaultFormatter() const;
+	Factory& setDefaultFormatter(Formatter* formatter);
+	Formatter* getDefaultFormatter() const;
 
 private:
-  /*
+	/*
     Runs the reconfiguration of all known Loggers and registered Appenders.
 
     \pre-condition _mutex.lock()
   */
-  void configure();
+	void configure();
 
 private:
-  mutable Mutex _mutex;
-  Configuration *_config;
-  std::list<Logger*> _loggers;
-  TernaryTree<Logger*> _loggersTree;
-  std::list<Appender*> _appenders;
-  Formatter *_defaultFormatter;
+	mutable Mutex _mutex;
+	Configuration* _config;
+	std::list<Logger*> _loggers;
+	TernaryTree<Logger*> _loggersTree;
+	std::list<Appender*> _appenders;
+	Formatter* _defaultFormatter;
 };
 
 HL_NAMESPACE_END

@@ -9,21 +9,21 @@
 HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API DefaultConfiguration
-  : public Configuration
+	: public Configuration
 {
 public:
-  DefaultConfiguration();
-  virtual ~DefaultConfiguration();
-  virtual int getLogLevel(Logger *logger, Appender *appender = 0) const;
+	DefaultConfiguration();
+	virtual ~DefaultConfiguration();
+	virtual int getLogLevel(Logger* logger, Appender* appender = 0) const;
 
-  bool loadFromFile(const std::string &filepath);
-  bool loadFromString(const std::string &buffer);
+	bool loadFromFile(const std::string& filepath);
+	bool loadFromString(const std::string& buffer);
 
-  static DefaultConfiguration* createFromFile(const std::string &filepath);
-  static DefaultConfiguration* createFromString(const std::string &buffer);
+	static DefaultConfiguration* createFromFile(const std::string& filepath);
+	static DefaultConfiguration* createFromString(const std::string& buffer);
 
 private:
-  PatternConfigRegistry _registry;
+	PatternConfigRegistry _registry;
 };
 
 HL_NAMESPACE_END

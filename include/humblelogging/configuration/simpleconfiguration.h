@@ -7,15 +7,15 @@
 HL_NAMESPACE_BEGIN
 
 class HUMBLE_EXPORT_API SimpleConfiguration
-  : public Configuration
+	: public Configuration
 {
 public:
-  SimpleConfiguration(int level = LogLevel::All);
-  virtual ~SimpleConfiguration();
-  virtual int getLogLevel(Logger *logger, Appender *appender = 0) const;
+	SimpleConfiguration(int level = LogLevel::All);
+	virtual ~SimpleConfiguration();
+	virtual int getLogLevel(Logger* logger, Appender* appender = 0) const;
 
 private:
-  int _level;
+	int _level;
 };
 
 HL_NAMESPACE_END

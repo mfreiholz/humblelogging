@@ -1,10 +1,8 @@
 #include "humblelogging/formatter.h"
-
-#include <sstream>
-#include <cstdio>
-
-#include "humblelogging/loglevel.h"
 #include "humblelogging/logevent.h"
+#include "humblelogging/loglevel.h"
+#include <cstdio>
+#include <sstream>
 
 HL_NAMESPACE_BEGIN
 

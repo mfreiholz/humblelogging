@@ -9,8 +9,8 @@ HL_NAMESPACE_BEGIN
 // ConsoleAppender
 ///////////////////////////////////////////////////////////////////////////////
 
-ConsoleAppender::ConsoleAppender() :
-  Appender()
+ConsoleAppender::ConsoleAppender()
+	: Appender()
 {
 }
 
@@ -18,13 +18,14 @@ ConsoleAppender::~ConsoleAppender()
 {
 }
 
-void ConsoleAppender::log(const LogEvent &logEvent)
+void ConsoleAppender::log(const LogEvent& logEvent)
 {
-  MutexLockGuard lock(_mutex);
-  if (!_formatter) {
-    return;
-  }
-  std::cout << _formatter->format(logEvent);
+	MutexLockGuard lock(_mutex);
+	if (!_formatter)
+	{
+		return;
+	}
+	std::cout << _formatter->format(logEvent);
 }
 
 HL_NAMESPACE_END

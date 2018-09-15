@@ -8,32 +8,32 @@ HL_NAMESPACE_BEGIN
 class MutexPrivate;
 class HUMBLE_EXPORT_API Mutex
 {
-  friend class MutexPrivate;
-  MutexPrivate *d;
+	friend class MutexPrivate;
+	MutexPrivate* d;
 
 public:
-  Mutex();
-  ~Mutex();
-  void lock();
-  void unlock();
+	Mutex();
+	~Mutex();
+	void lock();
+	void unlock();
 };
 
 class HUMBLE_EXPORT_API MutexLockGuard
 {
 public:
-  MutexLockGuard(Mutex &lockable)
-    : _lockable(lockable)
-  {
-    _lockable.lock();
-  }
+	MutexLockGuard(Mutex& lockable)
+		: _lockable(lockable)
+	{
+		_lockable.lock();
+	}
 
-  ~MutexLockGuard()
-  {
-    _lockable.unlock();
-  }
+	~MutexLockGuard()
+	{
+		_lockable.unlock();
+	}
 
 private:
-  Mutex &_lockable;
+	Mutex& _lockable;
 };
 
 HL_NAMESPACE_END

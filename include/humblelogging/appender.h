@@ -21,10 +21,10 @@ class LogEvent;
 class HUMBLE_EXPORT_API Appender
 {
 public:
-  Appender();
-  virtual ~Appender();
-  
-  /*
+	Appender();
+	virtual ~Appender();
+
+	/*
     Sets the formatter for this Appender.
     The Appender takes ownership of the Formatter.
 
@@ -34,14 +34,14 @@ public:
     \param[in] formatter
       The new formatter for the Appender.
   */
-  void setFormatter(Formatter *formatter);
-  Formatter* getFormatter() const;
+	void setFormatter(Formatter* formatter);
+	Formatter* getFormatter() const;
 
-  virtual void log(const LogEvent &logEvent) = 0;
-  
+	virtual void log(const LogEvent& logEvent) = 0;
+
 protected:
-  mutable Mutex _mutex;
-  Formatter *_formatter;
+	mutable Mutex _mutex;
+	Formatter* _formatter;
 };
 
 HL_NAMESPACE_END

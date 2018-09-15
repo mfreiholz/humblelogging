@@ -4,28 +4,28 @@ HUMBLE_LOGGER(logger, "default");
 
 using namespace humble::logging;
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-  (void) argc;
-  (void) argv;
+	(void)argc;
+	(void)argv;
 
-  // Initialize some default settings.
-  // Logs everything by default.
-  Factory &fac = Factory::getInstance();
+	// Initialize some default settings.
+	// Logs everything by default.
+	Factory& fac = Factory::getInstance();
 
-  // Optional: Change global log level for all Loggers.
-  fac.setConfiguration(new SimpleConfiguration(LogLevel::All));
+	// Optional: Change global log level for all Loggers.
+	fac.setConfiguration(new SimpleConfiguration(LogLevel::All));
 
-  // Add appender as logging output.
-  fac.registerAppender(new ConsoleAppender());
+	// Add appender as logging output.
+	fac.registerAppender(new ConsoleAppender());
 
-  // Do some test logs.
-  HL_TRACE(logger, "Trace log");
-  HL_DEBUG(logger, "Debug log");
-  HL_INFO (logger, "Info log");
-  HL_WARN (logger, "Warn log");
-  HL_ERROR(logger, "Error log");
-  HL_FATAL(logger, "Fatal log");
+	// Do some test logs.
+	HL_TRACE(logger, "Trace log");
+	HL_DEBUG(logger, "Debug log");
+	HL_INFO(logger, "Info log");
+	HL_WARN(logger, "Warn log");
+	HL_ERROR(logger, "Error log");
+	HL_FATAL(logger, "Fatal log");
 
-  return 0;
+	return 0;
 }

@@ -17,10 +17,10 @@ class LogEvent;
 class HUMBLE_EXPORT_API Formatter
 {
 public:
-  Formatter();
-  virtual ~Formatter();
-  virtual Formatter* copy() const = 0;
-  virtual std::string format(const LogEvent &logEvent) const = 0;
+	Formatter();
+	virtual ~Formatter();
+	virtual Formatter* copy() const = 0;
+	virtual std::string format(const LogEvent& logEvent) const = 0;
 };
 
 HL_NAMESPACE_END

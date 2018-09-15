@@ -11,13 +11,13 @@ HL_NAMESPACE_BEGIN
   library to always contain the newest information.
 */
 class HUMBLE_EXPORT_API SimpleFormatter
-  : public Formatter
+	: public Formatter
 {
 public:
-  SimpleFormatter();
-  virtual ~SimpleFormatter();
-  virtual Formatter* copy() const;
-  virtual std::string format(const LogEvent &logEvent) const;
+	SimpleFormatter();
+	virtual ~SimpleFormatter();
+	virtual Formatter* copy() const;
+	virtual std::string format(const LogEvent& logEvent) const;
 };
 
 HL_NAMESPACE_END
