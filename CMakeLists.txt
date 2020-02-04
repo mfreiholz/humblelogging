@@ -162,6 +162,7 @@ endmacro(humblelogging_POSTBUILD_COPY)
 
 if(BuildExamples)
 	add_subdirectory(examples/basic)
+	add_subdirectory(examples/pattern_formatter)
 	add_subdirectory(examples/configured)
 	add_subdirectory(examples/mtperformance)
 	if(WIN32)

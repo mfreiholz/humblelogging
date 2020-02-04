@@ -25,7 +25,7 @@
 	{                                                                              \
 		if (L.wouldLog(LL))                                                        \
 		{                                                                          \
-			humble::logging::LogEvent le(LL, S, __LINE__, __FILE__, __FUNCNAME__); \
+			humble::logging::LogEvent le(L.getName(), LL, S, __LINE__, __FILE__, __FUNCNAME__); \
 			L.log(le);                                                             \
 		}                                                                          \
 	} while (false)
@@ -35,7 +35,7 @@
 	{                                                                               \
 		if (L.wouldLog(LL))                                                         \
 		{                                                                           \
-			humble::logging::LogEvent le(LL, S, __LINE__, __FILE__, std::string()); \
+			humble::logging::LogEvent le(L.getName(), LL, S, __LINE__, __FILE__, std::string()); \
 			L.log(le);                                                              \
 		}                                                                           \
 	} while (false)

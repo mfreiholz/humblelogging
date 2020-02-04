@@ -1,0 +1,5 @@
+set(pattern_formatter_example_sources pattern_formatter_example.cpp)
+include_directories(../../include)
+add_executable(pattern_formatter_example ${pattern_formatter_example_sources})
+target_link_libraries(pattern_formatter_example humblelogging)
+humblelogging_POSTBUILD_COPY(pattern_formatter_example)

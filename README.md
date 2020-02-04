@@ -196,7 +196,7 @@ int main(int argc, char **argv)
 }
 ```
 
-By including `humblelogging/api.h` you get all the required headers
+By including `humblelogging/humblelogging.h` you get all the required headers
 and macros you need to log within your current source file.
 
 The `HUMBLE_LOGGER` macro creates a new or retrieves an already existing

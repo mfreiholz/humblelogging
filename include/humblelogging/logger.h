@@ -36,18 +36,18 @@ private:
 	mutable SpinLock _mutex;
 
 	/*
-	Name of this logger
-  */
+		Name of this logger
+	*/
 	std::string _name;
 
 	/*
-	Log level of this logger
-  */
+		Log level of this logger
+	*/
 	int _level;
 
 	/*
-	List of all appenders, which are used by the current Logger object.
-  */
+		List of all appenders, which are used by the current Logger object.
+	*/
 	std::list<Appender*> _appenders;
 };
 

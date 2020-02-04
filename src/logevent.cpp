@@ -3,8 +3,9 @@
 
 HL_NAMESPACE_BEGIN
 
-LogEvent::LogEvent(int level, const std::string& message, int line, const std::string& file, const std::string& func)
-	: _level(level)
+LogEvent::LogEvent(const std::string& loggerName, int level, const std::string& message, int line, const std::string& file, const std::string& func)
+	: _loggerName(loggerName)
+	, _level(level)
 	, _message(message)
 	, _line(line)
 	, _file(file)

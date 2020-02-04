@@ -1,5 +1,4 @@
 #include "humblelogging/formatter/simpleformatter.h"
-
 #include "humblelogging/logevent.h"
 #include "humblelogging/loglevel.h"
 #include <cstdio>
@@ -35,6 +34,7 @@ std::string SimpleFormatter::format(const LogEvent& logEvent) const
 	std::stringstream ss;
 	ss
 		<< "[" << timeString << "]"
+		<< "[" << logEvent.getLoggerName() << "]"
 		<< "[" << logLevelString << "]"
 		<< "[pid=" << logEvent.getPid() << "]"
 		<< "[tid=" << logEvent.getTid() << "]"

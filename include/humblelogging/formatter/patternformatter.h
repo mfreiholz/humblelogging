@@ -9,12 +9,16 @@ HL_NAMESPACE_BEGIN
   Formats the log entry by a defined pattern.
 
   Available placeholders:
+    %name     = Logger name
     %lls      = Log level as string
     %m        = Log message
     %line     = Line
     %file     = File name
     %filename = Only the file's name (last part of the absolute path)
     %date     = Log date time (format=2013-12-24 12:46:00)
+
+  A nice pattern to open it as *.tab/*.csv file would be:
+    %date\t%lls\t%name\t%filename:%line\t%m\n
 */
 class HUMBLE_EXPORT_API PatternFormatter
 	: public Formatter

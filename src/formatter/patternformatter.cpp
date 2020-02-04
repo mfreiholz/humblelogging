@@ -35,6 +35,10 @@ std::string PatternFormatter::format(const LogEvent& logEvent) const
 {
 	std::string s = _pattern;
 	size_t pos = std::string::npos;
+	if ((pos = s.find("%name")) != std::string::npos)
+	{
+		s.replace(pos, 5, logEvent.getLoggerName());
+	}
 	if ((pos = s.find("%lls")) != std::string::npos)
 	{
 		const std::string lls = LogLevel::resolveLogLevel(logEvent.getLogLevel());
