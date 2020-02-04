@@ -17,7 +17,7 @@ HL_NAMESPACE_BEGIN
     %filename = Only the file's name (last part of the absolute path)
     %date     = Log date time (format=2013-12-24 12:46:00)
 
-  A nice pattern to open it as *.tab/*.csv file would be:
+  A nice pattern to open it as .tab/.csv file would be:
     %date\t%lls\t%name\t%filename:%line\t%m\n
 */
 class HUMBLE_EXPORT_API PatternFormatter
