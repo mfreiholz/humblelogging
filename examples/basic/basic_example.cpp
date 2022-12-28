@@ -1,8 +1,7 @@
 #include "humblelogging/api.h"
+using namespace humble::logging;
 
 HUMBLE_LOGGER(logger, "default");
-
-using namespace humble::logging;
 
 int main(int argc, char** argv)
 {
@@ -27,5 +26,12 @@ int main(int argc, char** argv)
 	HL_ERROR(logger, "Error log");
 	HL_FATAL(logger, "Fatal log");
 
+	// Logging with `printf()` style.
+	HL_FATAL_F(logger, "Log with %s", "HL_FATAL_F");
+	HL_ERROR_F(logger, "Log with %s", "HL_ERROR_F");
+	HL_INFO_F(logger, "Log with %s", "HL_INFO_F");
+	HL_DEBUG_F(logger, "Log with %s", "HL_DEBUG_F");
+	HL_TRACE_F(logger, "Log with %s", "HL_TRACE_F");
+	HL_TRACE_F(logger, "Log with <no parameters>");
 	return 0;
 }

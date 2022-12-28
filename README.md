@@ -72,7 +72,7 @@ It aims to be extendible, easy to understand and as fast as possible.
 
 ## Prerequisites
 
-HumbleLogging only needs a C++98 or C++11 compiler and an available
+HumbleLogging only needs a _C++98 (Limited)_ or C++11 compiler and an available
 implementation of the standard template library (STL). HumbleLogging has
 been successfully compiled with g++ (>=4.7) and Visual C++ (>=2008).
 It has been tested on Linux and Microsoft Windows.

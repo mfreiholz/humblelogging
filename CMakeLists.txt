@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.14)
 project(humblelogging)
 
 set(VERSION_MAJOR 3)
@@ -10,6 +10,7 @@ set(VERSION_EXTRA "")
 # Options
 #
 
+option(BuildTests "BuildTests" OFF)
 option(BuildShared "BuildShared" OFF)
 option(BuildExamples "BuildExamples" OFF)
 option(BuildLockFree "BuildLockFree" OFF)
@@ -37,6 +38,17 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
+set(CMAKE_CXX_STANDARD 17)
+
+#
+# Third Party Libraries / Dependencies
+# All of them should be optional.
+#
+
+if(BuildTests)
+	include(thirdparty/googletest.cmake)
+endif(BuildTests)
+
 #
 # Sources
 #
@@ -55,6 +67,7 @@ set(headers
 	include/humblelogging/util/patternconfigregistry.h
 	include/humblelogging/util/processinfo.h
 	include/humblelogging/util/ternarytree.h
+	include/humblelogging/util/fmt.hpp
 	include/humblelogging/api.h
 	include/humblelogging/appender.h
 	include/humblelogging/configuration.h
@@ -170,3 +183,8 @@ if(BuildExamples)
 	endif(WIN32)
 	add_subdirectory(examples/log_level_test)
 endif(BuildExamples)
+
+# Unit Testing
+if(BuildTests)
+	add_subdirectory(tests)
+endif(BuildTests)

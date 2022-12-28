@@ -13,8 +13,11 @@ HL_NAMESPACE_BEGIN
     %lls      = Log level as string
     %m        = Log message
     %line     = Line
-    %file     = File name
+    %pid      = Process ID
+    %tid      = Thread ID
     %filename = Only the file's name (last part of the absolute path)
+    %file     = Absolute file path during compile time.
+    %func     = Signature of the current function.
     %date     = Log date time (format=2013-12-24 12:46:00)
 
   A nice pattern to open it as .tab/.csv file would be:

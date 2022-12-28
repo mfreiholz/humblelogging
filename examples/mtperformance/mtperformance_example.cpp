@@ -1,87 +1,30 @@
-#include "humblelogging/api.h"
-#include "humblelogging/util/mutex.h"
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-#ifdef __linux__
-#include <pthread.h>
-#include <sys/time.h>
-#endif
+#include "humblelogging/humblelogging.h"
+#include <chrono>
+#include <condition_variable>
 #include <cstdlib>
 #include <cstring>
+#include <functional>
+#include <future>
 #include <stdio.h>
+#include <thread>
 #include <vector>
 
+using namespace humble::logging;
 HUMBLE_LOGGER(logger, "default");
 
-using namespace humble::logging;
-
-struct ExampleData
-{
-	int threadCount;
-	unsigned long threadIterations;
-
-	ExampleData()
-	{
-		threadCount = 1;
-		threadIterations = 1000000L;
-	}
-} OPTS;
-
-#ifdef __linux__
-long getTimestampMillis()
-{
-	struct timeval t;
-	gettimeofday(&t, NULL);
-	return (t.tv_sec * 1000 + t.tv_usec / 1000) + 0.5;
-}
-
-void* threadWork1(void* args)
-{
-	(void)args;
-	for (unsigned long i = 0; i < OPTS.threadIterations; ++i)
-	{
-		HL_TRACE(logger, std::string("A apple doesn't taste like a banana. Surprise!"));
-	}
-	return NULL;
-}
-#endif
-
-#ifdef _WIN32
-long getTimestampMillis()
-{
-	static LARGE_INTEGER s_frequency;
-	static BOOL s_use_qpc = QueryPerformanceFrequency(&s_frequency);
-	if (s_use_qpc)
-	{
-		LARGE_INTEGER now;
-		QueryPerformanceCounter(&now);
-		return static_cast<long>((1000L * now.QuadPart) / s_frequency.QuadPart);
-	}
-	else
-	{
-		return GetTickCount();
-	}
-}
-
-DWORD WINAPI threadWork1(LPVOID lpThreadParameter)
-{
-	for (unsigned long i = 0; i < OPTS.threadIterations; ++i)
-	{
-		HL_TRACE(logger, std::string("A apple doesn't taste like a banana. Surprise!"));
-	}
-	return 0;
-}
-#endif
+int THREAD_COUNT = 1;
+uint64_t EVENTS_PER_THREAD = 20000000ull;
+bool FORMATTED_MESSAGES = false;
 
 /*
   Parameters:
-  *.exe [threadCount] [eventsPerThread] [appender]
+  *.exe [threadCount] [eventsPerThread] [appender] [formatted:bool(0,1)]
 
   Defaults:
-  threadCount = 1
-  eventsPerThread = 1000000
-  appender = none
+	threadCount = 1
+	eventsPerThread = 1000000
+	appender = none
+	formatted = 0
 
   Possible values for "appender":
   none, null, console, file, rfile
@@ -94,13 +37,13 @@ int main(int argc, char** argv)
 	{
 		int threadCount = atoi(argv[1]);
 		if (threadCount > 0)
-			OPTS.threadCount = threadCount;
+			THREAD_COUNT = threadCount;
 	}
 	if (argc > 2)
 	{
 		unsigned long num = atol(argv[2]);
 		if (num > 0)
-			OPTS.threadIterations = num;
+			EVENTS_PER_THREAD = num;
 	}
 	if (argc > 3)
 	{
@@ -114,58 +57,73 @@ int main(int argc, char** argv)
 		else if (strcmp(appender, "rfile") == 0)
 			fac.registerAppender(new RollingFileAppender("humble-rolling.log", false, 5, 1024L * 1024L));
 	}
+	if (argc > 4)
+	{
+		const auto yesno = std::stoi(argv[4]);
+		FORMATTED_MESSAGES = yesno != 0;
+	}
 
 	printf("\n");
 	printf("Setup\n");
-	printf("  Threads: %d\n", OPTS.threadCount);
-	printf("  Events per thread: %ld\n", OPTS.threadIterations);
+	printf("  Threads: %d\n", THREAD_COUNT);
+	printf("  Events per thread: %llu\n", EVENTS_PER_THREAD);
+	printf("  Formatted messages: %s\n", FORMATTED_MESSAGES ? "Yes" : "No");
 	printf("\n");
 	printf("... running - please wait ...\n");
 
-	const long startMs = getTimestampMillis();
+	std::function<void()> threadWorkFunc;
+	if (FORMATTED_MESSAGES)
+	{
+		threadWorkFunc = []() {
+			for (auto logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
+			{
+				HL_TRACE_F(logger, "A %s doesn't taste like a %s. Surprise!", "apple", "banana");
+			}
+		};
+	}
+	else
+	{
+		threadWorkFunc = []() {
+			for (auto logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
+			{
+				HL_TRACE(logger, "A apple doesn't taste like a banana. Surprise!");
+			}
+		};
+	}
 
-#ifdef _WIN32
-	// Start logging threads.
-	std::vector<HANDLE> threads(OPTS.threadCount);
-	for (int i = 0; i < OPTS.threadCount; ++i)
+	// Startup workers.
+	// Do not immediately start it's work, we have to wait until all workers are started.
+	std::vector<std::future<void>> workers;
+	std::condition_variable startCondition;
+	std::mutex startConditionMutex;
+	for (auto i = 0; i < THREAD_COUNT; ++i)
 	{
-		HANDLE t = CreateThread(NULL, 0, threadWork1, NULL, 0, NULL);
-		threads.push_back(t);
+		auto f = std::async([&]() -> void {
+			std::unique_lock l(startConditionMutex);
+			startCondition.wait(l);
+			l.unlock();
+			threadWorkFunc();
+		});
+		workers.push_back(std::move(f));
 	}
-	// Wait until they are done.
-	for (std::vector<HANDLE>::size_type i = 0; i < threads.size(); ++i)
-	{
-		WaitForSingleObject(threads[i], INFINITE);
-	}
-#endif
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
-#ifdef __linux__
-	// Start logging threads.
-	std::vector<pthread_t> threads(OPTS.threadCount);
-	for (int i = 0; i < OPTS.threadCount; ++i)
-	{
-		pthread_t t;
-		pthread_create(&t, NULL, &threadWork1, NULL);
-		threads.push_back(t);
-	}
-	// Wait until they are done.
-	for (size_t i = 0; i < threads.size(); ++i)
-	{
-		pthread_join(threads[i], NULL);
-	}
-#endif
+	// Run !!!
+	const auto startedAt = std::chrono::steady_clock::now();
+	startCondition.notify_all();
+	workers.clear(); // Waits for all futures, because std::future destructor waits.
+	const auto endedAt = std::chrono::steady_clock::now();
 
-	const long endMs = getTimestampMillis();
-	const long durationMs = endMs - startMs;
-	const unsigned long logEventsCount = OPTS.threadIterations * (unsigned long)OPTS.threadCount;
-	double throughputPerSecond = (double)logEventsCount / (double)durationMs;
-	throughputPerSecond = throughputPerSecond * (double)1000;
+	// Prepare result.
+	const auto duration = endedAt - startedAt;
+	const auto logEventsCount = EVENTS_PER_THREAD * (unsigned long)THREAD_COUNT;
+	const auto logsPerSecond = (double)logEventsCount / static_cast<double>(std::chrono::duration_cast<std::chrono::seconds>(duration).count());
 
 	printf("\n");
 	printf("Done.\n");
-	printf("  Events: %ld\n", logEventsCount);
-	printf("  Duration: %ld ms / %f s\n", durationMs, (double)durationMs / (double)1000);
-	printf("  Throughput: %f events/second\n", throughputPerSecond);
+	printf("  Events: %llu\n", logEventsCount);
+	printf("  Duration: %lld ms / %lld s\n", std::chrono::duration_cast<std::chrono::milliseconds>(duration).count(), std::chrono::duration_cast<std::chrono::seconds>(duration).count());
+	printf("  Throughput: %.2f events/second\n", logsPerSecond);
 	printf("\n");
 
 	return 0;
