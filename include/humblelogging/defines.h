@@ -21,6 +21,10 @@
 	}                    \
 	}
 
+// Namespace usages
+#define HL_NS \
+	::humble::logging
+
 // Disable copy constructor.
 #define HUMBLE_DISABLE_COPY(Class) \
 	Class(const Class& other);

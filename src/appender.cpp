@@ -9,10 +9,6 @@
 
 HL_NAMESPACE_BEGIN
 
-///////////////////////////////////////////////////////////////////////////////
-// Appender
-///////////////////////////////////////////////////////////////////////////////
-
 Appender::Appender()
 	: _formatter(NULL)
 {
@@ -42,6 +38,16 @@ Formatter* Appender::getFormatter() const
 {
 	MutexLockGuard lock(_mutex);
 	return _formatter;
+}
+
+std::string Appender::format(const LogEvent& logEvent) const
+{
+	MutexLockGuard lock(_mutex);
+	if (!_formatter)
+	{
+		return {};
+	}
+	return _formatter->format(logEvent);
 }
 
 HL_NAMESPACE_END

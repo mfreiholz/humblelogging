@@ -3,11 +3,7 @@
 
 HL_NAMESPACE_BEGIN
 
-///////////////////////////////////////////////////////////////////////////////
-// RollingFileAppender
-///////////////////////////////////////////////////////////////////////////////
-
-RollingFileAppender::RollingFileAppender(const std::string& filename, bool immediate, int maxRoll, unsigned long maxFileSize)
+RollingFileAppender::RollingFileAppender(const std::string& filename, bool immediate, int maxRoll, uint64_t maxFileSize)
 	: Appender()
 	, _filename(filename)
 	, _immediate(immediate)

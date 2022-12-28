@@ -22,14 +22,14 @@ class Configuration;
   Factory class is completely thread-safe and can be called from
   anywhere at anytime.
 */
-class HUMBLE_EXPORT_API Factory
+class HUMBLE_EXPORT_API Factory final
 {
 private:
 	Factory();
-	Factory(const Factory&);
-	Factory& operator=(const Factory&);
 
 public:
+	Factory(const Factory&) = delete;
+	Factory& operator=(const Factory&) = delete;
 	~Factory();
 
 	/*

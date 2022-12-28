@@ -13,10 +13,12 @@ HL_NAMESPACE_BEGIN
 
 class Appender;
 
-class HUMBLE_EXPORT_API Logger
+class HUMBLE_EXPORT_API Logger final
 {
 public:
 	Logger(const std::string& name, int level = LogLevel::Off);
+	Logger(const Logger&) = delete;
+	Logger& operator=(const Logger&) = delete;
 	~Logger();
 
 	Logger& setName(const std::string& name);

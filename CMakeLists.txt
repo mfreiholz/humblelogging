@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
-project(humblelogging)
 
-set(VERSION_MAJOR 3)
-set(VERSION_MINOR 0)
-set(VERSION_PATCH 2)
-set(VERSION_EXTRA "")
+project(
+	humblelogging
+	VERSION 3.0.2
+	DESCRIPTION "HumbleLogging is a lightweight C++ logging framework. It aims to be extendible, easy to understand and as fast as possible."
+	HOMEPAGE_URL "https://github.com/mfreiholz/humblelogging"
+)
 
 #
 # Options
@@ -15,7 +16,6 @@ option(BuildShared "BuildShared" OFF)
 option(BuildExamples "BuildExamples" OFF)
 option(BuildLockFree "BuildLockFree" OFF)
 option(BuildSystemNative "BuildSystemNative" OFF)
-option(IncludeFunctionSignature "IncludeFunctionSignature" OFF)
 
 if(BuildShared)
 	set(StaticOrShared "SHARED")
@@ -23,10 +23,6 @@ if(BuildShared)
 else(BuildShared)
 	set(StaticOrShared "STATIC")
 endif(BuildShared)
-
-if(IncludeFunctionSignature)
-	add_definitions(-DHUMBLE_INCLUDE_PRETTY_FUNCTION)
-endif(IncludeFunctionSignature)
 
 if(WIN32)
 	add_definitions(/Zc:wchar_t-)
@@ -115,9 +111,9 @@ else()
 			list(APPEND sources src/util/spinlock_linux_native.cpp)
 		endif()
 	else()
-		if(UNIX)
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-		endif()
+		#if(UNIX)
+		#	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+		#endif()
 		list(APPEND sources src/util/mutex_c11.cpp)
 		list(APPEND sources src/util/spinlock_c11.cpp)
 	endif()

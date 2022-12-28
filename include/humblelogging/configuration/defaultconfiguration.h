@@ -1,10 +1,9 @@
 #ifndef HL_DEFAULTCONFIGURATION_H
 #define HL_DEFAULTCONFIGURATION_H
 
-#include <string>
-
 #include "humblelogging/configuration.h"
 #include "humblelogging/util/patternconfigregistry.h"
+#include <string>
 
 HL_NAMESPACE_BEGIN
 

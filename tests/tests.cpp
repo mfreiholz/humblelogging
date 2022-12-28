@@ -30,18 +30,35 @@ TEST(Util, PatternConfigRegistryTest)
 	ASSERT_EQ(reg.getLogLevel("three.four.five.any"), LogLevel::Fatal);
 }
 
-TEST(Log, FormatSimple)
+TEST(Log, WouldLog)
 {
-	SimpleFormatter fmt;
-	LogEvent event("Logger", LogLevel::Info, "Hello World", 42, "myfile.cpp", "myfunc()");
-	const auto str = fmt.format(event);
+	auto& fac = Factory::getInstance();
+	fac.setConfiguration(new SimpleConfiguration(LogLevel::Info));
+
+	auto& myLogger = fac.getLogger("MyLogger");
+	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Fatal));
+	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Error));
+	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Info));
+	ASSERT_FALSE(myLogger.wouldLog(LogLevel::Debug));
+	ASSERT_FALSE(myLogger.wouldLog(LogLevel::Trace));
 }
 
-TEST(Log, FormatPattern)
-{}
+TEST(Appender, Console)
+{
+	auto& fac = Factory::getInstance();
+}
+
+TEST(Dev, Dev)
+{
+	//NullAppender appender;
+	//auto appenderCopy = appender;
+}
 
 int main(int argc, char** argv)
 {
+	// Init Logging.
+	auto& fac = Factory::getInstance();
+
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }

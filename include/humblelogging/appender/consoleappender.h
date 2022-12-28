@@ -9,9 +9,7 @@ class HUMBLE_EXPORT_API ConsoleAppender
 	: public Appender
 {
 public:
-	ConsoleAppender();
-	virtual ~ConsoleAppender();
-	virtual void log(const LogEvent& logEvent);
+	void log(const LogEvent& logEvent) override;
 };
 
 HL_NAMESPACE_END

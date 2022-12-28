@@ -18,6 +18,8 @@ class HUMBLE_EXPORT_API Configuration
 {
 public:
 	Configuration();
+	Configuration(const Configuration&) = delete;
+	Configuration& operator=(const Configuration&) = delete;
 	virtual ~Configuration();
 
 	/*

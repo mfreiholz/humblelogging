@@ -3,18 +3,36 @@
 
 #include "humblelogging/appender.h"
 #include "humblelogging/util/mutex.h"
-
 #include <fstream>
 
 HL_NAMESPACE_BEGIN
 
+/*
+	Writes all events to a defined file.
+	The file will never be overwritten, instead everything will be appended.
+
+	Note: There is no limit in file size. The file will grow without limit.
+*/
 class HUMBLE_EXPORT_API FileAppender
 	: public Appender
 {
 public:
+	/*
+		Opens the file-handle to `filename`.
+
+		\param[in] filename
+			Absolute file path.
+		\param[in] immediate
+			If the `true` the output stream will be flushed with every call to `log(...)` - unbuffered.
+	*/
 	FileAppender(const std::string& filename, bool immediate = false);
-	virtual ~FileAppender();
-	virtual void log(const LogEvent& logEvent);
+
+	/*
+		Closes the file-handle.
+	*/
+	~FileAppender() override;
+
+	void log(const LogEvent& logEvent) override;
 
 private:
 	Mutex _mutex;
