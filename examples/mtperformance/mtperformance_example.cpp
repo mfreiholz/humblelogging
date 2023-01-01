@@ -49,13 +49,13 @@ int main(int argc, char** argv)
 	{
 		const char* appender = argv[3];
 		if (strcmp(appender, "null") == 0)
-			fac.registerAppender(new NullAppender());
+			fac.registerAppender(std::make_shared<NullAppender>());
 		else if (strcmp(appender, "console") == 0)
-			fac.registerAppender(new ConsoleAppender());
+			fac.registerAppender(std::make_shared<ConsoleAppender>());
 		else if (strcmp(appender, "file") == 0)
-			fac.registerAppender(new FileAppender("humble.log", false));
+			fac.registerAppender(std::make_shared<FileAppender>("humble.log", false));
 		else if (strcmp(appender, "rfile") == 0)
-			fac.registerAppender(new RollingFileAppender("humble-rolling.log", false, 5, 1024L * 1024L));
+			fac.registerAppender(std::make_shared<RollingFileAppender>("humble-rolling.log", false, 5, 1024L * 1024L));
 	}
 	if (argc > 4)
 	{
@@ -72,21 +72,24 @@ int main(int argc, char** argv)
 	printf("... running - please wait ...\n");
 
 	std::function<void()> threadWorkFunc;
+	std::atomic<uint64_t> cnt = 0;
 	if (FORMATTED_MESSAGES)
 	{
-		threadWorkFunc = []() {
+		threadWorkFunc = [&cnt]() {
 			for (auto logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
 			{
 				HL_TRACE_F(logger, "A %s doesn't taste like a %s. Surprise!", "apple", "banana");
+				cnt++;
 			}
 		};
 	}
 	else
 	{
-		threadWorkFunc = []() {
+		threadWorkFunc = [&cnt]() {
 			for (auto logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
 			{
 				HL_TRACE(logger, "A apple doesn't taste like a banana. Surprise!");
+				cnt++;
 			}
 		};
 	}
@@ -121,7 +124,7 @@ int main(int argc, char** argv)
 
 	printf("\n");
 	printf("Done.\n");
-	printf("  Events: %llu\n", logEventsCount);
+	printf("  Events: %llu (cnt=%llu)\n", logEventsCount, cnt.load());
 	printf("  Duration: %lld ms / %lld s\n", std::chrono::duration_cast<std::chrono::milliseconds>(duration).count(), std::chrono::duration_cast<std::chrono::seconds>(duration).count());
 	printf("  Throughput: %.2f events/second\n", logsPerSecond);
 	printf("\n");

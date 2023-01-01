@@ -4,9 +4,9 @@
 #include "humblelogging/defines.h"
 #include "humblelogging/logevent.h"
 #include "humblelogging/loglevel.h"
-#include "humblelogging/util/mutex.h"
-#include "humblelogging/util/spinlock.h"
 #include <list>
+#include <memory>
+#include <mutex>
 #include <string>
 
 HL_NAMESPACE_BEGIN
@@ -27,15 +27,15 @@ public:
 	Logger& setLogLevel(int level);
 	int getLogLevel() const;
 
-	Logger& addAppender(Appender* appender);
-	std::list<Appender*> getAppenders() const;
-	bool hasAppender(Appender* appender);
+	Logger& addAppender(std::shared_ptr<Appender> appender);
+	std::list<std::shared_ptr<Appender>> getAppenders() const;
+	bool hasAppender(std::shared_ptr<Appender> appender);
 
 	bool wouldLog(int level) const;
 	Logger& log(const LogEvent& logEvent);
 
 private:
-	mutable SpinLock _mutex;
+	mutable std::mutex _mutex;
 
 	/*
 		Name of this logger
@@ -50,7 +50,7 @@ private:
 	/*
 		List of all appenders, which are used by the current Logger object.
 	*/
-	std::list<Appender*> _appenders;
+	std::list<std::shared_ptr<Appender>> _appenders;
 };
 
 HL_NAMESPACE_END

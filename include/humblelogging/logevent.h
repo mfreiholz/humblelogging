@@ -25,6 +25,8 @@ public:
 	unsigned int getPid() const { return _pid; }
 	unsigned int getTid() const { return _tid; }
 
+	static std::string fileName(const std::string& filePath);
+
 private:
 	std::string _loggerName;
 	int _level;

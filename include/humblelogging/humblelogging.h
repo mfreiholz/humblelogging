@@ -7,8 +7,6 @@
 #include "appender/nullappender.h"
 #include "appender/rollingfileappender.h"
 #include "configuration.h"
-#include "configuration/defaultconfiguration.h"
-#include "configuration/simpleconfiguration.h"
 #include "factory.h"
 #include "formatter.h"
 #include "formatter/patternformatter.h"
@@ -26,28 +24,28 @@
 
 
 // Logs a simple message event.
-#define HUMBLE_LOG(L, S, LL)                                                                    \
-	do                                                                                          \
-	{                                                                                           \
-		if (L.wouldLog(LL))                                                                     \
-		{                                                                                       \
+#define HUMBLE_LOG(L, S, LL)                                                          \
+	do                                                                                \
+	{                                                                                 \
+		if (L.wouldLog(LL))                                                           \
+		{                                                                             \
 			HL_NS::LogEvent le(L.getName(), LL, S, __LINE__, __FILE__, __FUNCNAME__); \
-			L.log(le);                                                                          \
-		}                                                                                       \
+			L.log(le);                                                                \
+		}                                                                             \
 	} while (false)
 
 
 // Logs a formatted message event.
 // Suppports same syntax as `printf()`.
-#define HUMBLE_LOG_FMT(L, LL, ...)                                                                   \
-	do                                                                                               \
-	{                                                                                                \
-		if (L.wouldLog(LL))                                                                          \
-		{                                                                                            \
-			const std::string fmtstr = strfmt(__VA_ARGS__);                                          \
+#define HUMBLE_LOG_FMT(L, LL, ...)                                                         \
+	do                                                                                     \
+	{                                                                                      \
+		if (L.wouldLog(LL))                                                                \
+		{                                                                                  \
+			const std::string fmtstr = HL_NS::strfmt(__VA_ARGS__);                         \
 			HL_NS::LogEvent le(L.getName(), LL, fmtstr, __LINE__, __FILE__, __FUNCNAME__); \
-			L.log(le);                                                                               \
-		}                                                                                            \
+			L.log(le);                                                                     \
+		}                                                                                  \
 	} while (false)
 
 

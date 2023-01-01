@@ -1,6 +1,6 @@
-#include "gtest/gtest.h"
 #include "humblelogging/humblelogging.h"
 #include "humblelogging/util/patternconfigregistry.h"
+#include "gtest/gtest.h"
 using namespace humble::logging;
 
 TEST(Util, func_strfmt)
@@ -8,6 +8,22 @@ TEST(Util, func_strfmt)
 	const auto str = strfmt("hello %s!", "world");
 	ASSERT_STREQ(str.c_str(), "hello world!");
 }
+
+//TEST(Util, MutexTest)
+//{
+//	Mutex m;
+//	std::string buf;
+//	auto f1 = [&]() {
+//		MutexLockGuard l(m);
+//		for (auto i = 0; i < 4096; i++)
+//			buf.append("1\n");
+//	};
+//	auto f2 = [&]() {
+//		MutexLockGuard l(m);
+//		for (auto i = 0; i < 4096; i++)
+//			buf.append("1\n");
+//	};
+//}
 
 TEST(Util, PatternConfigRegistryTest)
 {
@@ -18,8 +34,7 @@ TEST(Util, PatternConfigRegistryTest)
 		"logger.level(one.two*)=info\n"
 		"logger.level(two*)=error\n"
 		"logger.level(three.four.five)=debug\n"
-		"logger.level(three.four.five.*)=fatal\n"
-	);
+		"logger.level(three.four.five.*)=fatal\n");
 	ASSERT_EQ(reg.getLogLevel("any"), LogLevel::Fatal);
 	ASSERT_EQ(reg.getLogLevel("one"), LogLevel::Error);
 	ASSERT_EQ(reg.getLogLevel("one.two"), LogLevel::Info);
@@ -33,7 +48,9 @@ TEST(Util, PatternConfigRegistryTest)
 TEST(Log, WouldLog)
 {
 	auto& fac = Factory::getInstance();
-	fac.setConfiguration(new SimpleConfiguration(LogLevel::Info));
+	auto config = std::make_unique<Configuration>();
+	config->setupFromLogLevel(LogLevel::Info);
+	fac.setConfiguration(std::move(config));
 
 	auto& myLogger = fac.getLogger("MyLogger");
 	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Fatal));
@@ -41,17 +58,6 @@ TEST(Log, WouldLog)
 	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Info));
 	ASSERT_FALSE(myLogger.wouldLog(LogLevel::Debug));
 	ASSERT_FALSE(myLogger.wouldLog(LogLevel::Trace));
-}
-
-TEST(Appender, Console)
-{
-	auto& fac = Factory::getInstance();
-}
-
-TEST(Dev, Dev)
-{
-	//NullAppender appender;
-	//auto appenderCopy = appender;
 }
 
 int main(int argc, char** argv)

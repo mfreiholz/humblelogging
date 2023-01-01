@@ -6,7 +6,7 @@ HL_NAMESPACE_BEGIN
 
 void ConsoleAppender::log(const LogEvent& logEvent)
 {
-	MutexLockGuard lock(_mutex);
+	std::lock_guard lock(_mutex);
 	if (!_formatter)
 	{
 		return;

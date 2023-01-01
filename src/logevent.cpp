@@ -20,4 +20,14 @@ LogEvent::~LogEvent()
 {
 }
 
+std::string LogEvent::fileName(const std::string& filePath)
+{
+	size_t pos2;
+	if ((pos2 = filePath.find_last_of("/")) != std::string::npos || (pos2 = filePath.find_last_of("\\")) != std::string::npos)
+	{
+		return filePath.substr(pos2 + 1);
+	}
+	return filePath;
+}
+
 HL_NAMESPACE_END

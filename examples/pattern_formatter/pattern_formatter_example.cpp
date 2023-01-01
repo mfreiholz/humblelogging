@@ -1,4 +1,4 @@
-#include "humblelogging/api.h"
+#include "humblelogging/humblelogging.h"
 
 HUMBLE_LOGGER(logger, "default");
 
@@ -14,13 +14,13 @@ int main(int argc, char** argv)
 	Factory& fac = Factory::getInstance();
 
 	// Optional: Change global log level for all Loggers.
-	fac.setConfiguration(new SimpleConfiguration(LogLevel::All));
+	fac.setConfiguration(std::make_unique<Configuration>(LogLevel::All));
 
 	// Optional: Change default formatter.
-	fac.setDefaultFormatter(new PatternFormatter("%date\t%lls\t%name\t%filename:%line\t%m\n"));
+	fac.setDefaultFormatter(std::make_unique<PatternFormatter>("%date\t%lls\t%name\t%filename:%line\t%m\n"));
 
 	// Add appender as logging output.
-	fac.registerAppender(new ConsoleAppender());
+	fac.registerAppender(std::make_shared<ConsoleAppender>());
 
 	// Do some test logs.
 	HL_TRACE(logger, "Trace log");

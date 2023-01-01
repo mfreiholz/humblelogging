@@ -39,8 +39,11 @@ public:
 
 	~TernaryTree()
 	{
-		deleteNode(_root);
-		_root = NULL;
+		if (_root)
+		{
+			deleteNode(_root);
+			_root = NULL;
+		}
 	}
 
 	// Insertion based methods //////////////////////////////////////////////////

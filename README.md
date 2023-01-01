@@ -111,7 +111,7 @@ possible to run in many different environments with best settings.
 All build-options must be provided as CMake command line arguments with
 the `-D` parameter. You can append as many options as you want.
 
-**-DBuildShared=OFF** `default=ON`
+**-DBuildShared=ON** `default=OFF`
 > Builds the library as static or shared library.
 
 **-DBuildExamples=ON** `default=OFF`
@@ -119,33 +119,10 @@ the `-D` parameter. You can append as many options as you want.
 > You do not need these projects to include the library in your project,
 > but they might be used for testing purposes.
 
-**-DBuildLockFree=ON** `default=OFF`
-> Builds the library in lock-free mode.
-> Mutexes and SpinLocks classes doesn't block execution and do no
-> synchronization at all.
-> Improves the performance in environments where only one thread is
-> running.
->
-> This option makes the library C++98 compatible.
->
-> Do not use in combination with `-DBuildSystemNative=ON`
-
-**-DBuildSystemNative=ON** `default=off`
-> Builds the library with system-native implementations instead of using
-> the C++11 STL provided classes.
->
-> This options makes the library C++98 compatible.
->
-> Do not use in combination with `-DBuildLockFree=ON`
->
-> **Linux** requires `pthread` for its mutex implementation.
-
-**-DIncludeFunctionSignature=ON** `default=OFF`
-> Enabling this features will add the function signature of the current
-> stack to the LogEvent. Using this features does decrease performance.
->
-> **Note:** It's redundant information since each log-event already
-> contains the file's name and line number.
+**-DBuildTests=ON** `default=OFF`
+> Builds all sub projects in the `./tests/` folder.
+> You do not need these projects to include the library in your project,
+> but they might be used for testing purposes.
 
 
 # Tutorial
@@ -294,48 +271,6 @@ format very easily.
 auto &fac = humble::logging::Factory::getInstance();
 fac.setDefaultFormatter(new PatternFormatter("%date - %lls -> %m"));
 ```
-
-# Benchmarks
-
-## Submit your benchmark
-
-You can commit your own benchmark with a pull-request on GitHub for this file.
-
-## Existing benchmarks
-
-All benchmarks are created with the *mtperformance_example* binary
-which is shipped as an example project with HumbleLogging source.
-
-```
-Usage:
-  binary [thread-count] [events-per-thread] [appender]
-```
-
-The result gets more accurate by increasing the number of log-events.
-You should use a minimum of 20000000 log-events per thread to get a good
-result. The benchmarks on this page always use the *null* appender.
-The number of threads should equal the number of real-cores of your
-machine (no Hyperthreading cores).
-E.g:
-
-```bash
-mtperformance_example.exe 4 20000000 null
-```
-
-### Current master branch
-
-Environment | Events | Threads | Duration (ms) | Throughput (events/second)
-------------|--------|---------|---------------|---------------------------
-Windows 8.1 Update 2 32 bit / VC 2013 Community / Core i7 3770K @ 3.50 GHz | 80000000 | 4 | 10619 | 7533666
-
-### Release 1.0
-
-Environment | Events | Threads | Duration (ms) | Throughput (events/second)
-------------|--------|---------|---------------|---------------------------
-Windows 8.1 Update 1 32 bit / VC 2012 / Core i7 3770K @ 3.50 GHz | 80000000 | 4 | 12468 | 6416426
-Windows 8.1 Update 2 32 bit / VC 2013 Community / Core i7 920 @ 2.67 GHz | 80000000 | 4 | 18645 | 4290695
-Windows 8.1 Update 2 64 bit / VC 2013 Community / Core i7 920 @ 2.67 GHz | 80000000 | 4 | 15320 | 5221932
-
 
 # Contribute & Feedback
 

@@ -2,9 +2,9 @@
 #define HL_ROLLINGFILEAPPENDER_H
 
 #include "humblelogging/appender.h"
-#include "humblelogging/util/mutex.h"
 #include <cinttypes>
 #include <fstream>
+#include <mutex>
 
 HL_NAMESPACE_BEGIN
 
@@ -51,12 +51,11 @@ protected:
 	bool roll();
 
 private:
-	Mutex _mutex;
+	std::mutex _mutex;
 	std::string _filename;
 	bool _immediate;
 	int _maxRoll;
 	uint64_t _maxFileSize;
-
 	std::ofstream _stream;
 };
 

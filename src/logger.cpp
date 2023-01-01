@@ -20,47 +20,47 @@ Logger::~Logger()
 
 Logger& Logger::setName(const std::string& name)
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	_name = name;
 	return (*this);
 }
 
 const std::string& Logger::getName() const
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	return _name;
 }
 
 Logger& Logger::setLogLevel(int level)
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	_level = level;
 	return (*this);
 }
 
 int Logger::getLogLevel() const
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	return _level;
 }
 
-Logger& Logger::addAppender(Appender* appender)
+Logger& Logger::addAppender(std::shared_ptr<Appender> appender)
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	_appenders.push_back(appender);
 	return (*this);
 }
 
-std::list<Appender*> Logger::getAppenders() const
+std::list<std::shared_ptr<Appender>> Logger::getAppenders() const
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	return _appenders;
 }
 
-bool Logger::hasAppender(Appender* appender)
+bool Logger::hasAppender(std::shared_ptr<Appender> appender)
 {
-	SpinLocker lock(_mutex);
-	for (std::list<Appender*>::iterator i = _appenders.begin(), e = _appenders.end(); i != e; ++i)
+	std::lock_guard lock(_mutex);
+	for (auto i = _appenders.begin(), e = _appenders.end(); i != e; ++i)
 	{
 		if (*i == appender)
 			return true;
@@ -70,7 +70,7 @@ bool Logger::hasAppender(Appender* appender)
 
 bool Logger::wouldLog(int level) const
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	if (_level >= level /* && !_appenders.empty()*/)
 	{
 		return true;
@@ -80,9 +80,9 @@ bool Logger::wouldLog(int level) const
 
 Logger& Logger::log(const LogEvent& logEvent)
 {
-	SpinLocker lock(_mutex);
+	std::lock_guard lock(_mutex);
 	//if (_level >= logEvent.getLogLevel()) {
-	for (std::list<Appender*>::iterator i = _appenders.begin(), e = _appenders.end(); i != e; ++i)
+	for (auto i = _appenders.begin(), e = _appenders.end(); i != e; ++i)
 	{
 		(*i)->log(logEvent);
 	}

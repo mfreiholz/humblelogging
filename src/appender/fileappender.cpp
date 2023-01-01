@@ -22,12 +22,12 @@ FileAppender::~FileAppender()
 
 void FileAppender::log(const LogEvent& logEvent)
 {
-	MutexLockGuard lockBase(Appender::_mutex);
+	std::lock_guard lock(Appender::_mutex);
 	if (!_formatter)
 	{
 		return;
 	}
-	MutexLockGuard lock(FileAppender::_mutex);
+	std::lock_guard lock2(FileAppender::_mutex);
 	if (_stream.is_open())
 	{
 		_stream << _formatter->format(logEvent);
