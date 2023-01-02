@@ -10,12 +10,21 @@ static void init_logging()
 	// Logs everything by default.
 	Factory& fac = Factory::getInstance();
 
-	// Setup configuration.
+	// Method #1: Setup with fixed log level.
+	fac.setConfiguration(std::make_unique<Configuration>(LogLevel::All));
+
+	// Method #2: Setup from config file format.
 	auto config = std::make_unique<Configuration>();
-	config->setupFromLogLevel(LogLevel::All);
+	config->loadFromString(
+		"logger.level(*)=fatal\n"
+		"logger.level(core*)=error\n"
+		"logger.level(core.local*)=warn\n"
+		"logger.level(core.network*)=info\n"
+		"logger.level(core.network.tcp*)=debug\n"
+		"logger.level(core.network.udp.datagram)=trace\n");
 	fac.setConfiguration(std::move(config));
 
-	// Add appender as logging output.
+	// Register Appender as logging output.
 	fac.registerAppender(std::make_shared<ConsoleAppender>());
 }
 
