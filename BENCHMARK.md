@@ -6,30 +6,29 @@ You can commit your own benchmark with a pull-request on GitHub for this file.
 
 ## Existing benchmarks
 
-All benchmarks are created with the *mtperformance_example* binary
-which is shipped as an example project with HumbleLogging source.
+All benchmarks are created with the *benchmark* binary,
+which is shipped within the `apps/` directory with HumbleLogging source.
 
 ```
 Usage:
-  binary [thread-count] [events-per-thread] [appender] [formatted:bool(0,1)]
+    benchmark [thread-count] [events-per-thread] [appender] [formatted:bool(0,1)]
 ```
 
 The result gets more accurate by increasing the number of log-events.
 You should use a minimum of 20000000 log-events per thread to get a good
 result. The benchmarks on this page always use the *null* appender.
 The number of threads should equal the number of real-cores of your
-machine (no Hyperthreading cores).
-E.g:
+machine (no Hyperthreading cores), e.g:
 
 ```bash
-mtperformance_example.exe 4 20000000 null 0
+benchmark 4 20000000 null 0
 ```
 
 ### Release 4.0.0
 
 Environment | Events | Threads | Duration (ms) | Throughput (events/second)
 ------------|--------|---------|---------------|---------------------------
-Windows 11 Pro 22H2 22621.963 / VS 2022 / AMD Ryzen 7 5800X @ 3.80 GHz | 80000000 | 4 | 10619 | 7533666
+Windows 11 Pro 22H2 22621.963 / VS 2022 / AMD Ryzen 7 5800X @ 3.80 GHz | 80000000 | 4 | 3651 | 26666666
 
 ### Release 3.0.1
 

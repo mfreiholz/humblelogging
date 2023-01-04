@@ -1,12 +1,4 @@
 {
-	"cmake.configureArgs":[
-		"-DBuildTests=ON",
-		"-DBuildShared=OFF",
-		"-DBuildExamples=ON",
-		"-DBuildLockFree=OFF",
-		"-DBuildSystemNative=ON",
-		"-DIncludeFunctionSignature=ON"
-	],
 	"files.associations": {
 		"condition_variable": "cpp"
 	}

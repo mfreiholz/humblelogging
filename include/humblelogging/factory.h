@@ -15,10 +15,11 @@ class Appender;
 class Formatter;
 class Configuration;
 
-/*
-	Base class to manage logging with HumbleLogging.
-	Factory class is completely thread-safe and can be called from
-	anywhere at anytime.
+/*!
+	\class Factory
+	\brief Main class to manage logging.
+
+	Factory class is completely thread-safe and can be called from anywhere at anytime.
 */
 class HUMBLE_EXPORT_API Factory final
 {
@@ -30,7 +31,7 @@ public:
 	Factory& operator=(const Factory&) = delete;
 	~Factory();
 
-	/*
+	/*!
 		Gets the singleton instance of this Factory class.
 	*/
 	static Factory& getInstance();

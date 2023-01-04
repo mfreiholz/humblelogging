@@ -13,7 +13,7 @@ project(
 
 option(BuildShared "BuildShared" OFF)
 option(BuildTests "BuildTests" ON)
-option(BuildExamples "BuildExamples" ON)
+option(BuildApps "BuildApps" ON)
 
 if(BuildShared)
 	set(StaticOrShared "SHARED")
@@ -150,7 +150,7 @@ install(TARGETS humblelogging
 )
 install(FILES ${headers} DESTINATION include/humblelogging)
 
-# Examples
+# Apps
 macro(humblelogging_POSTBUILD_COPY target_)
 	add_custom_command(
 		TARGET ${target_} POST_BUILD
@@ -160,12 +160,10 @@ macro(humblelogging_POSTBUILD_COPY target_)
 	)
 endmacro(humblelogging_POSTBUILD_COPY)
 
-if(BuildExamples)
-	add_subdirectory(examples/basic)
-	add_subdirectory(examples/pattern_formatter)
-	add_subdirectory(examples/configured)
-	add_subdirectory(examples/mtperformance)
-endif(BuildExamples)
+if(BuildApps)
+	add_subdirectory(apps/basic_example)
+	add_subdirectory(apps/benchmark)
+endif(BuildApps)
 
 # Unit Testing
 if(BuildTests)
