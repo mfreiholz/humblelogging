@@ -5,6 +5,25 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "(lldb) benchmark",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/build/apps/benchmark/benchmark",
+			"cwd": "${workspaceFolder}/build/apps/benchmark",
+			"args": ["1", "20000000", "rfile", "0"],
+			"stopAtEntry": false,
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb",
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			]
+		},
+		{
 			"name": "(gdb) basic_example",
 			"type": "cppdbg",
 			"request": "launch",

@@ -62,9 +62,9 @@ bool RollingFileAppender::roll()
 	for (int i = _maxRoll; i >= 0; --i)
 	{
 		char* oldFileName = new char[_filename.size() + 10];
-		sprintf(oldFileName, "%s.%d", _filename.c_str(), i);
+		snprintf(oldFileName, _filename.size() + 10, "%s.%d", _filename.c_str(), i);
 		char* newFileName = new char[_filename.size() + 10];
-		sprintf(newFileName, "%s.%d", _filename.c_str(), i + 1);
+		snprintf(newFileName, _filename.size() + 10, "%s.%d", _filename.c_str(), i + 1);
 
 		if (i + 1 > _maxRoll)
 		{

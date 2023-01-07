@@ -6,7 +6,9 @@
 HL_NAMESPACE_BEGIN
 
 Configuration::Configuration()
-{}
+{
+	setupFromLogLevel(LogLevel::All);
+}
 
 Configuration::Configuration(int level)
 {
