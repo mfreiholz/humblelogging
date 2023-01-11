@@ -91,6 +91,10 @@ public:
 	*/
 	std::list<std::shared_ptr<Logger>> getLoggers() const;
 
+	/*!
+	*/
+	std::string getVersion() const;
+
 private:
 	/*
 		Runs the reconfiguration of all known Loggers and registered Appenders.

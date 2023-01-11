@@ -5,6 +5,7 @@
 #include "humblelogging/formatter/simpleformatter.h"
 #include "humblelogging/logger.h"
 #include "humblelogging/loglevel.h"
+#include "humblelogging/version.h"
 #include <algorithm>
 #include <cassert>
 #include <list>
@@ -86,6 +87,11 @@ std::list<std::shared_ptr<Logger>> Factory::getLoggers() const
 {
 	std::lock_guard lock(_mutex);
 	return _loggers;
+}
+
+std::string Factory::getVersion() const
+{
+	return std::string(HL_VERSION);
 }
 
 void Factory::configure()

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 project(
 	humblelogging
-	VERSION 4.0.0
+	VERSION 0.0.0
 	DESCRIPTION "HumbleLogging is a lightweight C++ logging framework. It aims to be extendible, easy to understand and as fast as possible."
 	HOMEPAGE_URL "https://github.com/mfreiholz/humblelogging"
 )
@@ -34,6 +34,11 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
+configure_file(
+	${PROJECT_SOURCE_DIR}/version.h.in
+	${PROJECT_SOURCE_DIR}/include/humblelogging/version.h
+)
+
 #
 # Third Party Libraries / Dependencies
 # All of them should be optional.
@@ -57,7 +62,7 @@ set(headers
 	include/humblelogging/util/patternconfigregistry.h
 	include/humblelogging/util/processinfo.h
 	include/humblelogging/util/ternarytree.h
-	include/humblelogging/util/fmt.hpp
+	include/humblelogging/util/fmt.h
 	include/humblelogging/appender.h
 	include/humblelogging/configuration.h
 	include/humblelogging/defines.h
@@ -67,6 +72,7 @@ set(headers
 	include/humblelogging/logevent.h
 	include/humblelogging/logger.h
 	include/humblelogging/loglevel.h
+	include/humblelogging/version.h
 )
 
 set(sources
