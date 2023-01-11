@@ -38,4 +38,9 @@ int Configuration::getLogLevel(Logger* logger, Appender*) const
 	return _registry.getLogLevel(logger->getName());
 }
 
+int Configuration::getLogLevel(const std::string& loggerName, Appender* appender) const
+{
+	return _registry.getLogLevel(loggerName);
+}
+
 HL_NAMESPACE_END

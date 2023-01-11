@@ -65,6 +65,16 @@ public:
 	*/
 	int getLogLevel(Logger* logger, Appender* appender = 0) const;
 
+	/*
+		Gets the log level for a specific logger/appender pair.
+
+		\param loggerName
+			Name of the Logger.
+		\param appender
+			Not implemented yet! May be useful for later.
+	*/
+	int getLogLevel(const std::string& loggerName, Appender* appender = 0) const;
+
 private:
 	PatternConfigRegistry _registry;
 };

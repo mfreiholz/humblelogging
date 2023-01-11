@@ -47,17 +47,21 @@ TEST(Util, PatternConfigRegistryTest)
 
 TEST(Log, WouldLog)
 {
-	auto& fac = Factory::getInstance();
+	// Default behavior: Log ALL.
 	auto config = std::make_unique<Configuration>();
+	ASSERT_EQ(config->getLogLevel("test", nullptr), LogLevel::All);
+
+	auto& fac = Factory::getInstance();
+	config = std::make_unique<Configuration>();
 	config->setupFromLogLevel(LogLevel::Info);
 	fac.setConfiguration(std::move(config));
 
-	auto& myLogger = fac.getLogger("MyLogger");
-	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Fatal));
-	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Error));
-	ASSERT_TRUE(myLogger.wouldLog(LogLevel::Info));
-	ASSERT_FALSE(myLogger.wouldLog(LogLevel::Debug));
-	ASSERT_FALSE(myLogger.wouldLog(LogLevel::Trace));
+	auto myLogger = fac.getLogger("MyLogger");
+	ASSERT_TRUE(myLogger->wouldLog(LogLevel::Fatal));
+	ASSERT_TRUE(myLogger->wouldLog(LogLevel::Error));
+	ASSERT_TRUE(myLogger->wouldLog(LogLevel::Info));
+	ASSERT_FALSE(myLogger->wouldLog(LogLevel::Debug));
+	ASSERT_FALSE(myLogger->wouldLog(LogLevel::Trace));
 }
 
 int main(int argc, char** argv)

@@ -20,17 +20,17 @@
 	Defines a static variable with access to a new or existing Logger by its name.
 */
 #define HUMBLE_LOGGER(L, N) \
-	static HL_NS::Logger& L = HL_NS::Factory::getInstance().getLogger(N)
+	static auto L = HL_NS::Factory::getInstance().getLogger(N)
 
 
 // Logs a simple message event.
 #define HUMBLE_LOG(L, S, LL)                                                          \
 	do                                                                                \
 	{                                                                                 \
-		if (L.wouldLog(LL))                                                           \
+		if (L->wouldLog(LL))                                                          \
 		{                                                                             \
-			HL_NS::LogEvent le(L.getName(), LL, S, __LINE__, __FILE__, __FUNCNAME__); \
-			L.log(le);                                                                \
+			HL_NS::LogEvent le(L->getName(), LL, S, __LINE__, __FILE__, __FUNCNAME__); \
+			L->log(le);                                                               \
 		}                                                                             \
 	} while (false)
 
@@ -40,11 +40,11 @@
 #define HUMBLE_LOG_FMT(L, LL, ...)                                                         \
 	do                                                                                     \
 	{                                                                                      \
-		if (L.wouldLog(LL))                                                                \
+		if (L->wouldLog(LL))                                                               \
 		{                                                                                  \
 			const std::string fmtstr = HL_NS::strfmt(__VA_ARGS__);                         \
-			HL_NS::LogEvent le(L.getName(), LL, fmtstr, __LINE__, __FILE__, __FUNCNAME__); \
-			L.log(le);                                                                     \
+			HL_NS::LogEvent le(L->getName(), LL, fmtstr, __LINE__, __FILE__, __FUNCNAME__); \
+			L->log(le);                                                                    \
 		}                                                                                  \
 	} while (false)
 

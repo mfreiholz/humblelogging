@@ -46,7 +46,7 @@ public:
 
 		\return Reference to the Factory itself.
 	*/
-	Factory& setConfiguration(std::unique_ptr<Configuration> config);
+	void setConfiguration(std::unique_ptr<Configuration> config);
 
 	/*
 		Sets the default formatter instance to be used by Appenders,
@@ -59,7 +59,7 @@ public:
 
 		\return Reference to the Factory itself.
 	*/
-	Factory& setDefaultFormatter(std::unique_ptr<Formatter> formatter);
+	void setDefaultFormatter(std::unique_ptr<Formatter> formatter);
 
 	/*
 		Registers a new Appender object and takes ownership of it.
@@ -70,7 +70,7 @@ public:
 
 		\return Reference to the Factory itself.
 	*/
-	Factory& registerAppender(std::shared_ptr<Appender> appender);
+	void registerAppender(std::shared_ptr<Appender> appender);
 
 	/*
 		Gets an existing or creates a new Logger object.
@@ -82,13 +82,20 @@ public:
 
 		\return Reference to the existing or just created Logger instance.
 	*/
-	Logger& getLogger(const std::string& name);
+	std::shared_ptr<Logger> getLogger(const std::string& name);
+
+	/*!
+		Gets a list with all existing loggers.
+		
+		\return List with all loggers.
+	*/
+	std::list<std::shared_ptr<Logger>> getLoggers() const;
 
 private:
 	/*
 		Runs the reconfiguration of all known Loggers and registered Appenders.
 
-		\pre-condition _mutex.lock()
+		\pre _mutex.lock()
 	*/
 	void configure();
 

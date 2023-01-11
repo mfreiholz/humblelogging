@@ -26,36 +26,33 @@ Factory& Factory::getInstance()
 	return _instance;
 }
 
-Factory& Factory::setConfiguration(std::unique_ptr<Configuration> config)
+void Factory::setConfiguration(std::unique_ptr<Configuration> config)
 {
 	assert(config);
 
 	std::lock_guard lock(_mutex);
 	_config = std::move(config);
 	configure();
-	return *this;
 }
 
-Factory& Factory::setDefaultFormatter(std::unique_ptr<Formatter> formatter)
+void Factory::setDefaultFormatter(std::unique_ptr<Formatter> formatter)
 {
 	assert(formatter);
 
 	std::lock_guard lock(_mutex);
 	_defaultFormatter = std::move(formatter);
-	return *this;
 }
 
-Factory& Factory::registerAppender(std::shared_ptr<Appender> appender)
+void Factory::registerAppender(std::shared_ptr<Appender> appender)
 {
 	assert(appender);
 
 	std::lock_guard lock(_mutex);
 	_appenders.push_back(appender);
 	configure();
-	return *this;
 }
 
-Logger& Factory::getLogger(const std::string& name)
+std::shared_ptr<Logger> Factory::getLogger(const std::string& name)
 {
 	std::lock_guard lock(_mutex);
 	std::shared_ptr<Logger> l;
@@ -82,25 +79,31 @@ Logger& Factory::getLogger(const std::string& name)
 
 		configure();
 	}
-	return (*l);
+	return l;
+}
+
+std::list<std::shared_ptr<Logger>> Factory::getLoggers() const
+{
+	std::lock_guard lock(_mutex);
+	return _loggers;
 }
 
 void Factory::configure()
 {
+	assert(_config);
+
 	for (auto i = _loggers.begin(); i != _loggers.end(); ++i)
 	{
-		auto logger = *i;
+		const auto logger = *i;
 
-		// Get LogLevel from config for Logger.
-		if (_config)
-		{
-			const int level = _config->getLogLevel(logger.get(), NULL);
-			logger->setLogLevel(level);
-		}
+		// Setup log-level for `logger`.
+		const int level = _config->getLogLevel(logger.get(), NULL);
+		logger->setLogLevel(level);
 
+		// Setup appenders for `logger`.
 		for (auto a = _appenders.begin(); a != _appenders.end(); ++a)
 		{
-			auto appender = *a;
+			const auto appender = *a;
 			appender->setFormatter(_defaultFormatter->clone());
 
 			// Add Appender to logger.
@@ -108,13 +111,6 @@ void Factory::configure()
 			{
 				logger->addAppender(appender);
 			}
-
-			// Get LogLevel from config, based on appender.
-			// Note: Not yet supported!
-			//if (_config) {
-			//  const int level = _config->getLogLevel(logger, appender);
-			//  appender->setLogLevel(level);
-			//}
 		}
 	}
 }
