@@ -12,7 +12,7 @@ project(
 #
 
 option(BuildShared "BuildShared" OFF)
-option(BuildTests "BuildTests" ON)
+option(BuildTests "BuildTests" OFF)
 option(BuildApps "BuildApps" ON)
 
 if(BuildShared)
