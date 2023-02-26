@@ -30,15 +30,14 @@ __Do NOT use `master` branch for productivity!__
 
 # Features
 
-- Portable logging library (C++17)
-- Dependency free, no third-party libraries required
-- Synchronized logging accross multiple threads
-- Configuration from external file
-- Changable log-levels, appenders (outputs) and formats during runtime
-- No restriction on logger names
-- Multiple appenders for loggers (outputs)
-- Simple API to implement custom appenders and formatters
-- Custom format for log messages
+- Portable logging library (C++17).
+- Dependency free, no third-party libraries required.
+- Synchronized logging accross multiple threads.
+- Configuration from external file.
+- Changable log-levels, appenders (outputs) and formats during runtime.
+- No restriction on logger names.
+- Multiple appenders for loggers (outputs).
+- Simple API to implement custom appenders and formatters.
 
 ## Built-in Appenders
 
@@ -46,9 +45,7 @@ __Do NOT use `master` branch for productivity!__
   Doesn't log anything. It is mostly used for performance testing.
 
 - **ConsoleAppender**  
-  Prints log-events to `stdout`.  
-  *Upcoming:* Additionally logs to Visual Studio's application output
-  window.
+  Prints log-events to `stdout`.
 
 - **FileAppender**  
   Writes all log-events to a single file.
@@ -73,25 +70,28 @@ __Do NOT use `master` branch for productivity!__
 
 ## Prerequisites
 
-HumbleLogging only needs a _C++98 (Limited)_ or C++11 compiler and an available
-implementation of the standard template library (STL). HumbleLogging has
-been successfully compiled with g++ (>=4.7) and Visual C++ (>=2008).
+HumbleLogging only needs a _C++17_ compiler and an available
+implementation of the standard template library (STL).
+
 It has been tested on Linux and Microsoft Windows.
 
 ## Build from source
 
-Download the latest release package (*.tar* or *.zip*),
-unpack the compressed archive and enter the directory.
+Download or clone the latest release package (*.tar* or *.zip*).  
+__Note:__ Building from source requires [CMake][cmake-homepage] (>=2.8) installed on your machine.
+
+```bash
+git clone git@github.com:mfreiholz/humblelogging.git
+git checkout <version-tag>
+```
 
 ```bash
 tar -xfz humblelogging-XXX.tar.gz
 cd humblelogging
 ```
 
-Building from source requires [CMake][cmake-homepage] (>=2.8)
-installed on your machine.
-
 ```bash
+cd humblelogging/
 mkdir build
 cd build
 cmake ..
@@ -131,20 +131,14 @@ See `./apps/basic_example` for a working example.
 
 # Contribute & Feedback
 
-HumbleLogging is developed by Manuel Freiholz from Germany.
-Contact Manuel on his social media accounts ([Facebook][fb],
-[Twitter][tw]) for any questions, comments or whether you'd like to
-contribute.
-
 Feel free to write a review, comparison, benchmark or
 [submit bugs and features][github-issues] on GitHub.
 
 ## Contributors
 
+Manuel Freiholz, Germany, [GitHub Profile](https://github.com/mfreiholz)
 Daniel Toplak, Germany, [GitHub Profile](https://github.com/hsimpson)
 
 
 [cmake-homepage]: https://www.cmake.org/
-[fb]: https://www.facebook.com/manuel.freiholz
-[tw]: https://twitter.com/mfreiholz
 [github-issues]: https://github.com/mfreiholz/humblelogging/issues
