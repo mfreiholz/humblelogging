@@ -3,18 +3,13 @@
 
 HL_NAMESPACE_BEGIN
 
-///////////////////////////////////////////////////////////////////////////////
-// RollingFileAppender
-///////////////////////////////////////////////////////////////////////////////
-
-RollingFileAppender::RollingFileAppender(const std::string& filename, bool immediate, int maxRoll, unsigned long maxFileSize)
+RollingFileAppender::RollingFileAppender(const std::string& filename, bool immediate, int maxRoll, uint64_t maxFileSize)
 	: Appender()
 	, _filename(filename)
 	, _immediate(immediate)
 	, _maxRoll(maxRoll)
 	, _maxFileSize(maxFileSize)
 {
-	//MutexLockGuard lock(_mutex);
 	roll();
 }
 
@@ -29,8 +24,7 @@ RollingFileAppender::~RollingFileAppender()
 
 void RollingFileAppender::log(const LogEvent& logEvent)
 {
-	MutexLockGuard lockBase(Appender::_mutex);
-	MutexLockGuard lock(RollingFileAppender::_mutex);
+	std::lock_guard lock(Appender::_mutex);
 	if (!roll())
 	{
 		return;
@@ -67,9 +61,9 @@ bool RollingFileAppender::roll()
 	for (int i = _maxRoll; i >= 0; --i)
 	{
 		char* oldFileName = new char[_filename.size() + 10];
-		sprintf(oldFileName, "%s.%d", _filename.c_str(), i);
+		snprintf(oldFileName, _filename.size() + 10, "%s.%d", _filename.c_str(), i);
 		char* newFileName = new char[_filename.size() + 10];
-		sprintf(newFileName, "%s.%d", _filename.c_str(), i + 1);
+		snprintf(newFileName, _filename.size() + 10, "%s.%d", _filename.c_str(), i + 1);
 
 		if (i + 1 > _maxRoll)
 		{

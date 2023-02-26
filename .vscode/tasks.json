@@ -9,7 +9,7 @@
 			"options": {
 				"cwd": "${workspaceRoot}/build"
 			},
-			"command": "cmake -DCMAKE_BUILD_TYPE=Debug -DBuildShared=ON -DBuildExamples=ON -DBuildLockFree=OFF -DBuildSystemNative=ON -DIncludeFunctionSignature=ON .."
+			"command": "cmake -DCMAKE_BUILD_TYPE=Debug .."
 		},
 		{
 			"label": "build",

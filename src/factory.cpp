@@ -1,50 +1,25 @@
 #include "humblelogging/factory.h"
 #include "humblelogging/appender.h"
 #include "humblelogging/configuration.h"
-#include "humblelogging/configuration/simpleconfiguration.h"
 #include "humblelogging/formatter.h"
 #include "humblelogging/formatter/simpleformatter.h"
 #include "humblelogging/logger.h"
 #include "humblelogging/loglevel.h"
+#include "humblelogging/version.h"
 #include <algorithm>
-#include <cstring>
+#include <cassert>
 #include <list>
 #include <string>
 
 HL_NAMESPACE_BEGIN
 
 Factory::Factory()
-	: _config(new SimpleConfiguration(LogLevel::All))
-	, _defaultFormatter(new SimpleFormatter())
-{
-}
+	: _config(std::make_unique<Configuration>())
+	, _defaultFormatter(std::make_unique<SimpleFormatter>())
+{}
 
 Factory::~Factory()
-{
-	MutexLockGuard lock(_mutex);
-	while (!_loggers.empty())
-	{
-		Logger* l = _loggers.front();
-		_loggers.pop_front();
-		delete l;
-	}
-	while (!_appenders.empty())
-	{
-		Appender* a = _appenders.front();
-		_appenders.pop_front();
-		delete a;
-	}
-	if (_defaultFormatter)
-	{
-		delete _defaultFormatter;
-		_defaultFormatter = NULL;
-	}
-	if (_config)
-	{
-		delete _config;
-		_config = NULL;
-	}
-}
+{}
 
 Factory& Factory::getInstance()
 {
@@ -52,45 +27,50 @@ Factory& Factory::getInstance()
 	return _instance;
 }
 
-Factory& Factory::setConfiguration(Configuration* config)
+void Factory::setConfiguration(std::unique_ptr<Configuration> config)
 {
-	MutexLockGuard lock(_mutex);
-	if (_config && config != _config)
-	{
-		delete _config;
-		_config = NULL;
-	}
-	_config = config;
+	assert(config);
+
+	std::lock_guard lock(_mutex);
+	_config = std::move(config);
 	configure();
-	return *this;
 }
 
-Factory& Factory::registerAppender(Appender* appender)
+void Factory::setDefaultFormatter(std::unique_ptr<Formatter> formatter)
 {
-	MutexLockGuard lock(_mutex);
+	assert(formatter);
+
+	std::lock_guard lock(_mutex);
+	_defaultFormatter = std::move(formatter);
+}
+
+void Factory::registerAppender(std::shared_ptr<Appender> appender)
+{
+	assert(appender);
+
+	std::lock_guard lock(_mutex);
 	_appenders.push_back(appender);
 	configure();
-	return *this;
 }
 
-Logger& Factory::getLogger(const std::string& name)
+std::shared_ptr<Logger> Factory::getLogger(const std::string& name)
 {
-	MutexLockGuard lock(_mutex);
-	Logger* l = 0;
+	std::lock_guard lock(_mutex);
+	std::shared_ptr<Logger> l;
 
 	char* tmp = new char[name.length() + 1];
 	strcpy(tmp, name.c_str());
-	TernaryNode<Logger*>* node = _loggersTree.findNodeEnd(tmp);
+	auto node = _loggersTree.findNodeEnd(tmp);
 	delete[] tmp;
 	if (node)
 	{
 		l = node->_value;
 	}
 
-	if (l == 0)
+	if (!l)
 	{
-		l = new Logger(name);
-		l->setLogLevel(_config->getLogLevel(l, NULL));
+		l = std::make_shared<Logger>(name);
+		l->setLogLevel(_config->getLogLevel(l.get(), NULL));
 		_loggers.push_back(l);
 
 		char* tmp = new char[name.length() + 1];
@@ -100,63 +80,43 @@ Logger& Factory::getLogger(const std::string& name)
 
 		configure();
 	}
-	return (*l);
+	return l;
 }
 
-Factory& Factory::setDefaultFormatter(Formatter* formatter)
+std::list<std::shared_ptr<Logger>> Factory::getLoggers() const
 {
-	if (!formatter)
-	{
-		return *this;
-	}
-	MutexLockGuard lock(_mutex);
-	if (_defaultFormatter)
-	{
-		delete _defaultFormatter;
-	}
-	_defaultFormatter = formatter;
-	return *this;
+	std::lock_guard lock(_mutex);
+	return _loggers;
 }
 
-Formatter* Factory::getDefaultFormatter() const
+std::string Factory::getVersion() const
 {
-	MutexLockGuard lock(_mutex);
-	return _defaultFormatter;
+	return std::string(HL_VERSION);
 }
 
 void Factory::configure()
 {
-	for (std::list<Logger*>::iterator i = _loggers.begin(); i != _loggers.end(); ++i)
+	assert(_config);
+
+	for (auto i = _loggers.begin(); i != _loggers.end(); ++i)
 	{
-		Logger* logger = *i;
+		const auto logger = *i;
 
-		// Get LogLevel from config for Logger.
-		if (_config)
-		{
-			const int level = _config->getLogLevel(logger, NULL);
-			logger->setLogLevel(level);
-		}
+		// Setup log-level for `logger`.
+		const int level = _config->getLogLevel(logger.get(), NULL);
+		logger->setLogLevel(level);
 
-		for (std::list<Appender*>::iterator a = _appenders.begin(); a != _appenders.end(); ++a)
+		// Setup appenders for `logger`.
+		for (auto a = _appenders.begin(); a != _appenders.end(); ++a)
 		{
-			Appender* appender = *a;
-			if (!appender->getFormatter())
-			{
-				appender->setFormatter(_defaultFormatter->copy());
-			}
+			const auto appender = *a;
+			appender->setFormatter(_defaultFormatter->clone());
 
 			// Add Appender to logger.
 			if (!logger->hasAppender(appender))
 			{
 				logger->addAppender(appender);
 			}
-
-			// Get LogLevel from config, based on appender.
-			// Note: Not yet supported!
-			//if (_config) {
-			//  const int level = _config->getLogLevel(logger, appender);
-			//  appender->setLogLevel(level);
-			//}
 		}
 	}
 }

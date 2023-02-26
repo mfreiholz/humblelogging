@@ -1,20 +1,19 @@
-cmake_minimum_required(VERSION 2.8)
-project(humblelogging)
+cmake_minimum_required(VERSION 3.14)
 
-set(VERSION_MAJOR 3)
-set(VERSION_MINOR 0)
-set(VERSION_PATCH 2)
-set(VERSION_EXTRA "")
+project(
+	humblelogging
+	VERSION 0.0.0
+	DESCRIPTION "HumbleLogging is a lightweight C++ logging framework. It aims to be extendible, easy to understand and as fast as possible."
+	HOMEPAGE_URL "https://github.com/mfreiholz/humblelogging"
+)
 
 #
 # Options
 #
 
 option(BuildShared "BuildShared" OFF)
-option(BuildExamples "BuildExamples" OFF)
-option(BuildLockFree "BuildLockFree" OFF)
-option(BuildSystemNative "BuildSystemNative" OFF)
-option(IncludeFunctionSignature "IncludeFunctionSignature" OFF)
+option(BuildTests "BuildTests" OFF)
+option(BuildApps "BuildApps" ON)
 
 if(BuildShared)
 	set(StaticOrShared "SHARED")
@@ -22,10 +21,6 @@ if(BuildShared)
 else(BuildShared)
 	set(StaticOrShared "STATIC")
 endif(BuildShared)
-
-if(IncludeFunctionSignature)
-	add_definitions(-DHUMBLE_INCLUDE_PRETTY_FUNCTION)
-endif(IncludeFunctionSignature)
 
 if(WIN32)
 	add_definitions(/Zc:wchar_t-)
@@ -36,6 +31,22 @@ endif(WIN32)
 if(CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 endif(CMAKE_COMPILER_IS_GNUCXX)
+
+set(CMAKE_CXX_STANDARD 17)
+
+configure_file(
+	${PROJECT_SOURCE_DIR}/version.h.in
+	${PROJECT_SOURCE_DIR}/include/humblelogging/version.h
+)
+
+#
+# Third Party Libraries / Dependencies
+# All of them should be optional.
+#
+
+if(BuildTests)
+	include(thirdparty/googletest.cmake)
+endif(BuildTests)
 
 #
 # Sources
@@ -48,14 +59,10 @@ set(headers
 	include/humblelogging/appender/rollingfileappender.h
 	include/humblelogging/formatter/simpleformatter.h
 	include/humblelogging/formatter/patternformatter.h
-	include/humblelogging/configuration/defaultconfiguration.h
-	include/humblelogging/configuration/simpleconfiguration.h
-	include/humblelogging/util/mutex.h
-	include/humblelogging/util/spinlock.h
 	include/humblelogging/util/patternconfigregistry.h
 	include/humblelogging/util/processinfo.h
 	include/humblelogging/util/ternarytree.h
-	include/humblelogging/api.h
+	include/humblelogging/util/fmt.h
 	include/humblelogging/appender.h
 	include/humblelogging/configuration.h
 	include/humblelogging/defines.h
@@ -65,6 +72,7 @@ set(headers
 	include/humblelogging/logevent.h
 	include/humblelogging/logger.h
 	include/humblelogging/loglevel.h
+	include/humblelogging/version.h
 )
 
 set(sources
@@ -74,8 +82,6 @@ set(sources
 	src/appender/rollingfileappender.cpp
 	src/formatter/simpleformatter.cpp
 	src/formatter/patternformatter.cpp
-	src/configuration/defaultconfiguration.cpp
-	src/configuration/simpleconfiguration.cpp
 	src/util/patternconfigregistry.cpp
 	src/util/processinfo.cpp
 	src/appender.cpp
@@ -88,27 +94,27 @@ set(sources
 )
 
 # Choose correct mutex implementation.
-if(BuildLockFree)
-	list(APPEND sources src/util/mutex_nolock.cpp)
-	list(APPEND sources src/util/spinlock_nolock.cpp)
-else()
-	if(BuildSystemNative)
-		if(WIN32)
-			list(APPEND sources src/util/mutex_windows_native.cpp)
-			list(APPEND sources src/util/spinlock_windows_native.cpp)
-		endif()
-		if(UNIX)
-			list(APPEND sources src/util/mutex_linux_native.cpp)
-			list(APPEND sources src/util/spinlock_linux_native.cpp)
-		endif()
-	else()
-		if(UNIX)
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-		endif()
-		list(APPEND sources src/util/mutex_c11.cpp)
-		list(APPEND sources src/util/spinlock_c11.cpp)
-	endif()
-endif()
+#if(BuildLockFree)
+#	list(APPEND sources src/util/mutex_nolock.cpp)
+#	list(APPEND sources src/util/spinlock_nolock.cpp)
+#else()
+#	if(BuildSystemNative)
+#		if(WIN32)
+#			list(APPEND sources src/util/mutex_windows_native.cpp)
+#			list(APPEND sources src/util/spinlock_windows_native.cpp)
+#		endif()
+#		if(UNIX)
+#			list(APPEND sources src/util/mutex_linux_native.cpp)
+#			list(APPEND sources src/util/spinlock_linux_native.cpp)
+#		endif()
+#	else()
+#		#if(UNIX)
+#		#	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+#		#endif()
+#		list(APPEND sources src/util/mutex_c11.cpp)
+#		list(APPEND sources src/util/spinlock_c11.cpp)
+#	endif()
+#endif()
 
 #source_group(
 #	TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -133,11 +139,11 @@ add_library(
 	${headers}
 )
 
-if(BuildSystemNative)
-	if(UNIX)
-		target_link_libraries(${PROJECT_NAME} pthread)
-	endif()
-endif()
+#if(BuildSystemNative)
+#	if(UNIX)
+#		target_link_libraries(${PROJECT_NAME} pthread)
+#	endif()
+#endif()
 
 #
 # Install
@@ -150,7 +156,7 @@ install(TARGETS humblelogging
 )
 install(FILES ${headers} DESTINATION include/humblelogging)
 
-# Examples
+# Apps
 macro(humblelogging_POSTBUILD_COPY target_)
 	add_custom_command(
 		TARGET ${target_} POST_BUILD
@@ -160,13 +166,12 @@ macro(humblelogging_POSTBUILD_COPY target_)
 	)
 endmacro(humblelogging_POSTBUILD_COPY)
 
-if(BuildExamples)
-	add_subdirectory(examples/basic)
-	add_subdirectory(examples/pattern_formatter)
-	add_subdirectory(examples/configured)
-	add_subdirectory(examples/mtperformance)
-	if(WIN32)
-		add_subdirectory(examples/threaded)
-	endif(WIN32)
-	add_subdirectory(examples/log_level_test)
-endif(BuildExamples)
+if(BuildApps)
+	add_subdirectory(apps/basic_example)
+	add_subdirectory(apps/benchmark)
+endif(BuildApps)
+
+# Unit Testing
+if(BuildTests)
+	add_subdirectory(tests)
+endif(BuildTests)

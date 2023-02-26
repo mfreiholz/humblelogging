@@ -7,10 +7,12 @@
 
 HL_NAMESPACE_BEGIN
 
-class HUMBLE_EXPORT_API LogEvent
+class HUMBLE_EXPORT_API LogEvent final
 {
 public:
 	LogEvent(const std::string& loggerName, int level, const std::string& message, int line, const std::string& file, const std::string& func);
+	LogEvent(const LogEvent&) = delete;
+	LogEvent& operator=(const LogEvent&) = delete;
 	~LogEvent();
 
 	const std::string& getLoggerName() const { return _loggerName; }
@@ -22,6 +24,8 @@ public:
 	const time_t& getTime() const { return _time; }
 	unsigned int getPid() const { return _pid; }
 	unsigned int getTid() const { return _tid; }
+
+	static std::string fileName(const std::string& filePath);
 
 private:
 	std::string _loggerName;

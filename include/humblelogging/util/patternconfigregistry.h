@@ -1,10 +1,9 @@
 #ifndef HL_PATTERNCONFIGREGISTRY_H
 #define HL_PATTERNCONFIGREGISTRY_H
 
-#include <string>
-
 #include "humblelogging/defines.h"
 #include "humblelogging/util/ternarytree.h"
+#include <string>
 
 HL_NAMESPACE_BEGIN
 
@@ -12,7 +11,8 @@ class HUMBLE_EXPORT_API PatternConfigRegistry
 {
 public:
 	PatternConfigRegistry();
-	PatternConfigRegistry(const PatternConfigRegistry& other);
+	PatternConfigRegistry(const PatternConfigRegistry&) = delete;
+	PatternConfigRegistry& operator=(const PatternConfigRegistry&) = delete;
 	~PatternConfigRegistry();
 
 	bool loadFromFile(const std::string& filepath);

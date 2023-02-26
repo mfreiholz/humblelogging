@@ -6,21 +6,15 @@
 
 HL_NAMESPACE_BEGIN
 
-///////////////////////////////////////////////////////////////////////////////
-// SimpleFormatter
-///////////////////////////////////////////////////////////////////////////////
-
 SimpleFormatter::SimpleFormatter()
-{
-}
+{}
 
-SimpleFormatter::~SimpleFormatter()
-{
-}
+SimpleFormatter::SimpleFormatter(const SimpleFormatter&)
+{}
 
-Formatter* SimpleFormatter::copy() const
+std::unique_ptr<Formatter> SimpleFormatter::clone() const
 {
-	return new SimpleFormatter(*this);
+	return std::make_unique<SimpleFormatter>(*this);
 }
 
 std::string SimpleFormatter::format(const LogEvent& logEvent) const
@@ -38,11 +32,9 @@ std::string SimpleFormatter::format(const LogEvent& logEvent) const
 		<< "[" << logLevelString << "]"
 		<< "[pid=" << logEvent.getPid() << "]"
 		<< "[tid=" << logEvent.getTid() << "]"
-		<< "[file=" << logEvent.getFile() << "]"
+		<< "[file=" << LogEvent::fileName(logEvent.getFile()) << "]"
 		<< "[line=" << logEvent.getLine() << "]"
-#ifdef HUMBLE_INCLUDE_PRETTY_FUNCTION
 		<< "[func=" << logEvent.getFunction() << "]"
-#endif
 		<< " "
 		<< logEvent.getMessage()
 		<< "\n";

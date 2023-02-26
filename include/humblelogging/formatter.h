@@ -1,25 +1,23 @@
 #ifndef HL_FORMATTER_H
 #define HL_FORMATTER_H
 
-#include <string>
-
 #include "humblelogging/defines.h"
+#include <memory>
+#include <string>
 
 HL_NAMESPACE_BEGIN
 
 class LogEvent;
 
 /*
-  Base class for all Formatters.
-  A Formatter should never necessarily thread-safe.
-  It gets copied for each appender, which wants to use the Formatter.
+	Base class for all Formatters.
+	Thread-safty is usually not required, because each appender will have its own Formatter.
 */
 class HUMBLE_EXPORT_API Formatter
 {
 public:
-	Formatter();
 	virtual ~Formatter();
-	virtual Formatter* copy() const = 0;
+	virtual std::unique_ptr<Formatter> clone() const = 0;
 	virtual std::string format(const LogEvent& logEvent) const = 0;
 };
 

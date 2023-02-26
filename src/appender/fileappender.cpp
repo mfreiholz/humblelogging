@@ -3,10 +3,6 @@
 
 HL_NAMESPACE_BEGIN
 
-///////////////////////////////////////////////////////////////////////////////
-// FileAppender
-///////////////////////////////////////////////////////////////////////////////
-
 FileAppender::FileAppender(const std::string& filename, bool immediate)
 	: Appender()
 	, _stream()
@@ -26,12 +22,7 @@ FileAppender::~FileAppender()
 
 void FileAppender::log(const LogEvent& logEvent)
 {
-	MutexLockGuard lockBase(Appender::_mutex);
-	if (!_formatter)
-	{
-		return;
-	}
-	MutexLockGuard lock(FileAppender::_mutex);
+	std::lock_guard lock(Appender::_mutex);
 	if (_stream.is_open())
 	{
 		_stream << _formatter->format(logEvent);

@@ -11,12 +11,6 @@ PatternConfigRegistry::PatternConfigRegistry()
 {
 }
 
-PatternConfigRegistry::PatternConfigRegistry(const PatternConfigRegistry& other)
-{
-	_tree = other._tree;
-	_defaultLogLevel = other._defaultLogLevel;
-}
-
 PatternConfigRegistry::~PatternConfigRegistry()
 {
 	// TODO Delete Entry* objects of _tree.

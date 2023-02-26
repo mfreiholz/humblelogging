@@ -1,34 +1,25 @@
 #include "humblelogging/formatter/patternformatter.h"
-
+#include "humblelogging/logevent.h"
+#include "humblelogging/loglevel.h"
 #include <cstdio>
 #include <sstream>
 
-#include "humblelogging/logevent.h"
-#include "humblelogging/loglevel.h"
-
 HL_NAMESPACE_BEGIN
 
-///////////////////////////////////////////////////////////////////////////////
-// PatternFormatter
-///////////////////////////////////////////////////////////////////////////////
-
-PatternFormatter::PatternFormatter(const std::string& pattern)
+PatternFormatter::PatternFormatter(const std::string& pattern, const std::string& timePattern)
 	: _pattern(pattern)
-{
-}
+	, _timePattern(timePattern)
+{}
 
 PatternFormatter::PatternFormatter(const PatternFormatter& other)
 {
 	_pattern = other._pattern;
+	_timePattern = other._timePattern;
 }
 
-PatternFormatter::~PatternFormatter()
+std::unique_ptr<Formatter> PatternFormatter::clone() const
 {
-}
-
-Formatter* PatternFormatter::copy() const
-{
-	return new PatternFormatter(*this);
+	return std::make_unique<PatternFormatter>(*this);
 }
 
 std::string PatternFormatter::format(const LogEvent& logEvent) const
@@ -68,16 +59,8 @@ std::string PatternFormatter::format(const LogEvent& logEvent) const
 	}
 	if ((pos = s.find("%filename")) != std::string::npos)
 	{
-		std::string tmp = logEvent.getFile();
-		size_t pos2;
-		if ((pos2 = tmp.find_last_of("/")) != std::string::npos || (pos2 = tmp.find_last_of("\\")) != std::string::npos)
-		{
-			s.replace(pos, 9, tmp.substr(pos2 + 1));
-		}
-		else
-		{
-			s.replace(pos, 9, logEvent.getFile());
-		}
+		const std::string fileName = LogEvent::fileName(logEvent.getFile());
+		s.replace(pos, 9, fileName);
 	}
 	if ((pos = s.find("%file")) != std::string::npos)
 	{
@@ -91,7 +74,7 @@ std::string PatternFormatter::format(const LogEvent& logEvent) const
 	{
 		struct tm* timeinfo = localtime(&logEvent.getTime());
 		char timeString[80];
-		strftime(timeString, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
+		strftime(timeString, 80, _timePattern.c_str(), timeinfo);
 		s.replace(pos, 5, timeString);
 	}
 	return s; // optional: std::move(s)

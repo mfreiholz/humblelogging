@@ -1,0 +1,7 @@
+include_directories(../../include)
+add_executable(benchmark main.cpp)
+target_link_libraries(benchmark humblelogging)
+if(UNIX)
+  target_link_libraries(benchmark pthread)
+endif(UNIX)
+humblelogging_POSTBUILD_COPY(benchmark)
