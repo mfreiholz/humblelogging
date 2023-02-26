@@ -2,6 +2,7 @@
 #define HL_TERNARYTREE_H
 
 #include <vector>
+#include <stddef.h>
 
 HL_NAMESPACE_BEGIN
 
@@ -12,10 +13,10 @@ public:
 	TernaryNode(char c, bool end)
 		: _c(c)
 		, _end(end)
-		, _low(NULL)
-		, _equal(NULL)
-		, _high(NULL)
-		, _parent(NULL)
+		, _low(nullptr)
+		, _equal(nullptr)
+		, _high(nullptr)
+		, _parent(nullptr)
 	{}
 
 	~TernaryNode()
@@ -34,7 +35,7 @@ class TernaryTree
 {
 public:
 	TernaryTree()
-		: _root(NULL)
+		: _root(nullptr)
 	{}
 
 	~TernaryTree()
@@ -42,7 +43,7 @@ public:
 		if (_root)
 		{
 			deleteNode(_root);
-			_root = NULL;
+			_root = nullptr;
 		}
 	}
 
@@ -53,7 +54,7 @@ public:
 		_root = insert(key, value, _root);
 	}
 
-	TernaryNode<V>* insert(char* key, V value, TernaryNode<V>* node, TernaryNode<V>* parent = NULL)
+	TernaryNode<V>* insert(char* key, V value, TernaryNode<V>* node, TernaryNode<V>* parent = nullptr)
 	{
 		if (!node)
 		{
@@ -139,7 +140,7 @@ public:
 	TernaryNode<V>* findNodePath(char* key, TernaryNode<V>* node, FindNodePathData& data) const
 	{
 		if (!node)
-			return NULL;
+			return nullptr;
 		if (*key < node->_c)
 		{
 			data._nodes.push_back(node);

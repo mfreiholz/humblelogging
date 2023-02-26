@@ -1,11 +1,15 @@
 {
 	"name": "HumbleLogging (devcontainer for WSL2)",
 	"dockerFile": "Dockerfile",
-	"extensions": [
-		"ms-vscode.cpptools",
-		"ms-vscode.cmake-tools"
-	],
-	"mounts": [
-		"type=bind,source=/home/user/humblelogging,target=/root/humblelogging"
-	]
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.cmake-tools"
+			]
+		}
+	}
+	// "mounts": [
+	// 	"type=bind,source=/home/user/humblelogging,target=/root/humblelogging"
+	// ]
 }

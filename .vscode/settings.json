@@ -77,5 +77,6 @@
 		"vector": "cpp",
 		"algorithm": "cpp",
 		"filesystem": "cpp"
-	}
+	},
+	"cmake.configureOnOpen": false
 }

@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <cassert>
 #include <list>
-#include <string>
+#include <cstring>
 
 HL_NAMESPACE_BEGIN
 
