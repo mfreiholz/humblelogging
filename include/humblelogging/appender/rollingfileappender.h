@@ -4,36 +4,36 @@
 #include "humblelogging/appender.h"
 #include <cinttypes>
 #include <fstream>
-#include <mutex>
 
 HL_NAMESPACE_BEGIN
 
 /*
-	TODO
+	\brief Writes all logs to a rolling file.
 */
 class HUMBLE_EXPORT_API RollingFileAppender
 	: public Appender
 {
 public:
 	/*
-		TODO
+		Constructor.
 
 		\param[in] filename
-			TODO
+			Path to log file.
 		\param[in] immediate
-			TODO
+			If enabled the log gets written to file immediately instead of using OS buffering.
 		\param[in] maxRoll
-			TODO
+			Maximum number of files in roll rotation.
 		\param[in] maxFileSize
-			TODO
+			Maximum size in bytes of a log file before a new file is created.
 	*/
 	RollingFileAppender(const std::string& filename, bool immediate = false, int maxRoll = 5, uint64_t maxFileSize = 10485760);
 
 	/*
-		TODO
 	*/
 	~RollingFileAppender() override;
 
+	/*
+	*/
 	void log(const LogEvent& logEvent) override;
 
 protected:
@@ -44,14 +44,13 @@ protected:
 		TODO: We may want to keep the modification time of the old files,
 		which currently gets lost through renaming.
 
-		\pre _mutex.lock()
+		\pre Appender::_mutex.lock()
 
 		\return Returns "true" if the file stream is open and can be used for logging.
-  */
+	*/
 	bool roll();
 
 private:
-	std::mutex _mutex;
 	std::string _filename;
 	bool _immediate;
 	int _maxRoll;

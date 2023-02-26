@@ -45,6 +45,15 @@ TEST(Util, PatternConfigRegistryTest)
 	ASSERT_EQ(reg.getLogLevel("three.four.five.any"), LogLevel::Fatal);
 }
 
+TEST(Configuration, CommonConfigurationTest)
+{
+	auto config = std::make_unique<Configuration>();
+	ASSERT_EQ(config->getLogLevel("test", nullptr), LogLevel::All);
+
+	config->setupFromLogLevel(LogLevel::Info);
+	ASSERT_EQ(config->getLogLevel("foo.bar", nullptr), LogLevel::Info);
+}
+
 TEST(Log, WouldLog)
 {
 	// Default behavior: Log ALL.

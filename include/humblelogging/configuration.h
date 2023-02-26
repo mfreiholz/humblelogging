@@ -46,12 +46,18 @@ public:
 	void setupFromLogLevel(int level);
 
 	/*
-		TODO
+		Loads configuration from file.
+
+		\param[in] filepath
+			Path to file with configuration.
 	*/
 	bool loadFromFile(const std::string& filepath);
 
 	/*
-		TODO
+		Loads configuration from string.
+
+		\param[in] buffer
+			String formatted in config-file format.
 	*/
 	bool loadFromString(const std::string& buffer);
 

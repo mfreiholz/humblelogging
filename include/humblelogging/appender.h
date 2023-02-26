@@ -45,14 +45,6 @@ public:
 protected:
 	mutable std::mutex _mutex;
 	std::unique_ptr<Formatter> _formatter;
-
-	/*
-		Formats the `logEvent` with current assigned `_formatter`.
-		This function makes sure to have `_mutex` locked and unlocked.
-		In case you need to lock for a longer time, you should call
-		`_formatter->format(...)` within your own lock of `_mutex`.
-	*/
-	std::string format(const LogEvent& logEvent) const;
 };
 
 HL_NAMESPACE_END

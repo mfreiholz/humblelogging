@@ -30,6 +30,8 @@ static void init_logging()
 
 	// Register Appender as logging output.
 	fac.registerAppender(std::make_shared<ConsoleAppender>());
+	fac.registerAppender(std::make_shared<FileAppender>("basic_example_log.log"));
+	fac.registerAppender(std::make_shared<RollingFileAppender>("basic_example_roll_log.log"));
 }
 
 int main(int, char**)

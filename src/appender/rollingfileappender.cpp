@@ -25,7 +25,6 @@ RollingFileAppender::~RollingFileAppender()
 void RollingFileAppender::log(const LogEvent& logEvent)
 {
 	std::lock_guard lock(Appender::_mutex);
-	std::lock_guard lock2(RollingFileAppender::_mutex);
 	if (!roll())
 	{
 		return;

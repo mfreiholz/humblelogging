@@ -5,6 +5,9 @@
 
 HL_NAMESPACE_BEGIN
 
+/*
+	\brief Writes all log output to std::out.
+*/
 class HUMBLE_EXPORT_API ConsoleAppender
 	: public Appender
 {

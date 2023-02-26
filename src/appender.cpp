@@ -18,12 +18,4 @@ void Appender::setFormatter(std::unique_ptr<Formatter> formatter)
 	_formatter = std::move(formatter);
 }
 
-std::string Appender::format(const LogEvent& logEvent) const
-{
-	assert(_formatter);
-
-	std::lock_guard lock(_mutex);
-	return _formatter->format(logEvent);
-}
-
 HL_NAMESPACE_END

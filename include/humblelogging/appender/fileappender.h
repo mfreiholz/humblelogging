@@ -3,7 +3,6 @@
 
 #include "humblelogging/appender.h"
 #include <fstream>
-#include <mutex>
 
 HL_NAMESPACE_BEGIN
 
@@ -35,7 +34,6 @@ public:
 	void log(const LogEvent& logEvent) override;
 
 private:
-	std::mutex _mutex;
 	std::ofstream _stream;
 	bool _immediate;
 };
