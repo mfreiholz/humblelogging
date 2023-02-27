@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 project(
 	humblelogging
-	VERSION 0.0.0
+	VERSION 4.0.0
 	DESCRIPTION "HumbleLogging is a lightweight C++ logging framework. It aims to be extendible, easy to understand and as fast as possible."
 	HOMEPAGE_URL "https://github.com/mfreiholz/humblelogging"
 )
