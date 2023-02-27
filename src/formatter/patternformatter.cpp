@@ -2,6 +2,7 @@
 #include "humblelogging/logevent.h"
 #include "humblelogging/loglevel.h"
 #include <cstdio>
+#include <inttypes.h>
 #include <sstream>
 
 HL_NAMESPACE_BEGIN
@@ -54,8 +55,9 @@ std::string PatternFormatter::format(const LogEvent& logEvent) const
 	if ((pos = s.find("%tid")) != std::string::npos)
 	{
 		char buff[10];
-		sprintf(buff, "%d", logEvent.getTid());
-		s.replace(pos, 4, buff);
+		auto value = logEvent.getTid();
+		sprintf(buff, "%zu", value);
+		s.replace(pos, sizeof(value), buff);
 	}
 	if ((pos = s.find("%filename")) != std::string::npos)
 	{
