@@ -66,7 +66,7 @@ int main(int argc, char** argv)
 	printf("\n");
 	printf("Setup\n");
 	printf("  Threads: %d\n", THREAD_COUNT);
-	printf("  Events per thread: %llu\n", EVENTS_PER_THREAD);
+	printf("  Events per thread: %" PRIu64 "\n", EVENTS_PER_THREAD);
 	printf("  Formatted messages: %s\n", FORMATTED_MESSAGES ? "Yes" : "No");
 	printf("\n");
 	printf("... running - please wait ...\n");
@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 	if (FORMATTED_MESSAGES)
 	{
 		threadWorkFunc = [&cnt]() {
-			for (auto logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
+			for (uint64_t logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
 			{
 				HL_TRACE_F(logger, "A %s doesn't taste like a %s. Surprise!", "apple", "banana");
 				cnt++;
@@ -86,7 +86,7 @@ int main(int argc, char** argv)
 	else
 	{
 		threadWorkFunc = [&cnt]() {
-			for (auto logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
+			for (uint64_t logCount = 0; logCount < EVENTS_PER_THREAD; ++logCount)
 			{
 				HL_TRACE(logger, "A apple doesn't taste like a banana. Surprise!");
 				cnt++;
@@ -119,13 +119,13 @@ int main(int argc, char** argv)
 
 	// Prepare result.
 	const auto duration = endedAt - startedAt;
-	const auto logEventsCount = EVENTS_PER_THREAD * (unsigned long)THREAD_COUNT;
+	const uint64_t logEventsCount = EVENTS_PER_THREAD * (unsigned long)THREAD_COUNT;
 	const auto logsPerSecond = (double)logEventsCount / static_cast<double>(std::chrono::duration_cast<std::chrono::seconds>(duration).count());
 
 	printf("\n");
 	printf("Done.\n");
-	printf("  Events: %llu (cnt=%llu)\n", logEventsCount, cnt.load());
-	printf("  Duration: %lld ms / %lld s\n", std::chrono::duration_cast<std::chrono::milliseconds>(duration).count(), std::chrono::duration_cast<std::chrono::seconds>(duration).count());
+	printf("  Events: %" PRIu64 " (cnt=%" PRIu64 ")\n", logEventsCount, cnt.load());
+	printf("  Duration: %" PRId64 " ms / %" PRId64 " s\n", std::chrono::duration_cast<std::chrono::milliseconds>(duration).count(), std::chrono::duration_cast<std::chrono::seconds>(duration).count());
 	printf("  Throughput: %.2f events/second\n", logsPerSecond);
 	printf("\n");
 

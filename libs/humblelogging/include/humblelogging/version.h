@@ -1,0 +1,10 @@
+#ifndef HL_VERSION_HEADER
+#define HL_VERSION_HEADER
+
+#define HL_VERSION_MAJOR 0
+#define HL_VERSION_MINOR 0
+#define HL_VERSION_PATCH 0
+#define HL_VERSION_TWEAK 
+#define HL_VERSION "0.0.0"
+
+#endif

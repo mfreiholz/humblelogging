@@ -38,7 +38,7 @@ int Configuration::getLogLevel(Logger* logger, Appender*) const
 	return _registry.getLogLevel(logger->getName());
 }
 
-int Configuration::getLogLevel(const std::string& loggerName, Appender* appender) const
+int Configuration::getLogLevel(const std::string& loggerName, Appender*) const
 {
 	return _registry.getLogLevel(loggerName);
 }

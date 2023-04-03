@@ -76,8 +76,7 @@ TEST(Log, WouldLog)
 int main(int argc, char** argv)
 {
 	// Init Logging.
-	auto& fac = Factory::getInstance();
-
+	Factory::getInstance();
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
