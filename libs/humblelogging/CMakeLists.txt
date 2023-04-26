@@ -72,6 +72,6 @@ install(
 )
 
 install(
-	FILES ${headers}
-	DESTINATION include/humblelogging
+	DIRECTORY ${library_include_dir}/${library_name}
+	DESTINATION include
 )
