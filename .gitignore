@@ -28,4 +28,4 @@ vs2015/Release_Win32/
 vs2015/Release_x64/
 out/
 .DS_Store
-include/humblelogging/version.h
+libs/humblelogging/include/humblelogging/version.h

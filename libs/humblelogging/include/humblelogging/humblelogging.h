@@ -1,20 +1,20 @@
 #ifndef HUMBLELOGGING_HEADER_API
 #define HUMBLELOGGING_HEADER_API
 
-#include "appender.h"
-#include "appender/consoleappender.h"
-#include "appender/fileappender.h"
-#include "appender/nullappender.h"
-#include "appender/rollingfileappender.h"
-#include "configuration.h"
-#include "factory.h"
-#include "formatter.h"
-#include "formatter/patternformatter.h"
-#include "formatter/simpleformatter.h"
-#include "logevent.h"
-#include "logger.h"
-#include "loglevel.h"
-#include "util/fmt.h"
+#include "humblelogging/appender.h"
+#include "humblelogging/appender/consoleappender.h"
+#include "humblelogging/appender/fileappender.h"
+#include "humblelogging/appender/nullappender.h"
+#include "humblelogging/appender/rollingfileappender.h"
+#include "humblelogging/configuration.h"
+#include "humblelogging/factory.h"
+#include "humblelogging/formatter.h"
+#include "humblelogging/formatter/patternformatter.h"
+#include "humblelogging/formatter/simpleformatter.h"
+#include "humblelogging/logevent.h"
+#include "humblelogging/logger.h"
+#include "humblelogging/loglevel.h"
+#include "humblelogging/util/fmt.h"
 
 /*
 	Defines a static variable with access to a new or existing Logger by its name.
