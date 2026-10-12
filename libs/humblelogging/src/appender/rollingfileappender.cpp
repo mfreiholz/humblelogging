@@ -51,36 +51,42 @@ bool RollingFileAppender::roll()
 	{
 		return false;
 	}
-	if (static_cast<unsigned long>(fpos) < _maxFileSize)
+	if (static_cast<uint64_t>(fpos) < _maxFileSize)
 	{
 		return true;
 	}
-	// Do the roll.
+
+	// Do the roll (exactly once, no recursion).
 	_stream.flush();
 	_stream.close();
-	for (int i = _maxRoll; i >= 0; --i)
-	{
-		char* oldFileName = new char[_filename.size() + 10];
-		snprintf(oldFileName, _filename.size() + 10, "%s.%d", _filename.c_str(), i);
-		char* newFileName = new char[_filename.size() + 10];
-		snprintf(newFileName, _filename.size() + 10, "%s.%d", _filename.c_str(), i + 1);
 
-		if (i + 1 > _maxRoll)
+	const auto rolledName = [this](int i) { return _filename + "." + std::to_string(i); };
+
+	std::ios::openmode reopenMode = std::ios::out | std::ios::app | std::ios::ate;
+	if (_maxRoll > 0)
+	{
+		// Drop the oldest, shift file.N-1 -> file.N ... file.1 -> file.2
+		std::remove(rolledName(_maxRoll).c_str());
+		for (int i = _maxRoll - 1; i >= 1; --i)
 		{
-			std::remove(oldFileName);
+			std::rename(rolledName(i).c_str(), rolledName(i + 1).c_str());
 		}
-		else if (i == 0)
+		// Current file -> file.1
+		if (std::rename(_filename.c_str(), rolledName(1).c_str()) == 0)
 		{
-			std::rename(_filename.c_str(), newFileName);
+			reopenMode = std::ios::out | std::ios::trunc;
 		}
-		else
-		{
-			std::rename(oldFileName, newFileName);
-		}
-		delete[] oldFileName;
-		delete[] newFileName;
+		// If the rename failed we reopen in append mode: the file stays
+		// oversized and we simply try again on the next log() call.
 	}
-	return roll();
+	else
+	{
+		// No backups configured: start the file over.
+		reopenMode = std::ios::out | std::ios::trunc;
+	}
+
+	_stream.open(_filename.c_str(), reopenMode);
+	return _stream.is_open();
 }
 
 HL_NAMESPACE_END
