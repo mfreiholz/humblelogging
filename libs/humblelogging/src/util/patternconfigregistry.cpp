@@ -40,7 +40,8 @@ bool PatternConfigRegistry::load(std::istream& in)
 	{
 		in.getline(buff, 4096);
 		std::string line(buff);
-		line.erase(line.find_last_not_of(" \n\r\t") + 1);
+		line.erase(0, line.find_first_not_of(" \t\n\r\f\v"));
+		line.erase(line.find_last_not_of(" \t\n\r\f\v") + 1);
 
 		// Skip empty lines.
 		if (line.empty())
